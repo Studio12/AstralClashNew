@@ -74,11 +74,11 @@ public class SpecialAttack : MonoBehaviour
 		player.transform.position = new Vector2 (0, 18);
 		player.GetComponent<Rigidbody2D> ().isKinematic = true;
 
-		for (int i=0; i<80; i++) {
+		for (int i=0; i<120; i++) {
 		
 			knifeObj = (GameObject)Instantiate(knife, player.transform.position, Quaternion.Euler(0,0, Random.Range(-60,61)));
 			knifeObj.GetComponent<Knife>().activator = player;
-			yield return new WaitForSeconds (.05f);
+			yield return new WaitForSeconds (.0375f);
 		
 		}
 
