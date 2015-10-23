@@ -1,0 +1,322 @@
+fileFormatVersion: 2
+guid: d324fe5f93cd2854ba013494f75d41d2
+timeCreated: 1442710620
+licenseType: Free
+TextureImporter:
+  fileIDToRecycleName:
+    21300000: TaurusFinal - Sliced_0
+    21300002: TaurusRightArm
+    21300004: TaurusFinal - Sliced_2
+    21300006: TaurusHead
+    21300008: TaurusChest
+    21300010: TaurusRightForearm
+    21300012: TaurusRightEye
+    21300014: TaurusLeftEye
+    21300016: TaurusHips
+    21300018: TaurusRightHand
+    21300020: TaurusNeck
+    21300022: TaurusAxe
+    21300024: TaurusLeftArm
+    21300026: TaurusPonyTail
+    21300028: TaurusRightThigh
+    21300030: TaurusLeftThigh
+    21300032: TaurusLeftForearm
+    21300034: TaurusLeftHand
+    21300036: TaurusFinal - Sliced_18
+    21300038: TaurusFinal - Sliced_19
+    21300040: TaurusFinal - Sliced_20
+    21300042: TaurusFinal - Sliced_21
+    21300044: TaurusRightLowerLeg
+    21300046: TaurusLLowerLeg
+    21300048: TaurusRightFoot
+    21300050: TaurusLeftFoot
+  serializedVersion: 2
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 1
+    linearTexture: 0
+    correctGamma: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: .25
+    normalMapFilter: 0
+  isReadable: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 0
+  cubemapConvolution: 0
+  cubemapConvolutionSteps: 8
+  cubemapConvolutionExponent: 1.5
+  seamlessCubemap: 0
+  textureFormat: -3
+  maxTextureSize: 8192
+  textureSettings:
+    filterMode: -1
+    aniso: 16
+    mipBias: -1
+    wrapMode: 1
+  nPOTScale: 0
+  lightmap: 0
+  rGBM: 0
+  compressionQuality: 50
+  allowsAlphaSplitting: 0
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: .5, y: .5}
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spritePixelsToUnits: 100
+  alphaIsTransparency: 1
+  textureType: 8
+  buildTargetSettings: []
+  spriteSheet:
+    sprites:
+    - name: TaurusFinal - Sliced_0
+      rect:
+        serializedVersion: 2
+        x: 1374
+        y: 3161
+        width: 43
+        height: 5
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: TaurusRightArm
+      rect:
+        serializedVersion: 2
+        x: 2073
+        y: 2918
+        width: 356
+        height: 277
+      alignment: 9
+      pivot: {x: .786690354, y: .772928953}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: TaurusFinal - Sliced_2
+      rect:
+        serializedVersion: 2
+        x: 34
+        y: 2612
+        width: 8
+        height: 101
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: TaurusHead
+      rect:
+        serializedVersion: 2
+        x: 53
+        y: 2141
+        width: 589
+        height: 890
+      alignment: 9
+      pivot: {x: .480746686, y: .342851073}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: TaurusChest
+      rect:
+        serializedVersion: 2
+        x: 1267
+        y: 2380
+        width: 684
+        height: 780
+      alignment: 9
+      pivot: {x: .559084713, y: .0949165523}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: TaurusRightForearm
+      rect:
+        serializedVersion: 2
+        x: 2049
+        y: 2480
+        width: 359
+        height: 374
+      alignment: 2
+      pivot: {x: .5, y: 1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: TaurusRightEye
+      rect:
+        serializedVersion: 2
+        x: 826
+        y: 2489
+        width: 107
+        height: 58
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: TaurusLeftEye
+      rect:
+        serializedVersion: 2
+        x: 1011
+        y: 2490
+        width: 71
+        height: 57
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: TaurusHips
+      rect:
+        serializedVersion: 2
+        x: 1332
+        y: 1727
+        width: 619
+        height: 613
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: TaurusRightHand
+      rect:
+        serializedVersion: 2
+        x: 2160
+        y: 2200
+        width: 283
+        height: 210
+      alignment: 9
+      pivot: {x: .219499677, y: .55400157}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: TaurusNeck
+      rect:
+        serializedVersion: 2
+        x: 238
+        y: 1882
+        width: 161
+        height: 140
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: TaurusAxe
+      rect:
+        serializedVersion: 2
+        x: 574
+        y: 64
+        width: 682
+        height: 1888
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: TaurusLeftArm
+      rect:
+        serializedVersion: 2
+        x: 2179
+        y: 1829
+        width: 174
+        height: 290
+      alignment: 9
+      pivot: {x: .282754123, y: .838902533}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: TaurusPonyTail
+      rect:
+        serializedVersion: 2
+        x: 166
+        y: 490
+        width: 306
+        height: 1321
+      alignment: 9
+      pivot: {x: .68529743, y: .943535805}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: TaurusRightThigh
+      rect:
+        serializedVersion: 2
+        x: 1246
+        y: 1170
+        width: 357
+        height: 480
+      alignment: 9
+      pivot: {x: .70582664, y: .806168377}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: TaurusLeftThigh
+      rect:
+        serializedVersion: 2
+        x: 1643
+        y: 1210
+        width: 411
+        height: 450
+      alignment: 9
+      pivot: {x: .321215987, y: .74493438}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: TaurusLeftForearm
+      rect:
+        serializedVersion: 2
+        x: 2134
+        y: 1531
+        width: 265
+        height: 259
+      alignment: 9
+      pivot: {x: .171919227, y: .791897476}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: TaurusLeftHand
+      rect:
+        serializedVersion: 2
+        x: 2185
+        y: 1256
+        width: 214
+        height: 206
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: TaurusFinal - Sliced_18
+      rect:
+        serializedVersion: 2
+        x: 1268
+        y: 1154
+        width: 6
+        height: 14
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: TaurusFinal - Sliced_19
+      rect:
+        serializedVersion: 2
+        x: 1328
+        y: 1159
+        width: 25
+        height: 6
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: TaurusRightLowerLeg
+      rect:
+        serializedVersion: 2
+        x: 1275
+        y: 606
+        width: 315
+        height: 518
+      alignment: 9
+      pivot: {x: .548000753, y: .88676399}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: TaurusLLowerLeg
+      rect:
+        serializedVersion: 2
+        x: 1747
+        y: 653
+        width: 302
+        height: 442
+      alignment: 2
+      pivot: {x: .5, y: 1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: TaurusRightFoot
+      rect:
+        serializedVersion: 2
+        x: 1388
+        y: 394
+        width: 254
+        height: 220
+      alignment: 2
+      pivot: {x: .5, y: 1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: TaurusLeftFoot
+      rect:
+        serializedVersion: 2
+        x: 1887
+        y: 447
+        width: 291
+        height: 201
+      alignment: 9
+      pivot: {x: .175251439, y: .913738787}
+      border: {x: 0, y: 0, z: 0, w: 0}
+  spritePackingTag: 
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
