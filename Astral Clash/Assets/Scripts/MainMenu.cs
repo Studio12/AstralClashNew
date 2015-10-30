@@ -87,13 +87,13 @@ public class MainMenu : MonoBehaviour
 
 	void selectionEffect ()
 	{
-		if (selected != 2) {
+		//if (selected != 2) {
 			selector.transform.position = MenuOptions [selected].transform.position;
-		} else {
+		//} else {
 		
-			selector.transform.position = new Vector2(MenuOptions [selected].transform.position.x, MenuOptions [selected].transform.position.y-1);
+			//selector.transform.position = new Vector2(MenuOptions [selected].transform.position.x, MenuOptions [selected].transform.position.y-1);
 		
-		}
+		//}
 	}
 
 
@@ -102,7 +102,7 @@ public class MainMenu : MonoBehaviour
 
 		switch (MenuOptions [selected].name) {
 		
-		case "Controls":
+		case "Options":
 			RegMenu.transform.position = newPos;
 			ControlsMenu.SetActive (true);
 			selector.SetActive(false);

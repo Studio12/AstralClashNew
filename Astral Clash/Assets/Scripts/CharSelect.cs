@@ -3,7 +3,7 @@ using System.Collections;
 
 public class CharSelect : MonoBehaviour {
 
-	public Sprite[,] CharSprite = new Sprite[2, 1];
+	public Sprite[,] CharSprite = new Sprite[2, 2];
 	public Sprite[] sprites;
 	public int selected;
 	public int selected2;
@@ -21,6 +21,8 @@ public class CharSelect : MonoBehaviour {
 
 		CharSprite [0, 0] = sprites[0];
 		CharSprite [1, 0] = sprites[1];
+		CharSprite [0, 1] = sprites[2];
+		CharSprite [1, 1] = sprites[3];
 		selected = 0;
 		selected2 = 0;
 		Players = 1;
@@ -144,6 +146,10 @@ public class CharSelect : MonoBehaviour {
 
 						match.p1 = 1;
 
+					}else if(selected == 1 && selected2 == 1){
+
+						match.p1 = 3;
+
 					}
 				}else{
 
@@ -155,6 +161,10 @@ public class CharSelect : MonoBehaviour {
 						
 						match.p1 = 5;
 						
+					}else if(selected == 1 && selected2 == 1){
+						
+						match.p1 = 7;
+							
 					}
 
 				}
@@ -169,6 +179,10 @@ public class CharSelect : MonoBehaviour {
 						
 						match.p2 = 1;
 						
+					}else if(selected == 1 && selected2 == 1){
+						
+						match.p2 = 3;
+						
 					}
 				}else{
 					
@@ -179,6 +193,10 @@ public class CharSelect : MonoBehaviour {
 					}else if(selected == 1 && selected2 == 0){
 						
 						match.p2 = 5;
+						
+					}else if(selected == 1 && selected2 == 1){
+						
+						match.p2 = 7;
 						
 					}
 					
@@ -194,6 +212,10 @@ public class CharSelect : MonoBehaviour {
 						
 						match.p3 = 1;
 						
+					}else if(selected == 1 && selected2 == 1){
+						
+						match.p3 = 3;
+						
 					}
 				}else{
 					
@@ -204,6 +226,10 @@ public class CharSelect : MonoBehaviour {
 					}else if(selected == 1 && selected2 == 0){
 						
 						match.p3 = 5;
+						
+					}else if(selected == 1 && selected2 == 1){
+						
+						match.p3 = 7;
 						
 					}
 					
@@ -219,6 +245,10 @@ public class CharSelect : MonoBehaviour {
 						
 						match.p4 = 1;
 						
+					}else if(selected == 1 && selected2 == 1){
+						
+						match.p4 = 3;
+						
 					}
 				}else{
 					
@@ -230,6 +260,10 @@ public class CharSelect : MonoBehaviour {
 						
 						match.p4 = 5;
 						
+					}else if(selected == 1 && selected2 == 1){
+						
+						match.p4 = 7;
+						
 					}
 					
 				}
@@ -240,6 +274,7 @@ public class CharSelect : MonoBehaviour {
 
 			}
 			Players++;
+			match.humans--;
 			if(Players != match.maxPlayers+1){
 			pText.text = "Player "+Players.ToString();
 			}

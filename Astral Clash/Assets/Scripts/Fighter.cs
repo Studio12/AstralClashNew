@@ -58,6 +58,7 @@ public class Fighter : MonoBehaviour
 	public AudioClip[] Sounds; 			//Soundclips associated with character.
 	public GameObject curPlatform; 		//Current platform the character is on.
 	public bool AIJump = false; 		//AI controlling movement for jump state.
+	public bool dodgeDelay = false;
 
 
 
@@ -68,10 +69,10 @@ public class Fighter : MonoBehaviour
 		health = maxHealth;
 		dodgeCool = 0;
 		cooldown = 0;
-		resetJumpVal = 1500;
+		jumpPower = Mathf.Sqrt (8 * Physics2D.gravity.y * -1 * 12); 			//Minimum jump height equals number on right in y units
+		resetJumpVal = 1800;
+		negAcc = 150;
 		exJump = resetJumpVal;
-
-		jumpPower = Mathf.Sqrt (8 * Physics2D.gravity.y * -1 * 4); 			//Minimum jump height equals number on right in y units
 		this.GetComponentInChildren<Animator> ().SetTrigger ("OpenTaunt"); 	//Play opening taunt animation.
 		specialControl = GameObject.Find ("SpecialManager"); 				//Find the special attack controller in scene.
 		this.transform.position = SpawnPoint.transform.position; 			//Sets position to spawnpoint.
@@ -152,15 +153,15 @@ public class Fighter : MonoBehaviour
 					} 
 
 					//If character isn't on the ground
-					else if (!isGrounded) {
+//					else if (!isGrounded) {
 
 						//While button is held, add a diminishing force to the jump for extra height.
 						//exJump+((exJump-negAcc)*(exJump/negAcc))
-						GetComponent<Rigidbody2D> ().AddForce (new Vector2 (0, exJump));
-						if (exJump > 0)
-							exJump -= negAcc;
-						
-					}
+//						GetComponent<Rigidbody2D> ().AddForce (new Vector2 (0, exJump));
+//						if (exJump > 0)
+//							exJump -= negAcc;
+//						
+//					}
 				}
 			}
 
@@ -280,7 +281,7 @@ public class Fighter : MonoBehaviour
 	void Damage (float amount)
 	{
 		//If not blocking, reduce health and convey damage on character
-		if (blocking == false) {
+		if (blocking == false || dodgeDelay==true) {
 			health -= amount;
 			StartCoroutine ("ShowDamage");
 		}
@@ -333,6 +334,7 @@ public class Fighter : MonoBehaviour
 	{
 		//Set time between dodges, and trigger dodge animation
 		dodgeCool = .5f;
+
 		this.GetComponentInChildren<Animator> ().SetTrigger ("Dodge");
 
 		//Make this object and all children use the Dodge physics layer
@@ -343,15 +345,24 @@ public class Fighter : MonoBehaviour
 		}
 		this.gameObject.layer = LayerMask.NameToLayer ("Dodge");
 
+		dodgeDelay = true;
+
+		for (int i=0; i<5; i++) {
+			this.transform.position = new Vector2 (this.transform.position.x + (dir * .5f), this.transform.position.y);
+			yield return new WaitForSeconds (.01f);
+		}
+
+		dodgeDelay = false;
+
 		//Make all children objects semi-transparent, convey dodge state
 		foreach (SpriteRenderer s in GetComponentsInChildren<SpriteRenderer>()) {
-		
+			
 			s.color = new Color (1f, 1f, 1f, .2f);
-
+			
 		}
 
 		//Moves character in passed direction, once every small amount of time a certain number of times to simulate smoother movement
-		for (int i=0; i<15; i++) {
+		for (int i=0; i<10; i++) {
 			this.transform.position = new Vector2 (this.transform.position.x + (dir * .5f), this.transform.position.y);
 			yield return new WaitForSeconds (.01f);
 		}
@@ -368,6 +379,8 @@ public class Fighter : MonoBehaviour
 			t.gameObject.layer = LayerMask.NameToLayer ("Player");
 			
 		}
+
+		blocking = false;
 	}
 
 	/// SPECIAL ATTACK
