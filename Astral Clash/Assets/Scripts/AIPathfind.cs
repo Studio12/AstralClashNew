@@ -15,7 +15,7 @@ public class AIPathfind : MonoBehaviour
 {
 
 
-	public GameObject[] PlatArray; //An array storing the platforms of the stage, and their connections to eachother, set via game manager on level load
+	public List<GameObject> PlatArray; //An array storing the platforms of the stage, and their connections to eachother, set via game manager on level load
 	public GameObject target; //The target to chase, set by main AI control
 
 
@@ -24,18 +24,14 @@ public class AIPathfind : MonoBehaviour
 	void Start ()
 	{
 
-		Invoke ("TempThing", 1); 
+
+		PlatArray = new List<GameObject>();
+
+		for (int i = 0; i<GameObject.FindGameObjectsWithTag("Platform").Length; i++) {
 		
-	}
-
-	/// Temp function
-	/// Temporary function that begins the search, used in demonstration without main AI. Invoke doesn't take arguments.
-	/// To Do: Remove later.
-	void TempThing ()
-	{
-
-		print ("Intermediary started");
-		BeginNewPath (target);
+			PlatArray.Add(GameObject.Find(i.ToString()));
+		
+		}
 
 	}
 
@@ -46,9 +42,8 @@ public class AIPathfind : MonoBehaviour
 	public void BeginNewPath (GameObject FindTarget)
 	{
 	
-		print ("Beginning to find new path");
+		target = FindTarget;
 		Stack path = BFS (this.GetComponent<Fighter> ().curPlatform, PlatArray, FindTarget.GetComponent<Fighter> ().curPlatform);
-		print ("Found path, beginning chase");
 		StartCoroutine ("Chase", path);
 	
 	}
@@ -60,7 +55,6 @@ public class AIPathfind : MonoBehaviour
 	IEnumerator Chase (Stack path)
 	{
 	
-		print ("Chase started");
 
 		//Local Variables
 		GameObject nextPlat = (GameObject)path.Pop (); //Next platform is top of path stack
@@ -74,13 +68,11 @@ public class AIPathfind : MonoBehaviour
 		Vector2 jumpOrigin = new Vector2 (0, 0); //Point to jump from
 		Vector2 jumpDest = new Vector2 (0, 0); //Point to jump to
 
-		print ("Target platform: " + nextPlat.name);
 
 
 		//If platform is lower than the current platform by more than 2 y distance, a fall is possible
 		if (this.GetComponent<Fighter> ().curPlatform.transform.position.y > nextPlat.transform.position.y + 2) {
 		
-			print ("FALLPLAT TRUE");
 			fallPlat = true;
 		
 		}
@@ -88,12 +80,10 @@ public class AIPathfind : MonoBehaviour
 		//Determines if platform is left or right of current platform
 		if (this.GetComponent<Fighter> ().curPlatform.transform.position.x > nextPlat.transform.position.x) {
 		
-			print ("LEFTPLAT TRUE");
 			leftPlat = true;
 		
 		} else {
 		
-			print ("RIGHTPLAT TRUE");
 			rightPlat = true;
 		
 		}
@@ -254,7 +244,6 @@ public class AIPathfind : MonoBehaviour
 		//If there are no obstacles between the left origin and the left destination
 		if (!Physics2D.Linecast (jOriginL, p2.GetComponent<PlatformIndex> ().leftP)) {
 		
-			print ("Left left jump possible");
 			llJump = true;
 		
 		}
@@ -379,7 +368,7 @@ public class AIPathfind : MonoBehaviour
 	/// BREADTH FIRST SEARCH
 	/// Uses a queue to find the shortest path of platforms to target's platform, returns stack containing this path
 	///
-	Stack BFS (GameObject StartVertex, GameObject[] Platforms, GameObject goal)
+	Stack BFS (GameObject StartVertex, List<GameObject> Platforms, GameObject goal)
 	{
 		//Queue of platforms to navigate through
 		Queue work = new Queue ();
@@ -393,7 +382,7 @@ public class AIPathfind : MonoBehaviour
 			GameObject cPlat = (GameObject)work.Peek (); //Analyze current platform in queue
 
 			//For every platform on stage
-			for (int i = 0; i < Platforms.Length; i++) {
+			for (int i = 0; i < Platforms.Count; i++) {
 
 				//Does current platform connect to this platform in index?
 				if (cPlat.GetComponent<PlatformIndex> ().connection [i] == true) {
@@ -430,6 +419,12 @@ public class AIPathfind : MonoBehaviour
 			path.Push (curObj);
 			curObj = curObj.GetComponent<PlatformIndex> ().parObj;
 			
+		}
+
+		foreach (GameObject p in PlatArray) {
+		
+			p.GetComponent<PlatformIndex>().visited = false;
+		
 		}
 
 		//Final platform path is a stack.
