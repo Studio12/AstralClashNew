@@ -33,6 +33,7 @@ public class CometBug : MonoBehaviour {
 
 	void Damage (float amount)
 	{
+		print (gameObject + " says ouch");
 		health -= amount;
 		if (health <= 0) {
 			CBWaveManager.BugCount--;

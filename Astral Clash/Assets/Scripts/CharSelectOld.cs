@@ -1,7 +1,7 @@
 using UnityEngine;
 using System.Collections;
 
-public class CharSelect : MonoBehaviour {
+public class CharSelectOld : MonoBehaviour {
 
 	public Sprite[,] CharSprite = new Sprite[2, 2];
 	public Sprite[] sprites;
@@ -43,7 +43,7 @@ public class CharSelect : MonoBehaviour {
 					selected++;
 				}
 				
-				//selectionEffect ();
+				selectionEffect ();
 				axisPressed = true;
 				
 			} else if (Input.GetAxis ("MenuDPad") > 0) {
@@ -56,7 +56,7 @@ public class CharSelect : MonoBehaviour {
 					selected--;
 				}
 				
-				//selectionEffect ();
+				selectionEffect ();
 				axisPressed = true;
 				
 			}
@@ -73,7 +73,7 @@ public class CharSelect : MonoBehaviour {
 					selected2++;
 				}
 
-				//selectionEffect ();
+				selectionEffect ();
 				axisPressedLR = true;
 				
 			} else if (Input.GetAxis ("MenuLR") < 0) {
@@ -85,7 +85,7 @@ public class CharSelect : MonoBehaviour {
 				} else {
 					selected2--;
 				}
-				//selectionEffect ();
+				selectionEffect ();
 				axisPressedLR = true;
 				
 			}
@@ -100,6 +100,12 @@ public class CharSelect : MonoBehaviour {
 		if (Input.GetAxis ("MenuLR") == 0) {
 			
 			axisPressedLR = false;
+			
+		}
+		
+		if(Input.GetButtonDown("Submit")){
+			
+			selectOption ();
 			
 		}
 
@@ -117,7 +123,7 @@ public class CharSelect : MonoBehaviour {
 		this.GetComponent<SpriteRenderer> ().sprite = CharSprite [selected, selected2];
 	}
 
-	public void selectOption(int value){
+	void selectOption(){
 
 		/*KEY:
 
@@ -132,30 +138,134 @@ public class CharSelect : MonoBehaviour {
 
 			case 1:
 				if(match.humans>0){
-					match.p1 = value;
+					if(selected == 0 && selected2 == 0){
+
+						match.p1 = 0;
+
+					}else if(selected == 1 && selected2 == 0){
+
+						match.p1 = 1;
+
+					}else if(selected == 1 && selected2 == 1){
+
+						match.p1 = 3;
+
+					}
 				}else{
-					match.p1 = value + 4;
+
+					if(selected == 0 && selected2 == 0){
+
+						match.p1 = 4;
+
+					}else if(selected == 1 && selected2 == 0){
+						
+						match.p1 = 5;
+						
+					}else if(selected == 1 && selected2 == 1){
+						
+						match.p1 = 7;
+							
+					}
+
 				}
 				break;
 			case 2:
 				if(match.humans>0){
-					match.p2 = value;
+					if(selected == 0 && selected2 == 0){
+						
+						match.p2 = 0;
+						
+					}else if(selected == 1 && selected2 == 0){
+						
+						match.p2 = 1;
+						
+					}else if(selected == 1 && selected2 == 1){
+						
+						match.p2 = 3;
+						
+					}
 				}else{
-					match.p2 = value + 4;
+					
+					if(selected == 0 && selected2 == 0){
+						
+						match.p2 = 4;
+						
+					}else if(selected == 1 && selected2 == 0){
+						
+						match.p2 = 5;
+						
+					}else if(selected == 1 && selected2 == 1){
+						
+						match.p2 = 7;
+						
+					}
+					
 				}
 				break;
 			case 3:
 				if(match.humans>0){
-					match.p3 = value;
+					if(selected == 0 && selected2 == 0){
+						
+						match.p3 = 0;
+						
+					}else if(selected == 1 && selected2 == 0){
+						
+						match.p3 = 1;
+						
+					}else if(selected == 1 && selected2 == 1){
+						
+						match.p3 = 3;
+						
+					}
 				}else{
-					match.p3 = value + 4;
+					
+					if(selected == 0 && selected2 == 0){
+						
+						match.p3 = 4;
+						
+					}else if(selected == 1 && selected2 == 0){
+						
+						match.p3 = 5;
+						
+					}else if(selected == 1 && selected2 == 1){
+						
+						match.p3 = 7;
+						
+					}
+					
 				}
 				break;
 			case 4:
 				if(match.humans>0){
-					match.p4 = value;
+					if(selected == 0 && selected2 == 0){
+						
+						match.p4 = 0;
+						
+					}else if(selected == 1 && selected2 == 0){
+						
+						match.p4 = 1;
+						
+					}else if(selected == 1 && selected2 == 1){
+						
+						match.p4 = 3;
+						
+					}
 				}else{
-					match.p4 = value + 4;
+					
+					if(selected == 0 && selected2 == 0){
+						
+						match.p4 = 4;
+						
+					}else if(selected == 1 && selected2 == 0){
+						
+						match.p4 = 5;
+						
+					}else if(selected == 1 && selected2 == 1){
+						
+						match.p4 = 7;
+						
+					}
+					
 				}
 				break;
 

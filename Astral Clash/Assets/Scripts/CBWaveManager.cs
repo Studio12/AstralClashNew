@@ -9,6 +9,7 @@ public class CBWaveManager : MonoBehaviour {
 	public GameObject bug;
 	public static int BugCount;
 	public bool roundComplete = false;
+	public GameObject[] enemyFighters;
 
 	// Use this for initialization
 	void Start () {
@@ -17,7 +18,8 @@ public class CBWaveManager : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		//BugCount = FindObjectsOfType (typeof(CometBug)) as CometBug[];
+		if(wave < 4) BugCount = (FindObjectsOfType (typeof(CometBug)) as CometBug[]).Length;
+		else BugCount = (FindObjectsOfType (typeof(AIPathfind)) as AIPathfind[]).Length;
 		if (BugCount == 0 && !roundComplete)
 			StartCoroutine (WaveComplete ());
 		if (player.health == 0 && !roundComplete)
@@ -33,6 +35,10 @@ public class CBWaveManager : MonoBehaviour {
 			BugCount = (FindObjectsOfType (typeof(CometBug)) as CometBug[]).Length;
 		} else {
 			print ("Last wave");
+			GameObject finalBoss = enemyFighters[Random.Range (0,enemyFighters.Length)];
+			while(finalBoss.GetComponent<Fighter>().charType == player.charType) finalBoss = enemyFighters[Random.Range (0,enemyFighters.Length)];
+			Instantiate (finalBoss, transform.position, transform.rotation);
+			BugCount = 1;
 		}
 		roundComplete = false;
 	}
