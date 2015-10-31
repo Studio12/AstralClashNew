@@ -2,21 +2,15 @@
 using System.Collections;
 using UnityEngine.UI;
 
-public class MatchSettings : MonoBehaviour {
+public class MatchSettings : Menu {
 
 	public Text[] MenuOptions;
-	public GameObject selector;
-	public int selected;
-	public bool axisPressed;
-	public bool axisPressedLR;
+	public RectTransform selector;
 	public GameObject levelMenu;
-	public GameObject prevMenu;
 
 	private int players;
 	private int rounds;
 	private int fighters;
-	public Match match;
-
 
 	// Use this for initialization
 	void Awake () {
@@ -27,36 +21,6 @@ public class MatchSettings : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-	
-		if (axisPressed == false) {
-			if (Input.GetAxis ("MenuDPad") < 0) {
-				
-				if (selected == (MenuOptions.Length - 1)) {
-					
-					selected = 0;
-					
-				} else {
-					selected++;
-				}
-				
-				selectionEffect ();
-				axisPressed = true;
-				
-			} else if (Input.GetAxis ("MenuDPad") > 0) {
-				
-				if (selected == 0) {
-					
-					selected = (MenuOptions.Length - 1);
-					
-				} else {
-					selected--;
-				}
-				
-				selectionEffect ();
-				axisPressed = true;
-				
-			}
-		}
 
 		if (axisPressedLR == false) {
 			if (Input.GetAxis ("MenuLR") < 0) {
@@ -84,32 +48,36 @@ public class MatchSettings : MonoBehaviour {
 			
 		}
 		
-		/*if(Input.GetButtonDown("Submit")){
+		if(Input.GetButtonDown("Submit")){
 			
 			selectOption ();
 			
 		}
 
 		if(Input.GetButtonDown("Cancel")){
-
 			BackMenu();
+		}
 
-		}*/
 
+	}
 
+	public void SetSelected (int newSelected)
+	{
+		selected = newSelected;
+		selectionEffect ();
 	}
 
 	void selectionEffect ()
 	{
 
-		selector.transform.position = new Vector2(MenuOptions [selected].transform.position.x+.5f, MenuOptions [selected].transform.position.y-.5f);
+		selector.position = new Vector2(MenuOptions [selected].transform.position.x + 2.4f, MenuOptions [selected].transform.position.y + 5f);
 
 	}
 
 	void selectionEffect2 (int increment)
 	{
 		
-		switch (selected) {
+		/*switch (selected) {
 		
 		case 0:
 			if(match.rounds+increment == 0){
@@ -163,25 +131,16 @@ public class MatchSettings : MonoBehaviour {
 		
 		default:
 			break;
-		}
+		}*/
 
 		
 	}
 	
 	
 	void selectOption(){
-		
-		levelMenu.SetActive (true);
 		levelMenu.GetComponent<LevelSelect> ().SetMatch(match);
-		this.gameObject.SetActive (false);
+		SwitchTo (levelMenu);
 			
-	}
-
-	void BackMenu(){
-
-		prevMenu.SetActive (true);
-		this.gameObject.SetActive (false);
-
 	}
 
 	public void ResetMatchSettings(){

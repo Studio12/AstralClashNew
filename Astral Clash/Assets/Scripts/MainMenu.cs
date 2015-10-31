@@ -1,30 +1,24 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class MainMenu : MonoBehaviour
+public class MainMenu : Menu
 {
 	public GameObject charMenu;
-
-	public void switchTo (GameObject newMenu)
-	{
-		newMenu.SetActive (true);
-		gameObject.SetActive (false);
-	}
 
 	public void prepareSinglePlayer ()
 	{
 		var match = new Match();
-		match.maxPlayers = 2;
+		match.maxPlayers = 1;
 		match.rounds = 4;
 		match.humans = 1;
-		match.AI = 0;
+		match.AI = 1;
 		match.p1 = 1;
-		match.p2 = 0;
+		match.p2 = -1;
 		match.p3 = -1;
 		match.p4 = -1;
 		match.Level = "cometBugWaves";
 		charMenu.GetComponent<CharSelect> ().SetMatch (match);
-		switchTo (charMenu);
+		SwitchTo (charMenu);
 	}
 
 

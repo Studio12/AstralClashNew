@@ -2,7 +2,7 @@
 using UnityEngine.UI;
 using System.Collections;
 
-public class OptionsMenu : MonoBehaviour {
+public class OptionsMenu : Menu {
 
 	public Sprite[] ValueSliders;
 
@@ -54,6 +54,7 @@ public class OptionsMenu : MonoBehaviour {
 	public void SetVolume (float value) {
 		PlayerPrefs.SetFloat ("Music Volume", value);
 		MusicVolumeDisplay.transform.Find ("Bars").GetComponent<Image>().sprite  = ValueSliders [Mathf.RoundToInt (value * 4)];
+		Camera.main.GetComponent<AudioSource>().volume = PlayerPrefs.GetFloat ("Music Volume");
 	}
 
 	public void SetSFX (float value) {
