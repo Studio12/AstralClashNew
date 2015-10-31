@@ -3,11 +3,8 @@ using System.Collections;
 using UnityEngine.EventSystems;
 
 public class Menu : MonoBehaviour {
-	
-	public bool axisPressed;
-	public bool axisPressedLR;
+
 	public int selected;
-	public int max;
 	public Match match;
 	public GameObject firstSelected;
 	public GameObject prevMenu;
