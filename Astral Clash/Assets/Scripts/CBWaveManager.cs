@@ -36,6 +36,7 @@ public class CBWaveManager : MonoBehaviour {
 		} else {
 			print ("Last wave");
 			GameObject finalBoss = enemyFighters[Random.Range (0,enemyFighters.Length)];
+			finalBoss.transform.localScale = new Vector3(0.5f,0.5f,0.5f);
 			while(finalBoss.GetComponent<Fighter>().charType == player.charType) finalBoss = enemyFighters[Random.Range (0,enemyFighters.Length)];
 			Instantiate (finalBoss, transform.position, transform.rotation);
 			BugCount = 1;

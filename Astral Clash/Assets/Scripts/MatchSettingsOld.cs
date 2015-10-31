@@ -1,12 +1,12 @@
 ﻿using UnityEngine;
 using System.Collections;
-using UnityEngine.UI;
 
-public class MatchSettings : MonoBehaviour {
+public class MatchSettingsOld : MonoBehaviour {
 
-	public Text[] MenuOptions;
+	public GameObject[] MenuOptions;
 	public GameObject selector;
 	public int selected;
+	public int max;
 	public bool axisPressed;
 	public bool axisPressedLR;
 	public GameObject levelMenu;
@@ -31,7 +31,7 @@ public class MatchSettings : MonoBehaviour {
 		if (axisPressed == false) {
 			if (Input.GetAxis ("MenuDPad") < 0) {
 				
-				if (selected == (MenuOptions.Length - 1)) {
+				if (selected == max) {
 					
 					selected = 0;
 					
@@ -46,7 +46,7 @@ public class MatchSettings : MonoBehaviour {
 				
 				if (selected == 0) {
 					
-					selected = (MenuOptions.Length - 1);
+					selected = max;
 					
 				} else {
 					selected--;
@@ -84,7 +84,7 @@ public class MatchSettings : MonoBehaviour {
 			
 		}
 		
-		/*if(Input.GetButtonDown("Submit")){
+		if(Input.GetButtonDown("Submit")){
 			
 			selectOption ();
 			
@@ -94,7 +94,7 @@ public class MatchSettings : MonoBehaviour {
 
 			BackMenu();
 
-		}*/
+		}
 
 
 	}
@@ -122,7 +122,7 @@ public class MatchSettings : MonoBehaviour {
 
 			}
 			else{match.rounds += increment;}
-			MenuOptions [0].text = match.rounds.ToString ();
+			MenuOptions [0].GetComponent<TextMesh> ().text = match.rounds.ToString ();
 			break;
 
 		case 1:
@@ -140,10 +140,10 @@ public class MatchSettings : MonoBehaviour {
 
 				match.humans = match.maxPlayers;
 				match.AI = match.maxPlayers-match.humans;
-				MenuOptions [2].text = match.humans.ToString ();
+				MenuOptions [2].GetComponent<TextMesh> ().text = match.humans.ToString ();
 
 			}
-			MenuOptions [1].text = match.maxPlayers.ToString ();
+			MenuOptions [1].GetComponent<TextMesh> ().text = match.maxPlayers.ToString ();
 			break;
 
 		case 2:
@@ -157,7 +157,7 @@ public class MatchSettings : MonoBehaviour {
 				
 			}
 			else{match.humans += increment;}
-			MenuOptions [2].text = match.humans.ToString ();
+			MenuOptions [2].GetComponent<TextMesh> ().text = match.humans.ToString ();
 			match.AI = match.maxPlayers-match.humans;
 			break;
 		
@@ -173,6 +173,7 @@ public class MatchSettings : MonoBehaviour {
 		
 		levelMenu.SetActive (true);
 		levelMenu.GetComponent<LevelSelect> ().SetMatch(match);
+		Camera.current.transform.position = new Vector3 (160, 0, -10);
 		this.gameObject.SetActive (false);
 			
 	}
@@ -180,6 +181,7 @@ public class MatchSettings : MonoBehaviour {
 	void BackMenu(){
 
 		prevMenu.SetActive (true);
+		Camera.current.transform.position = new Vector3 (0, 0, -10);
 		this.gameObject.SetActive (false);
 
 	}
@@ -196,9 +198,9 @@ public class MatchSettings : MonoBehaviour {
 		match.p3 = -1;
 		match.p4 = -1;
 
-		MenuOptions [0].text = match.rounds.ToString ();
-		MenuOptions [1].text = match.maxPlayers.ToString ();
-		MenuOptions [2].text = match.humans.ToString ();
+		MenuOptions [0].GetComponent<TextMesh> ().text = match.rounds.ToString ();
+		MenuOptions [1].GetComponent<TextMesh> ().text = match.maxPlayers.ToString ();
+		MenuOptions [2].GetComponent<TextMesh> ().text = match.humans.ToString ();
 
 	}
 

@@ -6,9 +6,9 @@ public class OptionsMenu : MonoBehaviour {
 
 	public Sprite[] ValueSliders;
 
-	public GameObject resOption1;
-	public GameObject resOption2;
-	public GameObject resOption3;
+	public Toggle resOption1;
+	public Toggle resOption2;
+	public Toggle resOption3;
 	public Toggle windowedButton;
 	public Toggle fullscreenButton;
 	public Slider MusicVolumeDisplay;
@@ -63,21 +63,21 @@ public class OptionsMenu : MonoBehaviour {
 
 	public void Change360p (bool value)
 	{
-		if (resOption1.GetComponentInChildren<Toggle> ().isOn) {
+		if (resOption1.isOn) {
 			Screen.SetResolution (640, 360, Screen.fullScreen);
 		}
 	}
 
 	public void Change720p (bool value)
 	{
-		if (resOption2.GetComponentInChildren<Toggle> ().isOn) {
+		if (resOption2.isOn) {
 			Screen.SetResolution (1280, 720, Screen.fullScreen);
 		}
 	}
 
 	public void Change1080p (bool value)
 	{
-		if (resOption3.GetComponentInChildren<Toggle> ().isOn) {
+		if (resOption3.isOn) {
 			Screen.SetResolution (1920, 1080, Screen.fullScreen);
 		}
 	}
