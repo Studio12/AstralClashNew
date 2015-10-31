@@ -49,11 +49,28 @@ public class MatchSettings : Menu {
 	public void adjustText (float value)
 	{
 		MenuOptions [selected].text = ((int)value).ToString ();
-		if (selected == 1) {
-			Slider humanSlider = MenuOptions [2].gameObject.transform.parent.GetComponent<Slider>();
-			humanSlider.maxValue = value;
-			if(humanSlider.value > humanSlider.maxValue) humanSlider.value = humanSlider.maxValue;
-		}
+	}
+
+	public void adjustRounds (float value)
+	{
+		adjustText (value);
+		match.rounds = (int)value;
+		print (match.rounds);
+	}
+
+	public void adjustFighters (float value)
+	{
+		adjustText (value);
+		match.maxPlayers = (int)value;
+		Slider humanSlider = MenuOptions [2].gameObject.transform.parent.GetComponent<Slider>();
+		humanSlider.maxValue = (int)value;
+		if(humanSlider.value > humanSlider.maxValue) humanSlider.value = humanSlider.maxValue;
+	}
+
+	public void adjustPlayers (float value)
+	{
+		adjustText (value);
+		match.humans = (int)value;
 	}
 
 	public void selectionEffect2 (int increment)
@@ -122,6 +139,7 @@ public class MatchSettings : Menu {
 	
 	public void selectOption(){
 		levelMenu.GetComponent<LevelSelect> ().SetMatch(match);
+		print (match.rounds);
 		SwitchTo (levelMenu);
 			
 	}

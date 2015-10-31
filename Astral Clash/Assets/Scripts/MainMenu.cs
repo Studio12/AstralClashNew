@@ -21,33 +21,4 @@ public class MainMenu : Menu
 		SwitchTo (charMenu);
 	}
 
-
-	/*void selectOption(){
-
-
-		switch (MenuOptions [selected].name) {
-		
-		case "Options":
-			RegMenu.transform.position = newPos;
-			ControlsMenu.SetActive (true);
-			selector.SetActive(false);
-			break;
-		case "singleplayer":
-			GameManager.ChooseLevel (MenuOptions [selected].name);
-			break;
-		case "multiplayer":
-			Camera.main.transform.position = new Vector3(80, 0, -10);
-			MatchMenu.SetActive(true);
-			this.gameObject.SetActive(false);
-			break;
-		case "Quit":
-			GameManager.ChooseLevel (MenuOptions [selected].name);
-			break;
-		default:
-			break;
-		
-		}
-
-	}*/
-
 }

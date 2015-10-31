@@ -7,7 +7,6 @@ public class CharSelect : Menu {
 	public Sprite[,] CharSprite = new Sprite[2, 2];
 	public Sprite[] sprites;
 	public int selected2;
-	public int max2;
 	private int Players;
 	public Text pText;
 
