@@ -178,7 +178,6 @@ public class CharSelect : MonoBehaviour {
 	}
 
 	public void SetMatch(Match newMatch){
-
 		match = newMatch;
 		
 	}

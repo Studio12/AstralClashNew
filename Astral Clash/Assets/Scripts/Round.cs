@@ -15,25 +15,28 @@ public class Round : MonoBehaviour {
 	public TextMesh WinnerText;
 	public bool roundStarted;
 	private GameObject tempRemove;
+	public GameObject CBWaveManager;
 
 
 	// Use this for initialization
 	void Start () {
-	
 		Players = new List<GameObject>();
 		print ("List created.");
-		tempRemove = null;
-	
+		tempRemove = null;	
 	}
 	
 	// Update is called once per frame
 	void Update () {
 	
 		if (roundStarted == true) {
+			if(Application.loadedLevelName == "cometBugWaves" && CBWaveManager.activeSelf == false)
+			{
+				CBWaveManager.SetActive(true);
+				maxPlayers = 2;
+			}
 			foreach (GameObject p in Players) {
 				
-				if (p.GetComponent<Fighter> ().health <= 0) {
-					
+				if ((p.GetComponent<Fighter> () && p.GetComponent<Fighter> ().health <= 0 )||( p.GetComponent<CometBug> () && p.GetComponent<CometBug> ().health <= 0)) {
 					deadPlayers++;
 					tempRemove = p;
 					

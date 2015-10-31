@@ -109,12 +109,11 @@ public class MainMenuOld : MonoBehaviour
 			selector.SetActive(false);
 			break;
 		case "singleplayer":
-			//GameManager.ChooseLevel (MenuOptions [selected].name);
 			var match = new Match();
 			match.maxPlayers = 1;
-			match.rounds = 1;
+			match.rounds = 4;
 			match.humans = 1;
-			match.AI = 0;
+			match.AI = 1;
 			match.p1 = 1;
 			match.p2 = -1;
 			match.p3 = -1;

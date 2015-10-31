@@ -10,55 +10,59 @@ public class CBWaveManager : MonoBehaviour {
 	public static int BugCount;
 	public bool roundComplete = false;
 	public GameObject[] enemyFighters;
+	public Round roundManager;
 
 	// Use this for initialization
 	void Start () {
+		player = roundManager.Players [0].GetComponent<Fighter> ();
+		roundManager.maxPlayers = 2;
 		NewWave ();
 	}
 	
 	// Update is called once per frame
 	void Update () {
-		if(wave < 4) BugCount = (FindObjectsOfType (typeof(CometBug)) as CometBug[]).Length;
-		else BugCount = (FindObjectsOfType (typeof(AIPathfind)) as AIPathfind[]).Length;
-		if (BugCount == 0 && !roundComplete)
-			StartCoroutine (WaveComplete ());
-		if (player.health == 0 && !roundComplete)
+		if (player && player.health == 0 && roundManager.roundStarted)
 			StartCoroutine (GameOver ());
+		if (GameManager.roundNum == 3 && roundManager.Players.Count == 1 && player.health > 0 && roundManager.maxPlayers == 3)
+			roundManager.maxPlayers = 2;
 	}
 
 	void NewWave () {
-		wave++;
-		if (wave != 4) {
-			for (int i = 0; i < wave; i++) {
-				Instantiate (bug, transform.position, transform.rotation);
+		//wave++;
+		print (GameManager.roundNum);
+		if ((GameManager.roundNum + 1) != 4) {
+			for (int i = 0; i < (GameManager.roundNum + 1); i++) {
+				GameObject spawnedBug = (GameObject)Instantiate (bug, GameObject.Find ("SpawnPoint2").transform.position, GameObject.Find ("SpawnPoint2").transform.rotation);
+				roundManager.Players.Add (spawnedBug);
 			}
 			BugCount = (FindObjectsOfType (typeof(CometBug)) as CometBug[]).Length;
+			roundManager.maxPlayers = BugCount + 1;
 		} else {
 			print ("Last wave");
 			GameObject finalBoss = enemyFighters[Random.Range (0,enemyFighters.Length)];
-			finalBoss.transform.localScale = new Vector3(0.5f,0.5f,0.5f);
 			while(finalBoss.GetComponent<Fighter>().charType == player.charType) finalBoss = enemyFighters[Random.Range (0,enemyFighters.Length)];
-			Instantiate (finalBoss, transform.position, transform.rotation);
+			finalBoss.GetComponent<Fighter>().health = 15;
+			GameObject spawnedBoss = (GameObject)Instantiate (finalBoss, GameObject.Find ("SpawnPoint2").transform.position, GameObject.Find ("SpawnPoint2").transform.rotation);
+			roundManager.Players.Add (spawnedBoss);
+			//Bit of a hack so that the player's defeat at the hands of the boss won't trigger the "round over" message
+			roundManager.maxPlayers = 3;
 			BugCount = 1;
 		}
 		roundComplete = false;
 	}
 
-	IEnumerator WaveComplete () {
-		roundComplete = true;
-
-		if (wave < 4) {
-			print ("Wave Complete");
-			player.stars++;
-
-			yield return new WaitForSeconds (5f);
-			NewWave ();
-			print ("Round " + wave + ": FIGHT!");
-		} else {
-			print ("You're winner!");
-			yield return new WaitForSeconds (5f);
-			Application.LoadLevel ("MainMenu");
-		}
+	public void Restart () {
+		var match = new Match();
+		match.maxPlayers = 1;
+		match.rounds = 4;
+		match.humans = 1;
+		match.AI = 1;
+		match.p1 = 1;
+		match.p2 = -1;
+		match.p3 = -1;
+		match.p4 = -1;
+		match.Level = "cometBugWaves";
+		GameObject.Find("GameManager").GetComponent<GameManager>().CreateNewMatch(match);
 	}
 
 	IEnumerator GameOver () {

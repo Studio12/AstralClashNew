@@ -280,7 +280,7 @@ public class CharSelectOld : MonoBehaviour {
 			}
 		
 		} if(Players == match.maxPlayers+1) {
-		
+			if(match.Level == "cometBugWaves") match.maxPlayers = 2;
 			GameObject.Find("GameManager").GetComponent<GameManager>().CreateNewMatch(match);
 		
 		}
