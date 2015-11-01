@@ -11,7 +11,7 @@ public class CometBug : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		if(CBWaveManager.wave != 1) GetComponent<Rigidbody2D> ().velocity = new Vector2 (transform.right.x * 5, GetComponent<Rigidbody2D> ().velocity.y);
+		if((GameManager.roundNum + 1) != 1) GetComponent<Rigidbody2D> ().velocity = new Vector2 (transform.right.x * 5, GetComponent<Rigidbody2D> ().velocity.y);
 		RaycastHit2D hit = Physics2D.Raycast (transform.position + transform.right, -transform.up, 2);
 		if(!hit)
 		{
@@ -25,7 +25,7 @@ public class CometBug : MonoBehaviour {
 			Physics2D.IgnoreCollision(GetComponent<Collider2D> (), coll.gameObject.GetComponent<Collider2D> ());
 			return;
 		}
-		else if (coll.gameObject.GetComponent<Fighter> () && CBWaveManager.wave > 2) {
+		else if (coll.gameObject.GetComponent<Fighter> () && (GameManager.roundNum + 1) > 2) {
 			coll.gameObject.SendMessage ("Damage", 5);
 		}
 		transform.eulerAngles = new Vector3 (transform.eulerAngles.x, transform.eulerAngles.y + 180, transform.eulerAngles.z);
