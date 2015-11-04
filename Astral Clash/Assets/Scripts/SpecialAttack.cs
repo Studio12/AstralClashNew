@@ -73,12 +73,33 @@ public class SpecialAttack : MonoBehaviour
 		yield return new WaitForSeconds (.05f);
 		player.transform.position = new Vector2 (0, 18);
 		player.GetComponent<Rigidbody2D> ().isKinematic = true;
-
-		for (int i=0; i<120; i++) {
+		int rotation = Random.Range (-60, 61);
+		int increment = Random.Range(-2,2);
+		if (increment < 0) {
 		
-			knifeObj = (GameObject)Instantiate(knife, player.transform.position, Quaternion.Euler(0,0, Random.Range(-60,61)));
+			increment = -15;
+		
+		} else {
+		
+			increment = 15;
+		
+		}
+
+		for (int i=0; i<60; i++) {
+		
+			knifeObj = (GameObject)Instantiate(knife, player.transform.position, Quaternion.Euler(0,0, rotation));
 			knifeObj.GetComponent<Knife>().activator = player;
-			yield return new WaitForSeconds (.0375f);
+			rotation+=increment;
+			if(rotation>=60){
+
+				increment = -15;
+
+			}else if(rotation<=-60){
+
+				increment = 15;
+
+			}
+			yield return new WaitForSeconds (.05f);
 		
 		}
 

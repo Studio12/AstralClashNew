@@ -4,6 +4,7 @@ using System.Collections;
 public class BullScript : MonoBehaviour {
 
 	public GameObject activator;
+	public GameObject indicator;
 
 	// Use this for initialization
 	void Start () 
@@ -34,5 +35,17 @@ public class BullScript : MonoBehaviour {
 			print("Bull HIT");
 			collider.SendMessage("Damage", 25);
 		}
+	}
+
+	void OnBecameInvisible(){
+
+
+
+	}
+
+	void OnBecameVisible(){
+
+
+
 	}
 }

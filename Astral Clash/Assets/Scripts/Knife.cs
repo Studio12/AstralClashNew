@@ -23,7 +23,7 @@ public class Knife : MonoBehaviour {
 	
 	public void Move()
 	{ 
-		transform.Translate (new Vector2(0,-.1f));
+		transform.Translate (new Vector2(0,-.05f));
 		//this.transform.position = new Vector2 (this.transform.position.x + 1f , this.transform.position.y);
 		
 	}
@@ -33,7 +33,7 @@ public class Knife : MonoBehaviour {
 		if(collider.tag == "Player" && collider.gameObject != activator)
 		{
 			print("Knife HIT");
-			collider.SendMessage("Damage", 15);
+			collider.SendMessage("Damage", 10);
 		}
 	}
 
