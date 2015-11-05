@@ -45,7 +45,7 @@ public class SpecialAttack : MonoBehaviour
 		int ypos1 = Random.Range (-16, 17);
 		int ypos2 = ypos1;
 		int loopPrevention = 0;
-		BullObj = (GameObject)Instantiate (Bull, new Vector2 (-32, ypos1), this.transform.rotation);
+		BullObj = (GameObject)Instantiate (Bull, new Vector2 (-60, ypos1), this.transform.rotation);
 		BullObj.GetComponent<BullScript> ().activator = player;
 		yield return new WaitForSeconds (1f);
 		for (int i = 0; i < 6; i++) {
@@ -54,7 +54,7 @@ public class SpecialAttack : MonoBehaviour
 				loopPrevention++;
 			}
 			loopPrevention = 0;
-			BullObj = (GameObject)Instantiate (Bull, new Vector2 (-32, ypos1), this.transform.rotation);
+			BullObj = (GameObject)Instantiate (Bull, new Vector2 (-60, ypos1), this.transform.rotation);
 			BullObj.GetComponent<BullScript> ().activator = player;
 			ypos2 = ypos1;
 			yield return new WaitForSeconds (1f);

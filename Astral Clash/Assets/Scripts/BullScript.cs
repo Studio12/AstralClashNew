@@ -5,10 +5,19 @@ public class BullScript : MonoBehaviour {
 
 	public GameObject activator;
 	public GameObject indicator;
+	public GameObject indObj;
+	public GameObject box;
+	public LayerMask layer;
 
 	// Use this for initialization
 	void Start () 
 	{
+		box = GameObject.Find ("OffScreenBox");
+		if (!GetComponent<SpriteRenderer> ().isVisible) {
+		
+			OnBecameInvisible();
+		
+		}
 		InvokeRepeating("Moove", 1f, 0.02f);
 	}
 	
@@ -16,8 +25,9 @@ public class BullScript : MonoBehaviour {
 	void Update () 
 	{
 	
-		if (this.transform.position.x> 36) 
+		if (this.transform.position.x> 60) 
 		{
+			OnBecameVisible();
 			Destroy(gameObject);
 		}
 	}
@@ -39,13 +49,21 @@ public class BullScript : MonoBehaviour {
 
 	void OnBecameInvisible(){
 
+		RaycastHit2D ray = Physics2D.Linecast (this.transform.position, box.transform.position, layer);
+		print (ray.transform.gameObject.name);
+		indObj = (GameObject)Instantiate (indicator, ray.point, Quaternion.Euler (0, 0, 0));
+		indObj.GetComponent<Indicator>().indicated = this.gameObject;
+		indObj.GetComponent<Indicator> ().box = box;
+		indObj.name = "BullInd" + Random.value.ToString ();
 
 
 	}
 
 	void OnBecameVisible(){
 
-
+		if (indObj != null) {
+			Destroy (indObj.gameObject);
+		}
 
 	}
 }
