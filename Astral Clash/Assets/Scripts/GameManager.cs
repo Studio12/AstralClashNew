@@ -76,7 +76,7 @@ public class GameManager : MonoBehaviour
 
 	}
 
-	void CreateCharacter (int x, int y)
+	public void CreateCharacter (int x, int y)
 	{
 
 

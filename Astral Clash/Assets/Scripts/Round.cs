@@ -15,12 +15,14 @@ public class Round : MonoBehaviour {
 	public TextMesh WinnerText;
 	public bool roundStarted;
 	private GameObject tempRemove;
+	private GameObject SPWaves;
 	public GameObject CBWaveManager;
 
 
 	// Use this for initialization
 	void Start () {
 		Players = new List<GameObject>();
+		SPWaves.AddComponent<CBWaveManager> ();
 		print ("List created.");
 		tempRemove = null;	
 	}
@@ -29,7 +31,7 @@ public class Round : MonoBehaviour {
 	void Update () {
 	
 		if (roundStarted == true) {
-			if(Application.loadedLevelName == "cometBugWaves" && CBWaveManager.activeSelf == false)
+			if(Application.loadedLevelName == "FireStage SP" && CBWaveManager.activeSelf == false)
 			{
 				CBWaveManager.SetActive(true);
 				maxPlayers = 2;
@@ -156,16 +158,18 @@ public class Round : MonoBehaviour {
 		int max = wins[0];
 		int i;
 		int index = 0;
-		for (i = 1; i < wins.Length; i++) {
+		/*for (i = 1; i < wins.Length; i++) {
 			if (wins[i] > max) {
 				max = wins[i];
 			}
-		}
+		}*/
+		max = Mathf.Max (wins);
 		for (i = 1; i < wins.Length; i++) {
 			if (wins[i] == max) {
 				index = i;
 			}
 		}
+		//index = ArrayUtility.indexOf(wins, max);
 
 		return index;
 
