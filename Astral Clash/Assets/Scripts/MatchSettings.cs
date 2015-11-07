@@ -144,7 +144,6 @@ public class MatchSettings : Menu {
 	
 	public void selectOption(){
 		levelMenu.GetComponent<LevelSelect> ().SetMatch(match);
-		print (match.rounds);
 		SwitchTo (levelMenu);
 			
 	}

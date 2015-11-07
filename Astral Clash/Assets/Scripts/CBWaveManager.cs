@@ -8,8 +8,6 @@ public class CBWaveManager : MonoBehaviour {
 	public GameObject star;
 	public GameObject bug;
 	public static int BugCount;
-	public bool roundComplete = false;
-	public GameObject[] enemyFighters;
 	public Round roundManager;
 
 	// Use this for initialization
@@ -18,7 +16,7 @@ public class CBWaveManager : MonoBehaviour {
 		roundManager.maxPlayers = 2;
 		NewWave ();
 	}
-	
+
 	// Update is called once per frame
 	void Update () {
 		if (player && player.health == 0 && roundManager.roundStarted)
@@ -28,8 +26,6 @@ public class CBWaveManager : MonoBehaviour {
 	}
 
 	void NewWave () {
-		//wave++;
-		print (GameManager.roundNum);
 		if ((GameManager.roundNum + 1) != 4) {
 			for (int i = 0; i < (GameManager.roundNum + 1); i++) {
 				GameObject spawnedBug = (GameObject)Instantiate (bug, GameObject.Find ("SpawnPoint2").transform.position, GameObject.Find ("SpawnPoint2").transform.rotation);
@@ -39,18 +35,12 @@ public class CBWaveManager : MonoBehaviour {
 			roundManager.maxPlayers = BugCount + 1;
 		} else {
 			print ("Last wave");
-			/*GameObject finalBoss = enemyFighters[Random.Range (0,enemyFighters.Length)];
-			while(finalBoss.GetComponent<Fighter>().charType == player.charType) finalBoss = enemyFighters[Random.Range (0,enemyFighters.Length)];
-			finalBoss.GetComponent<Fighter>().health = 15;
-			GameObject spawnedBoss = (GameObject)Instantiate (finalBoss, GameObject.Find ("SpawnPoint2").transform.position, GameObject.Find ("SpawnPoint2").transform.rotation);
-			roundManager.Players.Add (spawnedBoss);*/
-			int bossID = Random.Range (5,9);
-			GameObject.Find ("GameManager").GetComponent<GameManager>().CreateCharacter (bossID, 2);
+			GameManager.curMatch.p2 = Random.Range (4,6);
+			GameObject.Find ("GameManager").GetComponent<GameManager>().CreateCharacter (GameManager.curMatch.p2, 2);
 			//Bit of a hack so that the player's defeat at the hands of the boss won't trigger the "round over" message
 			roundManager.maxPlayers = 3;
 			BugCount = 1;
 		}
-		roundComplete = false;
 	}
 
 	public void Restart () {
@@ -68,7 +58,6 @@ public class CBWaveManager : MonoBehaviour {
 	}
 
 	IEnumerator GameOver () {
-		roundComplete = true;
 		print ("Game Over");
 		
 		yield return new WaitForSeconds (5f);

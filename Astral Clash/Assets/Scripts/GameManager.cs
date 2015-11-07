@@ -80,8 +80,8 @@ public class GameManager : MonoBehaviour
 	{
 
 
-		print (x);
-		print (y);
+		print ("Character number " + x);
+		print ("Player " + y);
 		charRef = (GameObject)Instantiate (characters [x], new Vector2 (0, 0), Quaternion.Euler (0, 0, 0));
 
 		
