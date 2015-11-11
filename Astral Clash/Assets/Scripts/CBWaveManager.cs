@@ -39,6 +39,7 @@ public class CBWaveManager : MonoBehaviour {
 			while((GameManager.curMatch.p2 - 4) == GameManager.curMatch.p1) GameManager.curMatch.p2 = Random.Range (4,6);
 			GameObject.Find ("GameManager").GetComponent<GameManager>().CreateCharacter (GameManager.curMatch.p2, 2);
 			GameObject.Find ("HealthBar2").GetComponentInChildren<TextMesh> ().text = roundManager.Players [1].GetComponent<Fighter>().charType;
+			GameObject.Destroy (roundManager.Players [1].transform.Find ("P2(Clone)").gameObject);
 			//Bit of a hack so that the player's defeat at the hands of the boss won't trigger the "round over" message
 			roundManager.maxPlayers = 3;
 			BugCount = 1;
