@@ -76,21 +76,22 @@ public class GameManager : MonoBehaviour
 
 	}
 
-	void CreateCharacter (int x, int y)
+	public void CreateCharacter (int x, int y)
 	{
 
 
-		print (x);
-		print (y);
+		print ("Character number " + x);
+		print ("Player " + y);
 		charRef = (GameObject)Instantiate (characters [x], new Vector2 (0, 0), Quaternion.Euler (0, 0, 0));
+		if (x < 4) {
+			charRef.GetComponent<Fighter> ().playID = y;
+		}
 
 		
 		switch (y) {
 
 		case 1:
-			if (x < 4) {
-				charRef.GetComponent<Fighter> ().playID = 1;
-			}
+
 			charRef.GetComponent<Fighter> ().SpawnPoint = spawn1;
 			charRef.name = "Player 1";
 			print ("Player 1 created");
@@ -100,9 +101,6 @@ public class GameManager : MonoBehaviour
 			break;
 
 		case 2:
-			if (x < 4) {
-				charRef.GetComponent<Fighter> ().playID = 2;
-			}
 			charRef.GetComponent<Fighter> ().SpawnPoint = spawn2;
 			charRef.name = "Player 2";
 				barRef = (GameObject)Instantiate(healthbars[0], new Vector2(-12f, 17.5f), Quaternion.Euler(0,0,0));
@@ -111,9 +109,6 @@ public class GameManager : MonoBehaviour
 			break;
 
 		case 3:
-			if (x < 4) {
-				charRef.GetComponent<Fighter> ().playID = 3;
-			}
 			charRef.GetComponent<Fighter> ().SpawnPoint = spawn3;
 			charRef.name = "Player 3";
 				barRef = (GameObject)Instantiate(healthbars[0], new Vector2(2f, 17.5f), Quaternion.Euler(0,0,0));
@@ -122,9 +117,6 @@ public class GameManager : MonoBehaviour
 			break;
 
 		case 4:
-			if (x < 4) {
-				charRef.GetComponent<Fighter> ().playID = 4;
-			}
 			charRef.GetComponent<Fighter> ().SpawnPoint = spawn4;
 			charRef.name = "Player 4";
 				barRef = (GameObject)Instantiate(healthbars[0], new Vector2(16f, 17.5f), Quaternion.Euler(0,0,0));
@@ -140,7 +132,7 @@ public class GameManager : MonoBehaviour
 
 		foreach (HealthBar h in barRef.GetComponentsInChildren<HealthBar>()) {
 		
-			h.character = charRef;
+			h.character = charRef.GetComponent<Fighter> ();
 
 		}
 

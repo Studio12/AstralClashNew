@@ -55,16 +55,21 @@ public class MatchSettings : Menu {
 	{
 		adjustText (value);
 		match.rounds = (int)value;
-		print (match.rounds);
 	}
 
 	public void adjustFighters (float value)
 	{
 		adjustText (value);
+
 		match.maxPlayers = (int)value;
 		Slider humanSlider = MenuOptions [2].gameObject.transform.parent.GetComponent<Slider>();
-		humanSlider.maxValue = (int)value;
-		if(humanSlider.value > humanSlider.maxValue) humanSlider.value = humanSlider.maxValue;
+		if(match.humans>match.maxPlayers){
+			
+			match.humans = match.maxPlayers;
+			match.AI = match.maxPlayers-match.humans;
+			MenuOptions [2].text = match.humans.ToString ();
+		}
+		humanSlider.maxValue = match.maxPlayers;
 	}
 
 	public void adjustPlayers (float value)
@@ -139,7 +144,6 @@ public class MatchSettings : Menu {
 	
 	public void selectOption(){
 		levelMenu.GetComponent<LevelSelect> ().SetMatch(match);
-		print (match.rounds);
 		SwitchTo (levelMenu);
 			
 	}

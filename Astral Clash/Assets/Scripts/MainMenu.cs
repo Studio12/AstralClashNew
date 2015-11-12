@@ -16,7 +16,7 @@ public class MainMenu : Menu
 		match.p2 = -1;
 		match.p3 = -1;
 		match.p4 = -1;
-		match.Level = "cometBugWaves";
+		match.Level = "FireStage SP";
 		charMenu.GetComponent<CharSelect> ().SetMatch (match);
 		SwitchTo (charMenu);
 	}
