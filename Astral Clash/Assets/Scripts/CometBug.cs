@@ -17,6 +17,10 @@ public class CometBug : MonoBehaviour {
 		{
 			transform.eulerAngles = new Vector3(transform.eulerAngles.x,transform.eulerAngles.y + 180,transform.eulerAngles.z);
 		}
+		if (health <= 0) {
+			CBWaveManager.BugCount--;
+			Destroy (gameObject);
+		}
 	}
 
 	void OnCollisionEnter2D(Collision2D coll)
@@ -34,9 +38,5 @@ public class CometBug : MonoBehaviour {
 	void Damage (float amount)
 	{
 		health -= amount;
-		if (health <= 0) {
-			CBWaveManager.BugCount--;
-			Destroy (gameObject);
-		}
 	}
 }
