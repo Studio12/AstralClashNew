@@ -14,6 +14,7 @@ public class GameManager : MonoBehaviour
 	private GameObject spawn4;
 	public GameObject[] characters;
 	public GameObject[] healthbars;
+	public GameObject[] portraits;
 	private static GameObject charRef;
 	private static GameObject barRef;
 	private static GameObject roundManager;
@@ -27,12 +28,23 @@ public class GameManager : MonoBehaviour
 	public GameObject p4Obj;
 	private static GameObject pObjRef;
 
+	public static GameManager Instance;
+
 
 	// Use this for initialization
-	void Start ()
+	void Awake ()
 	{
 
-		DontDestroyOnLoad (this);
+		if (Instance) {
+		
+			DestroyImmediate (gameObject);
+		
+		} else {
+		
+			DontDestroyOnLoad (gameObject);
+			Instance = this;
+		
+		}
 	
 	}
 	
@@ -103,7 +115,7 @@ public class GameManager : MonoBehaviour
 		case 2:
 			charRef.GetComponent<Fighter> ().SpawnPoint = spawn2;
 			charRef.name = "Player 2";
-				barRef = (GameObject)Instantiate(healthbars[0], new Vector2(-12f, 17.5f), Quaternion.Euler(0,0,0));
+			barRef = (GameObject)Instantiate(healthbars[1], new Vector2(-12f, 17.5f), Quaternion.Euler(0,0,0));
 			barRef.name = "HealthBar2";
 			pObjRef = (GameObject)Instantiate(p2Obj, new Vector2(0,0), Quaternion.Euler(0,0,0));
 			break;
@@ -111,7 +123,7 @@ public class GameManager : MonoBehaviour
 		case 3:
 			charRef.GetComponent<Fighter> ().SpawnPoint = spawn3;
 			charRef.name = "Player 3";
-				barRef = (GameObject)Instantiate(healthbars[0], new Vector2(2f, 17.5f), Quaternion.Euler(0,0,0));
+			barRef = (GameObject)Instantiate(healthbars[2], new Vector2(2f, 17.5f), Quaternion.Euler(0,0,0));
 			barRef.name = "HealthBar3";
 			pObjRef = (GameObject)Instantiate(p3Obj, new Vector2(0,0), Quaternion.Euler(0,0,0));
 			break;
@@ -119,7 +131,7 @@ public class GameManager : MonoBehaviour
 		case 4:
 			charRef.GetComponent<Fighter> ().SpawnPoint = spawn4;
 			charRef.name = "Player 4";
-				barRef = (GameObject)Instantiate(healthbars[0], new Vector2(16f, 17.5f), Quaternion.Euler(0,0,0));
+			barRef = (GameObject)Instantiate(healthbars[3], new Vector2(16f, 17.5f), Quaternion.Euler(0,0,0));
 			barRef.name = "HealthBar4";
 			pObjRef = (GameObject)Instantiate(p4Obj, new Vector2(0,0), Quaternion.Euler(0,0,0));
 			break;
@@ -129,6 +141,10 @@ public class GameManager : MonoBehaviour
 
 
 		}
+
+		GameObject portRef = (GameObject)Instantiate (portraits [x], barRef.transform.position, barRef.transform.rotation);
+		portRef.transform.parent = barRef.transform;
+		portRef.transform.localPosition = new Vector2 (-0.7864876f, 0.08238244f);
 
 		foreach (HealthBar h in barRef.GetComponentsInChildren<HealthBar>()) {
 		
@@ -149,7 +165,8 @@ public class GameManager : MonoBehaviour
 		print ("Adding character to list");
 		print (roundManager.GetComponent<Round> ().Players [0].name);
 		barRef.GetComponentInChildren<StarBar> ().character = charRef;
-		barRef.GetComponentInChildren<TextMesh> ().text = "Player "+y.ToString()+"\n\t\t\t\t "+pWins[y-1].ToString();
+		barRef.GetComponentInChildren<TextMesh> ().text = "Player "+y.ToString()+"\n\t\t\t\t   "+pWins[y-1].ToString();
+		barRef.GetComponentInChildren<TextMesh> ().gameObject.GetComponent<Renderer> ().sortingOrder = 19;
 
 	}
 
