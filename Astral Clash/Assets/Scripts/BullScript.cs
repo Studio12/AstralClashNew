@@ -28,6 +28,11 @@ public class BullScript : MonoBehaviour {
 		if (this.transform.position.x> 60) 
 		{
 			OnBecameVisible();
+			foreach(Transform c in GetComponentsInChildren<Transform>()){
+				
+				Destroy(c.gameObject);
+				
+			}
 			Destroy(gameObject);
 		}
 	}

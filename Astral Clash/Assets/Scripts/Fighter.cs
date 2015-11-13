@@ -446,4 +446,25 @@ public class Fighter : MonoBehaviour
 		}
 
 	}
+
+	IEnumerator ShowStarMax(){
+
+		while (stars == starMax) {
+		
+			foreach (SpriteRenderer s in GetComponentsInChildren<SpriteRenderer>()) {
+				
+				s.color = new Color(.5f,.5f,1);
+				
+			}
+			yield return new WaitForFixedUpdate();
+			foreach (SpriteRenderer s in GetComponentsInChildren<SpriteRenderer>()) {
+				
+				s.color = new Color(1f,1f,1);
+				
+			}
+			yield return new WaitForFixedUpdate();
+		
+		}
+
+	}
 }

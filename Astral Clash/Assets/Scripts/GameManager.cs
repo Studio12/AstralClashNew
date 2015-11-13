@@ -14,6 +14,7 @@ public class GameManager : MonoBehaviour
 	private GameObject spawn4;
 	public GameObject[] characters;
 	public GameObject[] healthbars;
+	public GameObject[] portraits;
 	private static GameObject charRef;
 	private static GameObject barRef;
 	private static GameObject roundManager;
@@ -27,12 +28,23 @@ public class GameManager : MonoBehaviour
 	public GameObject p4Obj;
 	private static GameObject pObjRef;
 
+	public static GameManager Instance;
+
 
 	// Use this for initialization
-	void Start ()
+	void Awake ()
 	{
 
-		DontDestroyOnLoad (this);
+		if (Instance) {
+		
+			DestroyImmediate (gameObject);
+		
+		} else {
+		
+			DontDestroyOnLoad (gameObject);
+			Instance = this;
+		
+		}
 	
 	}
 	
@@ -130,6 +142,10 @@ public class GameManager : MonoBehaviour
 
 		}
 
+		GameObject portRef = (GameObject)Instantiate (portraits [x], barRef.transform.position, barRef.transform.rotation);
+		portRef.transform.parent = barRef.transform;
+		portRef.transform.localPosition = new Vector2 (-0.7864876f, 0.08238244f);
+
 		foreach (HealthBar h in barRef.GetComponentsInChildren<HealthBar>()) {
 		
 			h.character = charRef.GetComponent<Fighter> ();
@@ -149,7 +165,7 @@ public class GameManager : MonoBehaviour
 		print ("Adding character to list");
 		print (roundManager.GetComponent<Round> ().Players [0].name);
 		barRef.GetComponentInChildren<StarBar> ().character = charRef;
-		barRef.GetComponentInChildren<TextMesh> ().text = "Player "+y.ToString()+"\n\t\t\t\t "+pWins[y-1].ToString();
+		barRef.GetComponentInChildren<TextMesh> ().text = "Player "+y.ToString()+"\n\t\t\t\t   "+pWins[y-1].ToString();
 		barRef.GetComponentInChildren<TextMesh> ().gameObject.GetComponent<Renderer> ().sortingOrder = 19;
 
 	}
