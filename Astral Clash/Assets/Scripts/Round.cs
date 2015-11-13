@@ -14,51 +14,47 @@ public class Round : MonoBehaviour {
 	public TextMesh OverText;
 	public TextMesh WinnerText;
 	public bool roundStarted;
-	private GameObject tempRemove;
+	private GameObject SPWaves;
+	public GameObject CBWaveManager;
 
 
 	// Use this for initialization
 	void Start () {
-	
 		Players = new List<GameObject>();
+		//SPWaves.AddComponent<CBWaveManager> ();
 		print ("List created.");
-		tempRemove = null;
-	
 	}
 	
 	// Update is called once per frame
 	void Update () {
 	
 		if (roundStarted == true) {
-			foreach (GameObject p in Players) {
-				
-				if (p.GetComponent<Fighter> ().health <= 0) {
-					
+			if(Application.loadedLevelName == "FireStage SP" && CBWaveManager.activeSelf == false)
+			{
+				CBWaveManager.SetActive(true);
+				maxPlayers = 2;
+			}
+			for (int p = Players.Count-1; p >= 0; p--) {
+				if ((Players[p].GetComponent<Fighter> () && Players[p].GetComponent<Fighter> ().health <= 0 )||( Players[p].GetComponent<CometBug> () && Players[p].GetComponent<CometBug> ().health <= 0)) {
 					deadPlayers++;
-					tempRemove = p;
-					
+					Players.Remove(Players[p]);
 				}
-				
 			}
 
-			Players.Remove(tempRemove);
-			tempRemove = null;
-			
+			//if (Players.Count <= 1) {
 			if (deadPlayers >= (maxPlayers - 1)) {
-				
 				roundStarted = false;
 				print ("Dead players all dead.");
-				StartCoroutine ("RoundEnd", Players[0]);
-				
+				StartCoroutine ("RoundEnd");
 			}
 		}
 
 
 	}
 
-	IEnumerator RoundEnd(GameObject winner){
+	IEnumerator RoundEnd(){
 
-		winner.GetComponentInChildren<Animator> ().SetTrigger ("Victory");
+		if(Players.Count > 0) Players[0].GetComponentInChildren<Animator> ().SetTrigger ("Victory");
 		yield return new WaitForSeconds (1f);
 
 		if (GameManager.roundNum < GameManager.curMatch.rounds-1) {
@@ -67,47 +63,53 @@ public class Round : MonoBehaviour {
 			GameOverUI.SetActive (true);
 			OverText.text = "Round Over!";
 			OverText.gameObject.GetComponent<Renderer>().sortingOrder = 21;
-			WinnerText.text = "Winner is " + winner.name + "!";
-			WinnerText.gameObject.GetComponent<Renderer>().sortingOrder = 21;
-			switch (winner.name) {
-				
-			case "Player 1":
-				GameManager.pWins [0]++;
-				break;
-			case "Player 2":
-				GameManager.pWins [1]++;
-				break;
-			case "Player 3":
-				GameManager.pWins [2]++;
-				break;
-			case "Player 4":
-				GameManager.pWins [3]++;
-				break;
-				
+			if(Players.Count == 0) WinnerText.text = "Round is tied!";
+			else
+			{
+				WinnerText.text = "Winner is " + Players[0].name + "!";
+				switch (Players[0].name) {
+					
+				case "Player 1":
+					GameManager.pWins [0]++;
+					break;
+				case "Player 2":
+					GameManager.pWins [1]++;
+					break;
+				case "Player 3":
+					GameManager.pWins [2]++;
+					break;
+				case "Player 4":
+					GameManager.pWins [3]++;
+					break;
+				}
 			}
+			WinnerText.gameObject.GetComponent<Renderer>().sortingOrder = 21;
 			yield return new WaitForSeconds (3.0f);
 			GameObject.Find ("GameManager").GetComponent<GameManager> ().StartCoroutine("ResetRound", GameManager.curMatch);
 		
 		} else {
 		
 			GameOverUI.SetActive (true);
-			switch (winner.name) {
-				
-			case "Player 1":
-				GameManager.pWins [0]++;
-				break;
-			case "Player 2":
-				GameManager.pWins [1]++;
-				break;
-			case "Player 3":
-				GameManager.pWins [2]++;
-				break;
-			case "Player 4":
-				GameManager.pWins [3]++;
-				break;
-			default:
-				break;
-				
+			if(Players.Count > 0)
+			{
+				switch (Players[0].name) {
+					
+				case "Player 1":
+					GameManager.pWins [0]++;
+					break;
+				case "Player 2":
+					GameManager.pWins [1]++;
+					break;
+				case "Player 3":
+					GameManager.pWins [2]++;
+					break;
+				case "Player 4":
+					GameManager.pWins [3]++;
+					break;
+				default:
+					break;
+					
+				}
 			}
 			int bestWinner = MaxValue(GameManager.pWins);
 			string winnerName = null;
@@ -132,7 +134,8 @@ public class Round : MonoBehaviour {
 
 			OverText.text = "Match Over!";
 			OverText.gameObject.GetComponent<Renderer>().sortingOrder = 21;
-			WinnerText.text = "Round winner is " + winner.name + "!\nFinal Winner: "+winnerName+"!";
+			if(Players.Count > 0) WinnerText.text = "Round winner is " + Players[0].name + "!\nFinal Winner: "+winnerName+"!";
+			else WinnerText.text = "Round is tied!\nFinal Winner: "+winnerName+"!";
 			WinnerText.gameObject.GetComponent<Renderer>().sortingOrder = 21;
 			yield return new WaitForSeconds (3.0f);
 			GameManager.ChooseLevel ("MainMenu");
@@ -143,22 +146,10 @@ public class Round : MonoBehaviour {
 	}
 
 	int MaxValue (int[] wins){
-		int max = wins[0];
-		int i;
-		int index = 0;
-		for (i = 1; i < wins.Length; i++) {
-			if (wins[i] > max) {
-				max = wins[i];
-			}
-		}
-		for (i = 1; i < wins.Length; i++) {
-			if (wins[i] == max) {
-				index = i;
-			}
-		}
+		int max = Mathf.Max (wins);
+		int index = System.Array.IndexOf(wins, max);
 
 		return index;
-
 	}
 
 }

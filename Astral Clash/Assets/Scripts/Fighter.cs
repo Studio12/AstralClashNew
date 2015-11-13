@@ -235,6 +235,11 @@ public class Fighter : MonoBehaviour
 						hit.collider.GetComponent<Rigidbody2D> ().AddForce (new Vector2 (facing * attack.knockback, attack.knockback), ForceMode2D.Impulse);
 					}
 				}
+				else if (hit.collider.gameObject.GetComponent<CometBug> ()) {
+					
+					//Reduce health
+					hit.collider.SendMessage ("Damage", attack.damage);
+				}
 
 			}
 

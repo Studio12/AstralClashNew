@@ -6,15 +6,15 @@ public class HealthBar : MonoBehaviour {
 	public float maxValue;
 	public float curValue;
 	public float scaleMax;
-	public GameObject character;
+	public Fighter character;
 	public float propScale;
 	public float gradScaleSpeed;
 
 	// Use this for initialization
 	void Start () {
 	
-		maxValue = character.GetComponent<Fighter> ().maxHealth;
-		curValue = character.GetComponent<Fighter> ().health;
+		maxValue = character.maxHealth;
+		curValue = character.health;
 		scaleMax = this.transform.localScale.x;
 
 	}
@@ -40,7 +40,7 @@ public class HealthBar : MonoBehaviour {
 		
 		} else {
 
-			curValue = character.GetComponent<Fighter> ().health;
+			curValue = character.health;
 			propScale = curValue / maxValue;
 
 			if (curValue >= 0) {
