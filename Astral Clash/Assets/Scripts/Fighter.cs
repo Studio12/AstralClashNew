@@ -60,7 +60,8 @@ public class Fighter : MonoBehaviour
 	public bool AIJump = false; 		//AI controlling movement for jump state.
 	public bool dodgeDelay = false;
 
-
+	public GameObject hitSpark;			//The particle effect when a player hits something
+	public GameObject clone;
 
 	// Use this for initialization
 	void Start ()
@@ -82,6 +83,7 @@ public class Fighter : MonoBehaviour
 	// Update is called once per frame
 	void Update ()
 	{
+
 		//Sets facing to left or right depending on direction float axis
 		if (direction > 0) {
 		
@@ -224,6 +226,17 @@ public class Fighter : MonoBehaviour
 				//If the object hit is another fighter
 				if (hit.collider.gameObject.GetComponent<Fighter> ()) {
 
+					//Particle effect for hit?======================
+					if(facing == 1){
+						clone = (GameObject)Instantiate(hitSpark, new Vector3(transform.position.x + 2.0f, transform.position.y, transform.position.z), transform.rotation);
+
+					}
+					else if(facing == -1){
+						clone = (GameObject)Instantiate(hitSpark, new Vector3(transform.position.x - 2.0f, transform.position.y, transform.position.z), transform.rotation);
+					
+					}
+
+
 					//Reduce health and armor
 					hit.collider.SendMessage ("Damage", attack.damage);
 					hit.collider.SendMessage ("ArmorDamage", attack.armorBreak);
@@ -262,6 +275,7 @@ public class Fighter : MonoBehaviour
 		if (cooldown <= 0) {
 			StartCoroutine (PerformAttack (lightAttack));
 			this.GetComponentInChildren<Animator> ().SetTrigger ("Light");
+			Destroy(clone, 1.0f);
 		}
 	}
 	public void MediumAttack ()
@@ -269,6 +283,7 @@ public class Fighter : MonoBehaviour
 		if (cooldown <= 0) {
 			StartCoroutine (PerformAttack (mediumAttack));
 			this.GetComponentInChildren<Animator> ().SetTrigger ("Medium");
+			Destroy(clone, 1.0f);
 		}
 	}
 	public void HeavyAttack ()
@@ -276,6 +291,7 @@ public class Fighter : MonoBehaviour
 		if (cooldown <= 0) {
 			StartCoroutine (PerformAttack (heavyAttack));
 			this.GetComponentInChildren<Animator> ().SetTrigger ("Heavy");
+			Destroy (clone, 1.0f);
 		}
 	}
 
