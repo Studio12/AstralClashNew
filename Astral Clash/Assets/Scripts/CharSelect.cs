@@ -1,6 +1,7 @@
 using UnityEngine;
 using System.Collections;
 using UnityEngine.UI;
+using UnityEngine.EventSystems;
 
 public class CharSelect : Menu {
 
@@ -8,11 +9,13 @@ public class CharSelect : Menu {
 	public Sprite[] sprites;
 	public int selected2;
 	private int Players;
+	public Sprite[] indicators;
+	public GameObject currentIndicator;
 	public Text pText;
 
 	// Use this for initialization
-	void Start () {
-
+	void OnEnable () {
+		EventSystem.current.SetSelectedGameObject (firstSelected);
 		CharSprite [0, 0] = sprites[0];
 		CharSprite [1, 0] = sprites[1];
 		CharSprite [0, 1] = sprites[2];
@@ -20,13 +23,38 @@ public class CharSelect : Menu {
 		selected = 0;
 		selected2 = 0;
 		Players = 1;
+		print ("Beep");
+		pText.text = "Player "+Players.ToString();
+		createIndicator ();
 	
+	}
+
+	void createIndicator ()
+	{
+		GameObject newIndicator = new GameObject ("P" + Players);
+		newIndicator.AddComponent<Image> ();
+		newIndicator.GetComponent<Image> ().sprite = indicators [Players - 1];
+		//print (newIndicator.GetComponent<RectTransform>().anchoredPosition);
+		//print (newIndicator.transform.position);
+		newIndicator.transform.position = EventSystem.current.currentSelectedGameObject.transform.position;
+		print (EventSystem.current.currentSelectedGameObject.transform.position);
+		currentIndicator = newIndicator;
 	}
 
 	void selectionEffect ()
 	{
 		print ("Changing sprite...");
 		this.GetComponent<SpriteRenderer> ().sprite = CharSprite [selected, selected2];
+	}
+
+	public void updatePointer ()
+	{
+		currentIndicator.transform.position = EventSystem.current.currentSelectedGameObject.transform.position;
+	}
+
+	public void printMessage (string message)
+	{
+		print (gameObject.name + " says: " + message);
 	}
 
 	public void selectOption(int value){
@@ -77,6 +105,7 @@ public class CharSelect : Menu {
 			}
 			Players++;
 			match.humans--;
+			createIndicator();
 			if(Players != match.maxPlayers+1){
 			pText.text = "Player "+Players.ToString();
 			}
