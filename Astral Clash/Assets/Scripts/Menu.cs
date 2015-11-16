@@ -37,7 +37,7 @@ public class Menu : MonoBehaviour {
 		
 	}
 	
-	public void BackMenu(){
+	public virtual void BackMenu(){
 
 		EventSystem.current.GetComponent<AudioSource>().PlayOneShot (BackOutSound);
 		SwitchTo (prevMenu);
