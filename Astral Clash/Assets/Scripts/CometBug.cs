@@ -18,7 +18,6 @@ public class CometBug : MonoBehaviour {
 			transform.eulerAngles = new Vector3(transform.eulerAngles.x,transform.eulerAngles.y + 180,transform.eulerAngles.z);
 		}
 		if (health <= 0) {
-			CBWaveManager.BugCount--;
 			Destroy (gameObject);
 		}
 	}
