@@ -31,8 +31,8 @@ public class CBWaveManager : MonoBehaviour {
 				GameObject spawnedBug = (GameObject)Instantiate (bug, GameObject.Find ("SpawnPoint2").transform.position, GameObject.Find ("SpawnPoint2").transform.rotation);
 				roundManager.Players.Add (spawnedBug);
 			}
-			BugCount = (FindObjectsOfType (typeof(CometBug)) as CometBug[]).Length;
-			roundManager.maxPlayers = BugCount + 1;
+			//BugCount = (FindObjectsOfType (typeof(CometBug)) as CometBug[]).Length;
+			//roundManager.maxPlayers = BugCount + 1;
 		} else {
 			print ("Last wave");
 			GameManager.curMatch.p2 = Random.Range (4,6);
@@ -42,7 +42,6 @@ public class CBWaveManager : MonoBehaviour {
 			GameObject.Destroy (roundManager.Players [1].transform.Find ("P2(Clone)").gameObject);
 			//Bit of a hack so that the player's defeat at the hands of the boss won't trigger the "round over" message
 			roundManager.maxPlayers = 3;
-			BugCount = 1;
 		}
 	}
 
