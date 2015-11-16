@@ -39,7 +39,7 @@ public class ShieldAct : MonoBehaviour {
 
 
 		//Put button command for blocking here
-		if (Input.GetKey (KeyCode.B) && sBroken == false) {
+		if (fighter.blocking == true && sBroken == false) {
 			myShield.SetActive (true);
 
 			//Sets the blocking variable in Fighter script to true....maybe that helps?

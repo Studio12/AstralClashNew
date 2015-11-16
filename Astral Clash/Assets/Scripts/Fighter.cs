@@ -133,12 +133,13 @@ public class Fighter : MonoBehaviour
 				//Control running animation by direction
 				if (direction != 0) {
 
-					this.GetComponentInChildren<Animator> ().SetBool ("Run", true);
-				
+					//this.GetComponentInChildren<Animator> ().SetBool ("Run", true);
+					this.GetComponentInChildren<Animator>().SetFloat("Speed", (float)Mathf.Abs(GetComponent<Rigidbody2D>().velocity.x));
+
 				} else {
 
-					this.GetComponentInChildren<Animator> ().SetBool ("Run", false);
-				
+					//this.GetComponentInChildren<Animator> ().SetBool ("Run", false);
+
 				}
 
 				//If character is attempting to jump
@@ -356,7 +357,8 @@ public class Fighter : MonoBehaviour
 		//Set time between dodges, and trigger dodge animation
 		dodgeCool = .5f;
 
-		this.GetComponentInChildren<Animator> ().SetTrigger ("Dodge");
+		//this.GetComponentInChildren<Animator> ().SetTrigger ("Dodge");
+		this.GetComponentInChildren<Animator> ().SetBool ("Dodge2", true);
 
 		//Make this object and all children use the Dodge physics layer
 		foreach (Transform t in GetComponentsInChildren<Transform>()) {
@@ -402,6 +404,7 @@ public class Fighter : MonoBehaviour
 		}
 
 		blocking = false;
+		this.GetComponentInChildren<Animator> ().SetBool ("Dodge2", false);
 	}
 
 	/// SPECIAL ATTACK
