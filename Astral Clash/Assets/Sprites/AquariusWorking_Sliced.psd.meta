@@ -1,0 +1,353 @@
+fileFormatVersion: 2
+guid: c2975b0fca580954f940cc062d4136b4
+timeCreated: 1445648010
+licenseType: Free
+TextureImporter:
+  fileIDToRecycleName:
+    21300000: Head
+    21300002: upperBody
+    21300004: LeftUpperArm
+    21300006: leftThigh
+    21300008: LeftHand
+    21300010: LeftLeg
+    21300012: AquariusWorking_Sliced_6
+    21300014: AquariusWorking_Sliced_7
+    21300016: Jug
+    21300018: Neck
+    21300020: AquariusWorking_Sliced_10
+    21300022: Hips
+    21300024: AquariusWorking_Sliced_12
+    21300026: RightUpperArm
+    21300028: AquariusWorking_Sliced_14
+    21300030: LeftFoot
+    21300032: AquariusWorking_Sliced_16
+    21300034: AquariusWorking_Sliced_17
+    21300036: AquariusWorking_Sliced_18
+    21300038: RightForeArm
+    21300040: BackDressMid
+    21300042: RightThigh
+    21300044: AquariusWorking_Sliced_22
+    21300046: RightHand
+    21300048: BackDressBottom
+    21300050: RightLeg
+    21300052: RightFoot
+  serializedVersion: 2
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 1
+    linearTexture: 0
+    correctGamma: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: .25
+    normalMapFilter: 0
+  isReadable: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 0
+  cubemapConvolution: 0
+  cubemapConvolutionSteps: 8
+  cubemapConvolutionExponent: 1.5
+  seamlessCubemap: 0
+  textureFormat: -3
+  maxTextureSize: 8192
+  textureSettings:
+    filterMode: -1
+    aniso: 16
+    mipBias: -1
+    wrapMode: 1
+  nPOTScale: 0
+  lightmap: 0
+  rGBM: 0
+  compressionQuality: 50
+  allowsAlphaSplitting: 0
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: .5, y: .5}
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spritePixelsToUnits: 100
+  alphaIsTransparency: 1
+  textureType: 8
+  buildTargetSettings: []
+  spriteSheet:
+    sprites:
+    - name: Head
+      rect:
+        serializedVersion: 2
+        x: 98
+        y: 2097
+        width: 960
+        height: 1088
+      alignment: 9
+      pivot: {x: .534443855, y: .162314922}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: upperBody
+      rect:
+        serializedVersion: 2
+        x: 1134
+        y: 2384
+        width: 515
+        height: 610
+      alignment: 9
+      pivot: {x: .557071805, y: .0723688826}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: LeftUpperArm
+      rect:
+        serializedVersion: 2
+        x: 1792
+        y: 2882
+        width: 134
+        height: 204
+      alignment: 9
+      pivot: {x: .170984074, y: .752138615}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: leftThigh
+      rect:
+        serializedVersion: 2
+        x: 2168
+        y: 2716
+        width: 219
+        height: 364
+      alignment: 9
+      pivot: {x: .466447949, y: .711962998}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: LeftHand
+      rect:
+        serializedVersion: 2
+        x: 1824
+        y: 2594
+        width: 156
+        height: 98
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: LeftLeg
+      rect:
+        serializedVersion: 2
+        x: 2046
+        y: 2051
+        width: 319
+        height: 574
+      alignment: 9
+      pivot: {x: .707310617, y: .903245866}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: AquariusWorking_Sliced_6
+      rect:
+        serializedVersion: 2
+        x: 1708
+        y: 2109
+        width: 17
+        height: 9
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: AquariusWorking_Sliced_7
+      rect:
+        serializedVersion: 2
+        x: 406
+        y: 2031
+        width: 50
+        height: 20
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: Jug
+      rect:
+        serializedVersion: 2
+        x: 1363
+        y: 1382
+        width: 658
+        height: 673
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: Neck
+      rect:
+        serializedVersion: 2
+        x: 363
+        y: 1823
+        width: 190
+        height: 198
+      alignment: 7
+      pivot: {x: .5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: AquariusWorking_Sliced_10
+      rect:
+        serializedVersion: 2
+        x: 1069
+        y: 2007
+        width: 12
+        height: 4
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: Hips
+      rect:
+        serializedVersion: 2
+        x: 679
+        y: 1382
+        width: 552
+        height: 594
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: AquariusWorking_Sliced_12
+      rect:
+        serializedVersion: 2
+        x: 2022
+        y: 1811
+        width: 9
+        height: 27
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: RightUpperArm
+      rect:
+        serializedVersion: 2
+        x: 290
+        y: 1193
+        width: 345
+        height: 518
+      alignment: 9
+      pivot: {x: .105975077, y: .833356798}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: AquariusWorking_Sliced_14
+      rect:
+        serializedVersion: 2
+        x: 300
+        y: 1637
+        width: 17
+        height: 45
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: LeftFoot
+      rect:
+        serializedVersion: 2
+        x: 2086
+        y: 1636
+        width: 302
+        height: 150
+      alignment: 9
+      pivot: {x: .317515403, y: .695948064}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: AquariusWorking_Sliced_16
+      rect:
+        serializedVersion: 2
+        x: 135
+        y: 1484
+        width: 18
+        height: 108
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: AquariusWorking_Sliced_17
+      rect:
+        serializedVersion: 2
+        x: 217
+        y: 1560
+        width: 10
+        height: 9
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: AquariusWorking_Sliced_18
+      rect:
+        serializedVersion: 2
+        x: 290
+        y: 1521
+        width: 5
+        height: 34
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: RightForeArm
+      rect:
+        serializedVersion: 2
+        x: 202
+        y: 583
+        width: 478
+        height: 501
+      alignment: 9
+      pivot: {x: .284785509, y: .852001548}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: BackDressMid
+      rect:
+        serializedVersion: 2
+        x: 1115
+        y: 749
+        width: 664
+        height: 539
+      alignment: 9
+      pivot: {x: .59406364, y: .847634256}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: RightThigh
+      rect:
+        serializedVersion: 2
+        x: 2103
+        y: 995
+        width: 254
+        height: 406
+      alignment: 9
+      pivot: {x: .514240563, y: .840518415}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: AquariusWorking_Sliced_22
+      rect:
+        serializedVersion: 2
+        x: 1810
+        y: 969
+        width: 12
+        height: 19
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: RightHand
+      rect:
+        serializedVersion: 2
+        x: 48
+        y: 48
+        width: 283
+        height: 197
+      alignment: 9
+      pivot: {x: .192667797, y: .581194103}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: BackDressBottom
+      rect:
+        serializedVersion: 2
+        x: 429
+        y: 44
+        width: 1409
+        height: 652
+      alignment: 9
+      pivot: {x: .781613529, y: .888814747}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: RightLeg
+      rect:
+        serializedVersion: 2
+        x: 2152
+        y: 388
+        width: 250
+        height: 476
+      alignment: 9
+      pivot: {x: .397127926, y: .831896484}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: RightFoot
+      rect:
+        serializedVersion: 2
+        x: 2207
+        y: 151
+        width: 316
+        height: 148
+      alignment: 9
+      pivot: {x: .279094458, y: .72342062}
+      border: {x: 0, y: 0, z: 0, w: 0}
+  spritePackingTag: 
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

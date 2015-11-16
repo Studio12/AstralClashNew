@@ -20,6 +20,7 @@ public class RingOut : MonoBehaviour {
 		
 			print("Player collided");
 			collide.GetComponent<Fighter>().Ringout();
+			GetComponent<AudioSource>().Play();
 		
 		}
 
