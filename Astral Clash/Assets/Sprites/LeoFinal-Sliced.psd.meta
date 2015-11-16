@@ -1,0 +1,309 @@
+fileFormatVersion: 2
+guid: 3e40fb2a149df114eb78205859481cba
+timeCreated: 1446677530
+licenseType: Free
+TextureImporter:
+  fileIDToRecycleName:
+    21300000: Mane
+    21300002: Head
+    21300004: l_UpperArm
+    21300006: Chest
+    21300008: Neck
+    21300010: l_ForeArm
+    21300012: LeoFinal-Sliced_6
+    21300014: LeoFinal-Sliced_7
+    21300016: LeoFinal-Sliced_8
+    21300018: LeoFinal-Sliced_9
+    21300020: l_hand
+    21300022: LeoFinal-Sliced_11
+    21300024: hips
+    21300026: r_Thigh
+    21300028: r_UpperArm
+    21300030: tail
+    21300032: l_Thigh
+    21300034: r_ForeArm
+    21300036: r_Foot
+    21300038: r_Leg
+    21300040: l_leg
+    21300042: r_hand
+    21300044: l_foot
+  serializedVersion: 2
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 1
+    linearTexture: 0
+    correctGamma: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: .25
+    normalMapFilter: 0
+  isReadable: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 0
+  cubemapConvolution: 0
+  cubemapConvolutionSteps: 8
+  cubemapConvolutionExponent: 1.5
+  seamlessCubemap: 0
+  textureFormat: -3
+  maxTextureSize: 8192
+  textureSettings:
+    filterMode: -1
+    aniso: 16
+    mipBias: -1
+    wrapMode: 1
+  nPOTScale: 0
+  lightmap: 0
+  rGBM: 0
+  compressionQuality: 50
+  allowsAlphaSplitting: 0
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: .5, y: .5}
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spritePixelsToUnits: 100
+  alphaIsTransparency: 1
+  textureType: 8
+  buildTargetSettings: []
+  spriteSheet:
+    sprites:
+    - name: Mane
+      rect:
+        serializedVersion: 2
+        x: 38
+        y: 1045
+        width: 1283
+        height: 2502
+      alignment: 9
+      pivot: {x: .846757412, y: .865238845}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: Head
+      rect:
+        serializedVersion: 2
+        x: 1601
+        y: 2833
+        width: 553
+        height: 710
+      alignment: 9
+      pivot: {x: .536239207, y: .110488422}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: l_UpperArm
+      rect:
+        serializedVersion: 2
+        x: 2314
+        y: 2900
+        width: 551
+        height: 489
+      alignment: 9
+      pivot: {x: .0853774399, y: .877031982}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: Chest
+      rect:
+        serializedVersion: 2
+        x: 1592
+        y: 1920
+        width: 601
+        height: 846
+      alignment: 9
+      pivot: {x: .542116165, y: .0788677409}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: Neck
+      rect:
+        serializedVersion: 2
+        x: 1365
+        y: 2785
+        width: 237
+        height: 237
+      alignment: 9
+      pivot: {x: .466178268, y: .246327594}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: l_ForeArm
+      rect:
+        serializedVersion: 2
+        x: 2329
+        y: 2428
+        width: 430
+        height: 354
+      alignment: 9
+      pivot: {x: .136483133, y: .160336941}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: LeoFinal-Sliced_6
+      rect:
+        serializedVersion: 2
+        x: 2547
+        y: 2242
+        width: 5
+        height: 5
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: LeoFinal-Sliced_7
+      rect:
+        serializedVersion: 2
+        x: 2560
+        y: 2232
+        width: 10
+        height: 12
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: LeoFinal-Sliced_8
+      rect:
+        serializedVersion: 2
+        x: 2574
+        y: 2237
+        width: 9
+        height: 13
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: LeoFinal-Sliced_9
+      rect:
+        serializedVersion: 2
+        x: 2642
+        y: 2232
+        width: 5
+        height: 5
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: l_hand
+      rect:
+        serializedVersion: 2
+        x: 2314
+        y: 1981
+        width: 462
+        height: 237
+      alignment: 9
+      pivot: {x: .152986333, y: .483088374}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: LeoFinal-Sliced_11
+      rect:
+        serializedVersion: 2
+        x: 2782
+        y: 2153
+        width: 6
+        height: 7
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: hips
+      rect:
+        serializedVersion: 2
+        x: 1436
+        y: 1363
+        width: 761
+        height: 565
+      alignment: 9
+      pivot: {x: .588574827, y: .790435791}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: r_Thigh
+      rect:
+        serializedVersion: 2
+        x: 1398
+        y: 802
+        width: 286
+        height: 560
+      alignment: 9
+      pivot: {x: .515067875, y: .842056632}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: r_UpperArm
+      rect:
+        serializedVersion: 2
+        x: 2365
+        y: 1087
+        width: 327
+        height: 642
+      alignment: 9
+      pivot: {x: .671596527, y: .812150538}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: tail
+      rect:
+        serializedVersion: 2
+        x: 509
+        y: 398
+        width: 571
+        height: 502
+      alignment: 9
+      pivot: {x: .942215621, y: .883236229}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: l_Thigh
+      rect:
+        serializedVersion: 2
+        x: 1836
+        y: 782
+        width: 301
+        height: 506
+      alignment: 9
+      pivot: {x: .514844656, y: .853908241}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: r_ForeArm
+      rect:
+        serializedVersion: 2
+        x: 2263
+        y: 741
+        width: 430
+        height: 211
+      alignment: 9
+      pivot: {x: .229692042, y: .689952374}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: r_Foot
+      rect:
+        serializedVersion: 2
+        x: 934
+        y: 41
+        width: 284
+        height: 294
+      alignment: 9
+      pivot: {x: .260083705, y: .840817511}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: r_Leg
+      rect:
+        serializedVersion: 2
+        x: 1411
+        y: 307
+        width: 224
+        height: 452
+      alignment: 9
+      pivot: {x: .625250697, y: .845824003}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: l_leg
+      rect:
+        serializedVersion: 2
+        x: 1832
+        y: 191
+        width: 236
+        height: 524
+      alignment: 9
+      pivot: {x: .550950408, y: .890093029}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: r_hand
+      rect:
+        serializedVersion: 2
+        x: 2263
+        y: 270
+        width: 498
+        height: 329
+      alignment: 9
+      pivot: {x: .194167778, y: .841107845}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: l_foot
+      rect:
+        serializedVersion: 2
+        x: 2215
+        y: 52
+        width: 257
+        height: 157
+      alignment: 9
+      pivot: {x: .250474036, y: .780816257}
+      border: {x: 0, y: 0, z: 0, w: 0}
+  spritePackingTag: 
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
