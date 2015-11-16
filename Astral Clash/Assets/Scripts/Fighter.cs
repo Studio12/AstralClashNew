@@ -59,6 +59,7 @@ public class Fighter : MonoBehaviour
 	public GameObject curPlatform; 		//Current platform the character is on.
 	public bool AIJump = false; 		//AI controlling movement for jump state.
 	public bool dodgeDelay = false;
+	public bool jump2 = true;
 
 
 
@@ -69,7 +70,7 @@ public class Fighter : MonoBehaviour
 		health = maxHealth;
 		dodgeCool = 0;
 		cooldown = 0;
-		jumpPower = Mathf.Sqrt (8 * Physics2D.gravity.y * -1 * 12); 			//Minimum jump height equals number on right in y units
+		jumpPower = Mathf.Sqrt (8 * Physics2D.gravity.y * -1 * 6); 			//Minimum jump height equals number on right in y units
 		resetJumpVal = 1800;
 		negAcc = 150;
 		exJump = resetJumpVal;
@@ -140,7 +141,7 @@ public class Fighter : MonoBehaviour
 				}
 
 				//If character is attempting to jump
-				if (jumping == true) {
+				if (Input.GetButtonDown("Jump"+playID.ToString())) {
 
 					//If character is on the ground
 					if (isGrounded) {
@@ -153,15 +154,22 @@ public class Fighter : MonoBehaviour
 					} 
 
 					//If character isn't on the ground
-//					else if (!isGrounded) {
+					else if (!isGrounded) {
 
+						if(jump2){
+
+							jump2 = false;
+							GetComponent<Rigidbody2D> ().velocity = new Vector2 (this.GetComponent<Rigidbody2D> ().velocity.x, jumpPower);
+							this.GetComponentInChildren<Animator> ().SetBool ("Jump", true);
+
+						}
 						//While button is held, add a diminishing force to the jump for extra height.
 						//exJump+((exJump-negAcc)*(exJump/negAcc))
 //						GetComponent<Rigidbody2D> ().AddForce (new Vector2 (0, exJump));
 //						if (exJump > 0)
 //							exJump -= negAcc;
 //						
-//					}
+					}
 				}
 			}
 
@@ -435,6 +443,27 @@ public class Fighter : MonoBehaviour
 			
 			s.color = new Color (1, 1, 1);
 			
+		}
+
+	}
+
+	IEnumerator ShowStarMax(){
+
+		while (stars == starMax) {
+		
+			foreach (SpriteRenderer s in GetComponentsInChildren<SpriteRenderer>()) {
+				
+				s.color = new Color(.5f,.5f,1);
+				
+			}
+			yield return new WaitForFixedUpdate();
+			foreach (SpriteRenderer s in GetComponentsInChildren<SpriteRenderer>()) {
+				
+				s.color = new Color(1f,1f,1);
+				
+			}
+			yield return new WaitForFixedUpdate();
+		
 		}
 
 	}

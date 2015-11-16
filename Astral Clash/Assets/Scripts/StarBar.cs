@@ -5,9 +5,13 @@ public class StarBar : MonoBehaviour {
 
 	public GameObject character;
 	public GameObject[] stars;
+	public Sprite[] spriteswitch;
+	public SpriteRenderer parSprite;
 
 	// Use this for initialization
 	void Start () {
+
+		parSprite = transform.parent.GetComponent<SpriteRenderer> ();
 	
 	}
 	
@@ -27,6 +31,9 @@ public class StarBar : MonoBehaviour {
 				if (stars [2].activeSelf == true) {
 					stars [2].SetActive (false);
 				}
+				if(parSprite.sprite == spriteswitch[1]){
+					parSprite.sprite = spriteswitch[0];
+				}
 				break;
 
 			case 1:
@@ -38,6 +45,9 @@ public class StarBar : MonoBehaviour {
 				}
 				if (stars [2].activeSelf == true) {
 					stars [2].SetActive (false);
+				}
+				if(parSprite.sprite == spriteswitch[1]){
+					parSprite.sprite = spriteswitch[0];
 				}
 				break;
 
@@ -51,6 +61,9 @@ public class StarBar : MonoBehaviour {
 				if (stars [2].activeSelf == true) {
 					stars [2].SetActive (false);
 				}
+				if(parSprite.sprite == spriteswitch[1]){
+					parSprite.sprite = spriteswitch[0];
+				}
 				break;
 
 			case 3:
@@ -62,6 +75,9 @@ public class StarBar : MonoBehaviour {
 				}
 				if (stars [2].activeSelf == false) {
 					stars [2].SetActive (true);
+				}
+				if(parSprite.sprite == spriteswitch[0]){
+					parSprite.sprite = spriteswitch[1];
 				}
 				break;
 		

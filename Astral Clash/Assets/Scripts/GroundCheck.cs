@@ -21,6 +21,7 @@ public class GroundCheck : MonoBehaviour {
 		if (coll.gameObject.tag == "Platform") {
 			ThePlayer.isGrounded = true;
 			ThePlayer.exJump = ThePlayer.resetJumpVal;
+			ThePlayer.jump2 = true;
 			ThePlayer.curPlatform = coll.gameObject;
 			animRef.GetComponent<Animator>().SetBool("Jump", false);
 		}
