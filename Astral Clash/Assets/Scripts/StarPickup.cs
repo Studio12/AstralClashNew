@@ -128,8 +128,8 @@ public class StarPickup : MonoBehaviour {
 	}
 
 	void OnBecameInvisible(){
-		if (this.gameObject != null) {
-			RaycastHit2D ray = Physics2D.Linecast (this.transform.position, box.transform.position, layer);
+		if (this.gameObject != null && box != null) {
+			RaycastHit2D ray = Physics2D.Linecast (transform.position, box.transform.position, layer);
 			if (ray.collider != null) {
 				indObj = (GameObject)Instantiate (indicator, ray.point, Quaternion.Euler (0, 0, 0));
 				indObj.GetComponent<Indicator> ().indicated = this.gameObject;
