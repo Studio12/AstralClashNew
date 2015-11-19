@@ -134,7 +134,7 @@ public class StarPickup : MonoBehaviour {
 				indObj = (GameObject)Instantiate (indicator, ray.point, Quaternion.Euler (0, 0, 0));
 				indObj.GetComponent<Indicator> ().indicated = this.gameObject;
 				indObj.GetComponent<Indicator> ().box = box;
-				indObj.name = "StarInd" + Random.value.ToString ();
+				//indObj.name = "StarInd" + Random.value.ToString ();
 			}
 		}
 

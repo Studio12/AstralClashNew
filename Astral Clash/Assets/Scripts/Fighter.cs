@@ -101,6 +101,12 @@ public class Fighter : MonoBehaviour
 
 		} else {
 
+			if (isGrounded == true && attacking == true) {
+				
+				this.GetComponent<Rigidbody2D> ().velocity = new Vector2 (0, 0);
+				
+			}
+
 			//Blocking state
 			if (blocking == true) {
 
@@ -124,6 +130,17 @@ public class Fighter : MonoBehaviour
 				GetComponentInChildren<Animator> ().SetBool ("Block", false);
 				GetComponent<Rigidbody2D> ().velocity = new Vector2 (direction * speed * 0.25f, GetComponent<Rigidbody2D> ().velocity.y);
 
+//				if(direction != 0 && !isGrounded && GetComponent<AudioSource>().isPlaying == false){
+//
+//					GetComponent<AudioSource>().loop = true;
+//					PlaySound(Sounds[5]);
+//
+//				}else{
+//
+//					GetComponent<AudioSource>().loop = false;
+//
+//				}
+
 				//If not paused, then set character rotation to look in moving direction
 				if (Time.timeScale > 0) {
 					transform.LookAt (transform.position + new Vector3 (0, 0, direction));
@@ -133,6 +150,11 @@ public class Fighter : MonoBehaviour
 				if (direction != 0) {
 
 					this.GetComponentInChildren<Animator> ().SetBool ("Run", true);
+					if(isGrounded && GetComponent<AudioSource>().isPlaying == false){
+
+						PlaySound(Sounds[5]);
+
+					}
 				
 				} else {
 
@@ -150,6 +172,7 @@ public class Fighter : MonoBehaviour
 						isGrounded = false;
 						GetComponent<Rigidbody2D> ().velocity = new Vector2 (this.GetComponent<Rigidbody2D> ().velocity.x, jumpPower);
 						this.GetComponentInChildren<Animator> ().SetBool ("Jump", true);
+						PlaySound(Sounds[6]);
 						
 					} 
 
@@ -160,7 +183,8 @@ public class Fighter : MonoBehaviour
 
 							jump2 = false;
 							GetComponent<Rigidbody2D> ().velocity = new Vector2 (this.GetComponent<Rigidbody2D> ().velocity.x, jumpPower);
-							this.GetComponentInChildren<Animator> ().SetBool ("Jump", true);
+							GetComponentInChildren<Animator>().Play("jumping", -1, 0f);
+							PlaySound(Sounds[6]);
 
 						}
 						//While button is held, add a diminishing force to the jump for extra height.
@@ -186,7 +210,7 @@ public class Fighter : MonoBehaviour
 	/// PERFORM ATTACK
 	/// Takes an attack type, and performs all relevant actions of that attack.
 	///
-	IEnumerator PerformAttack (Attack attack)
+	IEnumerator PerformAttack (Attack attack, int attnum)
 	{
 
 		print ("Whoosh from " + gameObject.name);
@@ -196,12 +220,7 @@ public class Fighter : MonoBehaviour
 		attacking = true;							//Character is attacking
 		cooldown = attack.recovery + attack.prep;	//Cooldown for next attack waits til current is done
 
-		//If attacking on the ground, prevent movement. Otherwise, character will continue to move in air.
-		if (isGrounded == true) {
-		
-			this.GetComponent<Rigidbody2D> ().velocity = new Vector2 (0, 0);
-		
-		}
+
 
 		//While the attack hasn't yet happened
 		while (waitedTime<attack.prep) {
@@ -225,12 +244,27 @@ public class Fighter : MonoBehaviour
 			//Send out raycast to see if something is hit. Length of raycast is attack's reach.
 			RaycastHit2D hit = Physics2D.Raycast (transform.position, transform.right, attack.reach);
 
+			if(charType == "Taurus"){
+				switch(attnum){
+				case 1:
+					PlaySound(Sounds[7]);
+					break;
+				case 3:
+					PlaySound(Sounds[8]);
+					break;
+				default:
+					break;
+				}
+			}
+
 			//If it hits something, that's not the current character
 			if (hit.collider != null && hit.collider != this.GetComponent<Collider2D> ()) {
 
 				print ("Pow from " + gameObject.name);
 				//If the object hit is another fighter
 				if (hit.collider.gameObject.GetComponent<Fighter> ()) {
+
+					PlaySound(Sounds[attnum]);
 
 					//Reduce health and armor
 					hit.collider.SendMessage ("Damage", attack.damage);
@@ -268,21 +302,21 @@ public class Fighter : MonoBehaviour
 	public void LightAttack ()
 	{
 		if (cooldown <= 0) {
-			StartCoroutine (PerformAttack (lightAttack));
+			StartCoroutine (PerformAttack (lightAttack, 1));
 			this.GetComponentInChildren<Animator> ().SetTrigger ("Light");
 		}
 	}
 	public void MediumAttack ()
 	{
 		if (cooldown <= 0) {
-			StartCoroutine (PerformAttack (mediumAttack));
+			StartCoroutine (PerformAttack (mediumAttack, 2));
 			this.GetComponentInChildren<Animator> ().SetTrigger ("Medium");
 		}
 	}
 	public void HeavyAttack ()
 	{
 		if (cooldown <= 0) {
-			StartCoroutine (PerformAttack (heavyAttack));
+			StartCoroutine (PerformAttack (heavyAttack, 3));
 			this.GetComponentInChildren<Animator> ().SetTrigger ("Heavy");
 		}
 	}
@@ -409,6 +443,7 @@ public class Fighter : MonoBehaviour
 			//Set special attack animation, trigger special attack, and reset special stars
 			print ("Special Attack button pressed");
 			this.GetComponentInChildren<Animator> ().SetTrigger ("Special");
+			PlaySound(Sounds[0]);
 			specialControl.GetComponent<SpecialAttack> ().Special (charType, this.gameObject);
 			
 			stars = 0;

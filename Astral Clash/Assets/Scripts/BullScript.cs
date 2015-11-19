@@ -59,7 +59,7 @@ public class BullScript : MonoBehaviour {
 		indObj = (GameObject)Instantiate (indicator, ray.point, Quaternion.Euler (0, 0, 0));
 		indObj.GetComponent<Indicator>().indicated = this.gameObject;
 		indObj.GetComponent<Indicator> ().box = box;
-		indObj.name = "BullInd" + Random.value.ToString ();
+		//indObj.name = "BullInd" + Random.value.ToString ();
 
 
 	}
