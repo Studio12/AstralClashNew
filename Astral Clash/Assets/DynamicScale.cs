@@ -84,8 +84,6 @@ public class DynamicScale : MonoBehaviour {
 		
 		Vector2 dimensions = new Vector2(width,height);
 
-		print (dimensions);
-
 		return dimensions;
 	}
 
