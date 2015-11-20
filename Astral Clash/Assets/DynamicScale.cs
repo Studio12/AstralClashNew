@@ -9,6 +9,10 @@ public class DynamicScale : MonoBehaviour {
 	public float minY;
 	public float maxX;
 	public float maxY;
+	public float minBoundsX;
+	public float maxBoundsX;
+	public float minBoundsY;
+	public float maxBoundsY;
 	public GameObject[] players;
 	public Vector2 cameraBuffer = new Vector2(0,7);
 	public float camSize = 2f;
@@ -16,8 +20,6 @@ public class DynamicScale : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-	
-	
 	}
 	
 	// Update is called once per frame
@@ -26,7 +28,6 @@ public class DynamicScale : MonoBehaviour {
 		//ChangeScale ();
 		CalculateBounds ();
 		CalculateCameraPosAndSize ();
-
 
 	}
 
@@ -62,23 +63,28 @@ public class DynamicScale : MonoBehaviour {
 			cameraCenter += player.transform.position;
 		}
 		Vector3 finalCameraCenter = new Vector3(cameraCenter.x / players.Length, cameraCenter.y/players.Length, -10);
-		transform.position = finalCameraCenter;//Vector3.Lerp(transform.position, finalCameraCenter, camSpeed * Time.deltaTime);
+		//transform.position -= (transform.position - finalCameraCenter) * (1/camSpeed);
+		//transform.position = new Vector3 (Mathf.Clamp (transform.position.x, minBoundsX + (CalculateScreenSizeInWorldCoords().x / 2), maxBoundsX - (CalculateScreenSizeInWorldCoords().x / 2)), Mathf.Clamp (transform.position.y, minBoundsY + (CalculateScreenSizeInWorldCoords().y / 2), maxBoundsY - (CalculateScreenSizeInWorldCoords().y / 2)),transform.position.z);
+		transform.position = new Vector3 (Mathf.Clamp (transform.position.x - (transform.position.x - finalCameraCenter.x) * (1/camSpeed), minBoundsX + (CalculateScreenSizeInWorldCoords().x / 2), maxBoundsX - (CalculateScreenSizeInWorldCoords().x / 2)), Mathf.Clamp (transform.position.y, minBoundsY + (CalculateScreenSizeInWorldCoords().y / 2), maxBoundsY - (CalculateScreenSizeInWorldCoords().y / 2)),transform.position.z);
 		//Size
 		float sizeX = maxX - minX + cameraBuffer.x;
 		float sizeY = maxY - minY + cameraBuffer.y;
 		camSize = (sizeX > sizeY ? sizeX : sizeY);
-		if (camSize * .5f > 10 && camSize * .5f < 20) {
-			Camera.main.orthographicSize = camSize * 0.5f;
-		}else if(camSize * .5f > 20){
+		Camera.main.orthographicSize -= (Camera.main.orthographicSize - Mathf.Clamp(camSize * 0.5f,10f,20f)) * (1/camSpeed);
 
-			Camera.main.orthographicSize = 20f;
+	}
 
-		} else {
+	Vector2 CalculateScreenSizeInWorldCoords () {
+		Vector3 p1 = Camera.main.ViewportToWorldPoint(new Vector3(0,0,Camera.main.nearClipPlane));  
+		Vector3 p2 = Camera.main.ViewportToWorldPoint(new Vector3(1,0,Camera.main.nearClipPlane));
+		Vector3 p3 = Camera.main.ViewportToWorldPoint(new Vector3(1,1,Camera.main.nearClipPlane));
 		
-			Camera.main.orthographicSize = 10f;
+		float width = (p2 - p1).magnitude;
+		float height = (p3 - p2).magnitude;
 		
-		}
+		Vector2 dimensions = new Vector2(width,height);
 
+		return dimensions;
 	}
 
 }
