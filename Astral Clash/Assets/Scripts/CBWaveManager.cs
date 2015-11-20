@@ -36,7 +36,7 @@ public class CBWaveManager : MonoBehaviour {
 		} else {
 			print ("Last wave");
 			GameManager.curMatch.p2 = Random.Range (4,6);
-			while((GameManager.curMatch.p2 - 4) == GameManager.curMatch.p1) GameManager.curMatch.p2 = Random.Range (4,6);
+			while((GameManager.curMatch.p2 - 4) == GameManager.curMatch.p1) GameManager.curMatch.p2 = Random.Range (4,8);
 			GameObject.Find ("GameManager").GetComponent<GameManager>().CreateCharacter (GameManager.curMatch.p2, 2);
 			GameObject.Find ("HealthBar2").GetComponentInChildren<TextMesh> ().text = roundManager.Players [1].GetComponent<Fighter>().charType;
 			GameObject.Destroy (roundManager.Players [1].transform.Find ("P2(Clone)").gameObject);

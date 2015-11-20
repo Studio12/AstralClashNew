@@ -37,10 +37,10 @@ public class CharSelect : Menu {
 		newIndicator.AddComponent<Image> ();
 		newIndicator.GetComponent<Image> ().sprite = indicators [Players - 1];
 		newIndicator.transform.position = EventSystem.current.currentSelectedGameObject.transform.position;
-		print (EventSystem.current.currentSelectedGameObject.GetComponent<RectTransform>().rect );
 		Vector2 buttonSize = new Vector2 (EventSystem.current.currentSelectedGameObject.GetComponent<RectTransform> ().rect.width, EventSystem.current.currentSelectedGameObject.GetComponent<RectTransform> ().rect.height);
 		newIndicator.GetComponent<RectTransform> ().sizeDelta = buttonSize;
 		newIndicator.GetComponent<RectTransform> ().transform.localScale = new Vector3 (1, 1, 1);
+		newIndicator.GetComponent<Image> ().raycastTarget = false;
 		spawnedIndicators.Add (newIndicator);
 		currentIndicator = newIndicator;
 	}
@@ -53,7 +53,7 @@ public class CharSelect : Menu {
 
 	public void updateIndicator ()
 	{
-		currentIndicator.transform.position = EventSystem.current.currentSelectedGameObject.transform.position;
+		if(currentIndicator) currentIndicator.transform.position = EventSystem.current.currentSelectedGameObject.transform.position;
 	}
 
 	public void printMessage (string message)
