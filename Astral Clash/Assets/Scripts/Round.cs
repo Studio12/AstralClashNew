@@ -16,6 +16,10 @@ public class Round : MonoBehaviour {
 	public bool roundStarted;
 	private GameObject SPWaves;
 	public GameObject CBWaveManager;
+	public AudioClip p1Wins;
+	public AudioClip p2Wins;
+	public AudioClip p3Wins;
+	public AudioClip p4Wins;
 
 
 	// Use this for initialization
@@ -117,15 +121,19 @@ public class Round : MonoBehaviour {
 
 			case 0:
 				winnerName = "Player 1";
+				this.GetComponent<AudioSource>().clip = p1Wins;
 				break;
 			case 1:
 				winnerName = "Player 2";
+				this.GetComponent<AudioSource>().clip = p2Wins;
 				break;
 			case 2:
 				winnerName = "Player 3";
+				this.GetComponent<AudioSource>().clip = p3Wins;
 				break;
 			case 3:
 				winnerName = "Player 4";
+				this.GetComponent<AudioSource>().clip = p4Wins;
 				break;
 			default:
 				break;
@@ -134,8 +142,13 @@ public class Round : MonoBehaviour {
 
 			OverText.text = "Match Over!";
 			OverText.gameObject.GetComponent<Renderer>().sortingOrder = 21;
-			if(Players.Count > 0) WinnerText.text = "Round winner is " + Players[0].name + "!\nFinal Winner: "+winnerName+"!";
-			else WinnerText.text = "Round is tied!\nFinal Winner: "+winnerName+"!";
+			if(Players.Count > 0){
+				WinnerText.text = "Round winner is " + Players[0].name + "!\nFinal Winner: "+winnerName+"!";
+				this.GetComponent<AudioSource>().Play ();
+			}
+			else {
+					WinnerText.text = "Round is tied!\nFinal Winner: "+winnerName+"!";
+				}
 			WinnerText.gameObject.GetComponent<Renderer>().sortingOrder = 21;
 			yield return new WaitForSeconds (3.0f);
 			GameManager.ChooseLevel ("MainMenu");
@@ -144,6 +157,7 @@ public class Round : MonoBehaviour {
 
 
 	}
+
 
 	int MaxValue (int[] wins){
 		int max = Mathf.Max (wins);

@@ -60,6 +60,11 @@ public class Fighter : MonoBehaviour
 	public bool AIJump = false; 		//AI controlling movement for jump state.
 	public bool dodgeDelay = false;
 	public bool jump2 = true;
+	public GameObject countdown;
+	public GameObject starObj;
+	public GameObject damParts;
+	public GameObject deathEffect;
+	public bool isDead = false;
 
 
 
@@ -77,12 +82,15 @@ public class Fighter : MonoBehaviour
 		this.GetComponentInChildren<Animator> ().SetTrigger ("OpenTaunt"); 	//Play opening taunt animation.
 		specialControl = GameObject.Find ("SpecialManager"); 				//Find the special attack controller in scene.
 		this.transform.position = SpawnPoint.transform.position; 			//Sets position to spawnpoint.
+		countdown = GameObject.Find ("Countdown");
 		
 	}
 	
 	// Update is called once per frame
 	void Update ()
 	{
+
+		if (countdown.activeSelf == false){
 		//Sets facing to left or right depending on direction float axis
 		if (direction > 0) {
 		
@@ -95,9 +103,10 @@ public class Fighter : MonoBehaviour
 		}
 
 		//If health is 0 or less, begin death routine, stop everything else
-		if (health <= 0) {
+			if (health <= 0 && isDead == false) {
 			
 			StartCoroutine ("Death");
+				isDead = true;
 
 		} else {
 
@@ -203,6 +212,7 @@ public class Fighter : MonoBehaviour
 			if (dodgeCool > 0)
 				dodgeCool -= Time.deltaTime;
 			Debug.DrawLine (transform.position, transform.position + transform.right * 1); //Line drawn in front of character for debug.
+			}
 		}
 	}
 
@@ -269,11 +279,16 @@ public class Fighter : MonoBehaviour
 					//Reduce health and armor
 					hit.collider.SendMessage ("Damage", attack.damage);
 					hit.collider.SendMessage ("ArmorDamage", attack.armorBreak);
+					StartCoroutine ("DamagePause");
+					if(attnum == 3 && hit.collider.GetComponent<Fighter>().stars>0){
+
+						hit.collider.gameObject.GetComponent<Fighter>().StarLoss();
+
+					}
 
 					//If attack has a knockback associated with it, knock back hit object, prevent their movement while knocked back, and set interrupt animation
 					if (attack.knockback > 0){
 						hit.collider.GetComponent<Fighter> ().isKnockedBack = true;
-						hit.collider.GetComponentInChildren<Animator> ().SetTrigger ("Interrupt");
 						hit.collider.GetComponent<Rigidbody2D> ().AddForce (new Vector2 (facing * attack.knockback, attack.knockback), ForceMode2D.Impulse);
 					}
 				}
@@ -303,21 +318,21 @@ public class Fighter : MonoBehaviour
 	{
 		if (cooldown <= 0) {
 			StartCoroutine (PerformAttack (lightAttack, 1));
-			this.GetComponentInChildren<Animator> ().SetTrigger ("Light");
+			this.GetComponentInChildren<Animator> ().Play ("lAttack", -1, 0f);
 		}
 	}
 	public void MediumAttack ()
 	{
 		if (cooldown <= 0) {
 			StartCoroutine (PerformAttack (mediumAttack, 2));
-			this.GetComponentInChildren<Animator> ().SetTrigger ("Medium");
+			this.GetComponentInChildren<Animator> ().Play ("mAttack", -1, 0f);
 		}
 	}
 	public void HeavyAttack ()
 	{
 		if (cooldown <= 0) {
 			StartCoroutine (PerformAttack (heavyAttack, 3));
-			this.GetComponentInChildren<Animator> ().SetTrigger ("Heavy");
+			this.GetComponentInChildren<Animator> ().Play ("hAttack", -1, 0f);
 		}
 	}
 
@@ -347,6 +362,19 @@ public class Fighter : MonoBehaviour
 	///
 	IEnumerator Death ()
 	{
+		GameObject deathObj = (GameObject)Instantiate (deathEffect, this.transform.position, this.transform.rotation);
+		deathObj.transform.SetParent (this.gameObject.transform);
+		for (int i = 0; i<150; i++) {
+			
+			yield return new WaitForSeconds(.01f);
+			foreach(SpriteRenderer s in GetComponentsInChildren<SpriteRenderer>()){
+
+				s.color = new Color (1,1,1, s.color.a - .02f);
+
+			}
+			
+			
+		}
 		yield return new WaitForSeconds (.1f);
 		Destroy (this.gameObject);
 	}
@@ -465,6 +493,9 @@ public class Fighter : MonoBehaviour
 	IEnumerator ShowDamage ()
 	{
 
+
+		Instantiate (damParts, transform.position, transform.rotation);
+
 		//Causes all children objects to take on a red tint
 		foreach (SpriteRenderer s in GetComponentsInChildren<SpriteRenderer>()) {
 		
@@ -474,6 +505,7 @@ public class Fighter : MonoBehaviour
 
 		//Waits .1s, changes back to normal
 		yield return new WaitForSeconds (.1f);
+
 		foreach (SpriteRenderer s in GetComponentsInChildren<SpriteRenderer>()) {
 			
 			s.color = new Color (1, 1, 1);
@@ -502,4 +534,22 @@ public class Fighter : MonoBehaviour
 		}
 
 	}
+
+	IEnumerator DamagePause(){
+	
+		Time.timeScale = .05f;
+		cooldown = 0f;
+		yield return new WaitForFixedUpdate();
+		Time.timeScale = 1f;
+	
+	}
+
+	public void StarLoss(){
+
+		stars--;
+		Instantiate (starObj, this.transform.position, this.transform.rotation);
+
+
+	}
+
 }

@@ -78,23 +78,25 @@ public class PauseMenu : MonoBehaviour {
 			if (Input.GetButtonDown ("Pause")) {
 		
 				paused = !paused;
+
+				if (paused) {
+					//selected=1;
+					PauseUI.SetActive (true);
+					Time.timeScale = 0;
+					
+				}
+				
+				if (!paused) {
+					selected = 0;
+					PauseUI.SetActive (false);
+					Time.timeScale = 1;
+					
+					
+				}
 		
 			}
 	
-			if (paused) {
-				//selected=1;
-				PauseUI.SetActive (true);
-				Time.timeScale = 0;
 
-			}
-	
-			if (!paused) {
-				selected = 0;
-				PauseUI.SetActive (false);
-				Time.timeScale = 1;
-
-
-			}
 		}
 	}
 	void selectOption(){
