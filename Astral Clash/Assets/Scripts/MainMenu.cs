@@ -18,6 +18,11 @@ public class MainMenu : Menu
 		match.p4 = -1;
 		match.Level = "FireStage SP";
 		charMenu.GetComponent<CharSelect> ().SetMatch (match);
+		Invoke ("SwitchToChars",1.5f);
+	}
+	
+	public void SwitchToChars()
+	{
 		SwitchTo (charMenu);
 	}
 

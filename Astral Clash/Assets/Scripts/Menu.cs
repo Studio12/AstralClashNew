@@ -4,6 +4,7 @@ using UnityEngine.EventSystems;
 
 public class Menu : MonoBehaviour {
 
+	public AudioClip entered;
 	public int selected;
 	public Match match;
 	public GameObject firstSelected;
@@ -17,6 +18,7 @@ public class Menu : MonoBehaviour {
 
 	void OnEnable () {
 		EventSystem.current.SetSelectedGameObject (firstSelected);
+		EventSystem.current.GetComponent<AudioSource>().PlayOneShot (entered);
 	}
 
 	// Update is called once per frame
