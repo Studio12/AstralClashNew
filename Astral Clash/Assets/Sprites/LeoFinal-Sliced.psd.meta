@@ -1,6 +1,6 @@
 fileFormatVersion: 2
 guid: 3e40fb2a149df114eb78205859481cba
-timeCreated: 1446677530
+timeCreated: 1447904075
 licenseType: Free
 TextureImporter:
   fileIDToRecycleName:
@@ -30,7 +30,7 @@ TextureImporter:
   serializedVersion: 2
   mipmaps:
     mipMapMode: 0
-    enableMipMap: 1
+    enableMipMap: 0
     linearTexture: 0
     correctGamma: 0
     fadeOut: 0
@@ -49,8 +49,8 @@ TextureImporter:
   cubemapConvolutionSteps: 8
   cubemapConvolutionExponent: 1.5
   seamlessCubemap: 0
-  textureFormat: -3
-  maxTextureSize: 8192
+  textureFormat: -1
+  maxTextureSize: 2048
   textureSettings:
     filterMode: -1
     aniso: 16
@@ -60,7 +60,6 @@ TextureImporter:
   lightmap: 0
   rGBM: 0
   compressionQuality: 50
-  allowsAlphaSplitting: 0
   spriteMode: 2
   spriteExtrude: 1
   spriteMeshType: 1
@@ -86,10 +85,10 @@ TextureImporter:
     - name: Head
       rect:
         serializedVersion: 2
-        x: 1601
-        y: 2833
-        width: 553
-        height: 710
+        x: 1650
+        y: 2816
+        width: 628
+        height: 731
       alignment: 9
       pivot: {x: .536239207, y: .110488422}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -106,20 +105,20 @@ TextureImporter:
     - name: Chest
       rect:
         serializedVersion: 2
-        x: 1592
-        y: 1920
-        width: 601
-        height: 846
+        x: 1594
+        y: 1941
+        width: 599
+        height: 825
       alignment: 9
       pivot: {x: .542116165, y: .0788677409}
       border: {x: 0, y: 0, z: 0, w: 0}
     - name: Neck
       rect:
         serializedVersion: 2
-        x: 1365
-        y: 2785
-        width: 237
-        height: 237
+        x: 1362
+        y: 2795
+        width: 276
+        height: 243
       alignment: 9
       pivot: {x: .466178268, y: .246327594}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -196,10 +195,10 @@ TextureImporter:
     - name: hips
       rect:
         serializedVersion: 2
-        x: 1436
-        y: 1363
-        width: 761
-        height: 565
+        x: 1394
+        y: 1382
+        width: 803
+        height: 546
       alignment: 9
       pivot: {x: .588574827, y: .790435791}
       border: {x: 0, y: 0, z: 0, w: 0}
