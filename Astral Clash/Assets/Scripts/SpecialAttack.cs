@@ -13,8 +13,6 @@ public class SpecialAttack : MonoBehaviour
 	void Start ()
 	{
 	
-		AudioListener.volume = .5f;
-	
 	}
 
 	void Update ()
@@ -32,8 +30,10 @@ public class SpecialAttack : MonoBehaviour
 			StartCoroutine ("SSpecial", player);
 			break;
 		case "Aquarius":
+			StartCoroutine("ASpecial", player);
 			break;
 		case "Leo":
+			StartCoroutine("LSpecial", player);
 			break;
 		default:
 			break;
@@ -115,18 +115,18 @@ public class SpecialAttack : MonoBehaviour
 	}
 
 
+	IEnumerator ASpecial(GameObject player){
+
+		yield return new WaitForEndOfFrame();
+
+	}
 
 
+	IEnumerator LSpecial(GameObject player){
 
+		yield return new WaitForEndOfFrame();
 
-
-
-
-
-
-
-
-
+	}
 
 
 }
