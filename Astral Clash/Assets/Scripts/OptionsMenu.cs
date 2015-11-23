@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 using System.Collections;
+using UnityEngine.EventSystems;
 
 public class OptionsMenu : Menu {
 
@@ -60,6 +61,7 @@ public class OptionsMenu : Menu {
 	public void SetSFX (float value) {
 		PlayerPrefs.SetFloat ("SFX Volume", value);
 		SFXVolumeDisplay.transform.Find ("Bars").GetComponent<Image>().sprite  = ValueSliders [Mathf.RoundToInt (value * 4)];
+		EventSystem.current.GetComponent<AudioSource> ().volume = PlayerPrefs.GetFloat ("SFX Volume");
 	}
 
 	public void Change360p (bool value)

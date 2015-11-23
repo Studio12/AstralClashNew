@@ -110,6 +110,14 @@ public class CharSelect : Menu {
 			}
 		
 		} if(Players == match.maxPlayers+1) {
+			if(match.Level == "SPPlaceholder")
+			{
+				//Stuff
+				if(match.p1 == 0) match.Level = "Arena SP";
+				else if(match.p1 == 1) match.Level = "Storm Coast SP";
+				else if(match.p1 == 2) match.Level = "starrySky SP";
+				else if(match.p1 == 3) match.Level = "FireStage SP";
+			}
 			Invoke ("BeginMatch",1.5f);
 		
 		}

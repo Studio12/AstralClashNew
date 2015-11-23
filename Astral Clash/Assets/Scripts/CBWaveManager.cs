@@ -14,6 +14,7 @@ public class CBWaveManager : MonoBehaviour {
 	void Start () {
 		player = roundManager.Players [0].GetComponent<Fighter> ();
 		roundManager.maxPlayers = 2;
+		player.stars = GameManager.roundNum;
 		NewWave ();
 	}
 
@@ -26,13 +27,11 @@ public class CBWaveManager : MonoBehaviour {
 	}
 
 	void NewWave () {
-		if ((GameManager.roundNum + 1) != 4) {
+		/*if ((GameManager.roundNum + 1) != 4) {
 			for (int i = 0; i < (GameManager.roundNum + 1); i++) {
 				GameObject spawnedBug = (GameObject)Instantiate (bug, GameObject.Find ("SpawnPoint2").transform.position, GameObject.Find ("SpawnPoint2").transform.rotation);
 				roundManager.Players.Add (spawnedBug);
 			}
-			//BugCount = (FindObjectsOfType (typeof(CometBug)) as CometBug[]).Length;
-			//roundManager.maxPlayers = BugCount + 1;
 		} else {
 			print ("Last wave");
 			GameManager.curMatch.p2 = Random.Range (4,6);
@@ -42,6 +41,10 @@ public class CBWaveManager : MonoBehaviour {
 			GameObject.Destroy (roundManager.Players [1].transform.Find ("P2(Clone)").gameObject);
 			//Bit of a hack so that the player's defeat at the hands of the boss won't trigger the "round over" message
 			roundManager.maxPlayers = 3;
+		}*/
+		for (int i = 0; i < (GameManager.roundNum + 1); i++) {
+			GameObject spawnedBug = (GameObject)Instantiate (bug, GameObject.Find ("SpawnPoint2").transform.position, GameObject.Find ("SpawnPoint2").transform.rotation);
+			roundManager.Players.Add (spawnedBug);
 		}
 	}
 
