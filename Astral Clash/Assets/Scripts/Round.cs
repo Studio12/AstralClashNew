@@ -33,7 +33,7 @@ public class Round : MonoBehaviour {
 	void Update () {
 	
 		if (roundStarted == true) {
-			if(Application.loadedLevelName == "FireStage SP" && CBWaveManager.activeSelf == false)
+			if(Application.loadedLevelName.IndexOf("SP") > -1 && CBWaveManager.activeSelf == false)
 			{
 				CBWaveManager.SetActive(true);
 				maxPlayers = 2;

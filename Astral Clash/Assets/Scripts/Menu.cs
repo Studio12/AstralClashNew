@@ -32,6 +32,7 @@ public class Menu : MonoBehaviour {
 	public void SwitchTo (GameObject newMenu)
 	{
 		newMenu.SetActive (true);
+		if(newMenu != prevMenu) newMenu.GetComponent<Menu> ().prevMenu = gameObject;
 		gameObject.SetActive (false);
 	}
 
@@ -41,9 +42,10 @@ public class Menu : MonoBehaviour {
 	}
 	
 	public virtual void BackMenu(){
-
-		EventSystem.current.GetComponent<AudioSource>().PlayOneShot (BackOutSound);
-		if(prevMenu) SwitchTo (prevMenu);
+		if (prevMenu) {
+			EventSystem.current.GetComponent<AudioSource>().PlayOneShot (BackOutSound);
+			SwitchTo(prevMenu);
+		}
 		
 	}
 }
