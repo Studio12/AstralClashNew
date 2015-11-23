@@ -35,7 +35,7 @@ public Fighter fighter;
 	// Update is called once per frame
 	void Update () {
 
-		this.GetComponent<SpriteRenderer> ().color = new Color (fighter.shieldhealth / 40, fighter.shieldhealth / 40, fighter.shieldhealth / 40);
+		this.GetComponent<SpriteRenderer> ().color = new Color (fighter.shieldHealth / 40, fighter.shieldHealth / 40, fighter.shieldHealth / 40);
 
 //		//This tests damage numbers
 //		/*if (Input.GetKeyDown (KeyCode.D)) {

@@ -70,9 +70,9 @@ public class Fighter : MonoBehaviour
 	public bool isDead = false;
 
 	public GameObject shield;
-	public bool shieldbroken = false;
-	public float shieldcooldown = 0;
-	public float shieldhealth;
+	public bool shieldBroken = false;
+	public float shieldCooldown = 0;
+	public float shieldHealth;
 
 
 
@@ -97,18 +97,18 @@ public class Fighter : MonoBehaviour
 	// Update is called once per frame
 	void Update ()
 	{
-		if (shieldbroken) {
+		if (shieldBroken) {
 
 			blocking = false;
 		
-			if(shieldcooldown>5){
+			if(shieldCooldown>5){
 
-				shieldbroken = false;
-				shieldcooldown = 0; 
+				shieldBroken = false;
+				shieldCooldown = 0; 
 
 			}else{
 
-				shieldcooldown+=Time.deltaTime;
+				shieldCooldown+=Time.deltaTime;
 
 			}
 		
@@ -244,13 +244,13 @@ public class Fighter : MonoBehaviour
 			Debug.DrawLine (transform.position, transform.position + transform.right * 1); //Line drawn in front of character for debug.
 			}
 
-			if(shieldhealth+(Time.deltaTime*8) >= 40){
+			if(shieldHealth+(Time.deltaTime*8) >= 40){
 
-				shieldhealth = 40;
+				shieldHealth = 40;
 
 			}else{
 
-				shieldhealth += Time.deltaTime*8;
+				shieldHealth += Time.deltaTime*8;
 
 			}
 
