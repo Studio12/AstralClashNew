@@ -21,6 +21,11 @@ public class AquaGrenade : MonoBehaviour {
 	public float maxArc;
 	//This thing has a rigidbody2d, so let's use it
 	public Rigidbody2D rig2d;
+
+	public float damage;
+	public float knockback;
+
+	public GameObject part;
 	
 	//So we know which direction Aquarius is facing----so the projectile goes in that direction
 	private int storeDirection;

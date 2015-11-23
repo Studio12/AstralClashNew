@@ -251,8 +251,9 @@ public class Fighter : MonoBehaviour
 		//If attack isn't interrupted
 		if (!armorBroken) {
 
+
 			//Send out raycast to see if something is hit. Length of raycast is attack's reach.
-			RaycastHit2D hit = Physics2D.Raycast (transform.position, transform.right, attack.reach);
+
 
 			if(charType == "Taurus"){
 				switch(attnum){
@@ -266,6 +267,9 @@ public class Fighter : MonoBehaviour
 					break;
 				}
 			}
+
+			if(!attack.projectile){
+				RaycastHit2D hit = Physics2D.Raycast (transform.position, transform.right, attack.reach);
 
 			//If it hits something, that's not the current character
 			if (hit.collider != null && hit.collider != this.GetComponent<Collider2D> ()) {
@@ -299,15 +303,21 @@ public class Fighter : MonoBehaviour
 				}
 
 			}
+			}
 
 			//If attack has a projectile, send it out
 			if (attack.projectile){
+				print("Spawning projectile");
 				GameObject proj = (GameObject)Instantiate (attack.projectile, transform.position, transform.rotation);
 				if(proj.GetComponent<AquaMissiles>()) {
 					proj.GetComponent<AquaMissiles>().aquaReal = gameObject;
 				}
 				else if(proj.GetComponent<AquaGrenade>()){
 					proj.GetComponent<AquaGrenade>().aquaHost = gameObject;
+				}else if(proj.GetComponent<LeoProj>()){
+
+					proj.GetComponent<LeoProj>().activator = gameObject;
+
 				}
 			}
 		}

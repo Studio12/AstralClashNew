@@ -11,13 +11,27 @@ public class AquaMissiles : MonoBehaviour {
 	public float lifeSpan;
 	//The damage it does
 	public int missileDamage;
-	
+
+	public float knockback;
+
+	public float facing;
+
+	public GameObject part;
 	
 	
 	
 	// Use this for initialization
 	void Start () {
 		Debug.Log ("Spawning " + gameObject.name);
+
+		facing = aquaReal.GetComponent<Fighter> ().facing;
+		if (facing == 0) {
+		
+			facing = 1;
+		
+		}
+		//transform.localScale = new Vector2(transform.localScale.x*facing, transform.localScale.y);
+
 	}
 	
 	// Update is called once per frame
