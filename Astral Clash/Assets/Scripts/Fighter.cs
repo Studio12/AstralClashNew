@@ -63,8 +63,16 @@ public class Fighter : MonoBehaviour
 	public GameObject countdown;
 	public GameObject starObj;
 	public GameObject damParts;
+	public GameObject Hit1;
+	public GameObject Hit2;
+	public GameObject Hit3;
 	public GameObject deathEffect;
 	public bool isDead = false;
+
+	public GameObject shield;
+	public bool shieldbroken = false;
+	public float shieldcooldown = 0;
+	public float shieldhealth;
 
 
 
@@ -89,6 +97,28 @@ public class Fighter : MonoBehaviour
 	// Update is called once per frame
 	void Update ()
 	{
+		if (shieldbroken) {
+
+			blocking = false;
+		
+			if(shieldcooldown>5){
+
+				shieldbroken = false;
+				shieldcooldown = 0; 
+
+			}else{
+
+				shieldcooldown+=Time.deltaTime;
+
+			}
+		
+		}
+
+		if (!blocking) {
+		
+			shield.SetActive(false);
+		
+		}
 
 		if (countdown.activeSelf == false){
 		//Sets facing to left or right depending on direction float axis
@@ -121,10 +151,10 @@ public class Fighter : MonoBehaviour
 
 				//Start block animation
 				GetComponentInChildren<Animator> ().SetBool ("Block", true);
+					shield.SetActive(true);
 
 				//If attempting movement while blocking and dodge cooldown done, begin dodge in direction
 				if (direction > .3 && dodgeCool <= 0) {
-					
 					StartCoroutine ("Dodge", 1);
 				} else if (direction < -.3 && dodgeCool <= 0) {
 					StartCoroutine ("Dodge", -1);
@@ -213,6 +243,17 @@ public class Fighter : MonoBehaviour
 				dodgeCool -= Time.deltaTime;
 			Debug.DrawLine (transform.position, transform.position + transform.right * 1); //Line drawn in front of character for debug.
 			}
+
+			if(shieldhealth+(Time.deltaTime*8) >= 40){
+
+				shieldhealth = 40;
+
+			}else{
+
+				shieldhealth += Time.deltaTime*8;
+
+			}
+
 		}
 	}
 
@@ -251,8 +292,9 @@ public class Fighter : MonoBehaviour
 		//If attack isn't interrupted
 		if (!armorBroken) {
 
+
 			//Send out raycast to see if something is hit. Length of raycast is attack's reach.
-			RaycastHit2D hit = Physics2D.Raycast (transform.position, transform.right, attack.reach);
+
 
 			if(charType == "Taurus"){
 				switch(attnum){
@@ -266,6 +308,9 @@ public class Fighter : MonoBehaviour
 					break;
 				}
 			}
+
+			if(!attack.projectile){
+				RaycastHit2D hit = Physics2D.Raycast (transform.position, transform.right, attack.reach);
 
 			//If it hits something, that's not the current character
 			if (hit.collider != null && hit.collider != this.GetComponent<Collider2D> ()) {
@@ -283,6 +328,9 @@ public class Fighter : MonoBehaviour
 					if(attnum == 3 && hit.collider.GetComponent<Fighter>().stars>0){
 
 						hit.collider.gameObject.GetComponent<Fighter>().StarLoss();
+							if(stars<starMax){
+								stars++;
+							}
 
 					}
 
@@ -299,15 +347,21 @@ public class Fighter : MonoBehaviour
 				}
 
 			}
+			}
 
 			//If attack has a projectile, send it out
 			if (attack.projectile){
+				print("Spawning projectile");
 				GameObject proj = (GameObject)Instantiate (attack.projectile, transform.position, transform.rotation);
 				if(proj.GetComponent<AquaMissiles>()) {
 					proj.GetComponent<AquaMissiles>().aquaReal = gameObject;
 				}
 				else if(proj.GetComponent<AquaGrenade>()){
 					proj.GetComponent<AquaGrenade>().aquaHost = gameObject;
+				}else if(proj.GetComponent<LeoProj>()){
+
+					proj.GetComponent<LeoProj>().activator = gameObject;
+
 				}
 			}
 		}
@@ -371,6 +425,7 @@ public class Fighter : MonoBehaviour
 	{
 		GameObject deathObj = (GameObject)Instantiate (deathEffect, this.transform.position, this.transform.rotation);
 		deathObj.transform.SetParent (this.gameObject.transform);
+		this.GetComponentInChildren<Animator> ().Play ("death", -1, 0f);
 		for (int i = 0; i<150; i++) {
 			
 			yield return new WaitForSeconds(.01f);
@@ -416,6 +471,8 @@ public class Fighter : MonoBehaviour
 	{
 		//Set time between dodges, and trigger dodge animation
 		dodgeCool = .5f;
+
+		shield.SetActive(false);
 
 		this.GetComponentInChildren<Animator> ().SetTrigger ("Dodge");
 
@@ -501,7 +558,25 @@ public class Fighter : MonoBehaviour
 	{
 
 
-		Instantiate (damParts, transform.position, transform.rotation);
+		Instantiate (damParts, new Vector2(transform.position.x, transform.position.y+1.5f), transform.rotation);
+
+		int r = Random.Range (0, 3);
+
+		switch (r) {
+		
+		case 0:
+			Instantiate(Hit1, new Vector2(transform.position.x, transform.position.y+1.5f), transform.rotation);
+			break;
+		case 1:
+			Instantiate(Hit2, new Vector2(transform.position.x, transform.position.y+1.5f), transform.rotation);
+			break;
+		case 2:
+			Instantiate(Hit3, new Vector2(transform.position.x, transform.position.y+1.5f), transform.rotation);
+			break;
+		default:
+			break;
+		
+		}
 
 		//Causes all children objects to take on a red tint
 		foreach (SpriteRenderer s in GetComponentsInChildren<SpriteRenderer>()) {
@@ -544,7 +619,7 @@ public class Fighter : MonoBehaviour
 
 	IEnumerator DamagePause(){
 	
-		Time.timeScale = .05f;
+		Time.timeScale = .08f;
 		cooldown = 0f;
 		yield return new WaitForFixedUpdate();
 		Time.timeScale = 1f;

@@ -3,6 +3,8 @@ using System.Collections;
 
 public class RingOut : MonoBehaviour {
 
+	public GameObject parts;
+
 	// Use this for initialization
 	void Start () {
 	
@@ -13,15 +15,33 @@ public class RingOut : MonoBehaviour {
 	
 	}
 
-	void OnTriggerEnter2D(Collider2D collide){
+//	void OnTriggerEnter2D(Collider2D collide){
+//
+//		print ("Something collided");
+//		if (collide.tag == "Player") {
+//		
+//			print("Player collided");
+//
+//			collide.GetComponent<Fighter>().Ringout();
+//			GetComponent<AudioSource>().Play();
+//		
+//		}
+//
+//	}
 
-		print ("Something collided");
-		if (collide.tag == "Player") {
+	void OnCollisionEnter2D(Collision2D collide){
+
+		if (collide.gameObject.tag == "Player") {
 		
-			print("Player collided");
-			collide.GetComponent<Fighter>().Ringout();
+			foreach (ContactPoint2D contact in collide.contacts) {
+		
+				GameObject particles = (GameObject)Instantiate (parts, contact.point, this.transform.rotation);
+				particles.GetComponent<Lookat>().killbox = this.gameObject;
+		
+			}
+
+			collide.gameObject.GetComponent<Fighter>().Ringout();
 			GetComponent<AudioSource>().Play();
-		
 		}
 
 	}
