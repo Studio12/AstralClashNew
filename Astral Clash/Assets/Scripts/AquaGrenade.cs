@@ -21,6 +21,12 @@ public class AquaGrenade : MonoBehaviour {
 	public float maxArc;
 	//This thing has a rigidbody2d, so let's use it
 	public Rigidbody2D rig2d;
+
+	public float damage;
+	public float knockback;
+	public float armorbreak;
+
+	public GameObject part;
 	
 	//So we know which direction Aquarius is facing----so the projectile goes in that direction
 	private int storeDirection;
@@ -33,33 +39,38 @@ public class AquaGrenade : MonoBehaviour {
 		refCamera = GameObject.FindWithTag ("MainCamera");
 		
 		storeDirection = aquaHost.GetComponent<Fighter> ().facing;
-		rig2d.AddForce(Vector2.up * projSpeedY);
+		if (storeDirection == 0) {
+		
+			storeDirection = 1;
+		
+		}
+		rig2d.AddForce(new Vector2(projSpeedX*storeDirection, projSpeedY), ForceMode2D.Impulse);
 	}
 	
 	// Update is called once per frame
 	void Update () {
 		lifeSpan -= Time.deltaTime;
-		if(lifeSpan <= 0) 
+		if (lifeSpan <= 0) {
 			Destroy (this.gameObject);
-		
-		arcSpan += Time.deltaTime;
-		if(arcSpan <= maxArc)
-			rig2d.AddForce(Vector2.up * projSpeedY);
-		
-		if(storeDirection == 1)
-			rig2d.velocity = new Vector2 (projSpeedX, rig2d.velocity.y);
-		else if(storeDirection == -1)
-			rig2d.velocity = new Vector2 (-projSpeedX, rig2d.velocity.y);
+		}
+//		arcSpan += Time.deltaTime;
+//		if(arcSpan <= maxArc)
+//			rig2d.AddForce(Vector2.up * projSpeedY);
+//		
+//		if(storeDirection == 1)
+//			rig2d.velocity = new Vector2 (projSpeedX, rig2d.velocity.y);
+//		else if(storeDirection == -1)
+//			rig2d.velocity = new Vector2 (-projSpeedX, rig2d.velocity.y);
 		
 	}
 	
-	void FixedUpdate(){
-		
-		if (rig2d.velocity.x > maxSpeedX)
-			rig2d.velocity = new Vector2 (maxSpeedX, rig2d.velocity.y);
-		if (rig2d.velocity.x < -maxSpeedX)
-			rig2d.velocity = new Vector2 (-maxSpeedX, rig2d.velocity.y);
-	}
+//	void FixedUpdate(){
+//		
+//		if (rig2d.velocity.x > maxSpeedX)
+//			rig2d.velocity = new Vector2 (maxSpeedX, rig2d.velocity.y);
+//		if (rig2d.velocity.x < -maxSpeedX)
+//			rig2d.velocity = new Vector2 (-maxSpeedX, rig2d.velocity.y);
+//	}
 	
 	
 	void OnTriggerEnter2D(Collider2D coll){
@@ -67,14 +78,19 @@ public class AquaGrenade : MonoBehaviour {
 		if (coll.tag == "Player") {
 			if (coll.gameObject != aquaHost && !coll.transform.IsChildOf (aquaHost.transform)) {
 				print (coll.gameObject.name + " colliding with" + gameObject.name);
+				if (knockback > 0){
+					coll.GetComponent<Fighter> ().isKnockedBack = true;
+					coll.GetComponent<Rigidbody2D> ().AddForce (new Vector2 (storeDirection * knockback, knockback), ForceMode2D.Impulse);
+				}
+				coll.gameObject.SendMessage("Damage", damage);
+				coll.gameObject.SendMessage("ArmorDamage", armorbreak);
+				Instantiate(part, transform.position, transform.rotation);
 				Destroy (this.gameObject);
 			}
 		}
-		else if (coll.gameObject != refCamera && !coll.transform.IsChildOf (refCamera.transform)) {
-			if (coll.gameObject != aquaHost && !coll.transform.IsChildOf (aquaHost.transform)) {
-				print (coll.gameObject.name + " colliding with" + gameObject.name);
-				Destroy (this.gameObject);
-			}
+		else if (coll.tag == "Platform") {
+			Instantiate(part, transform.position, transform.rotation);
+			Destroy(this.gameObject);
 		}
 	}
 }

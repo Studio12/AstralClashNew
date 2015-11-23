@@ -18,8 +18,12 @@ public class Indicator : MonoBehaviour {
 		if (indicated != null) {
 			RaycastHit2D ray = Physics2D.Linecast (indicated.transform.position, box.transform.position, layer);
 			this.transform.position = ray.point;
-			Quaternion rotation = Quaternion.LookRotation (indicated.transform.position - transform.position, transform.TransformDirection (Vector3.up));
-			transform.rotation = new Quaternion (0, 0, rotation.z, rotation.w);
+			//transform.LookAt(indicated.transform.position);
+			Vector3 dir = indicated.transform.position - transform.position;
+			float angle = Mathf.Atan2(dir.y,dir.x) * Mathf.Rad2Deg;
+			transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
+			//Quaternion rotation = Quaternion.LookRotation (indicated.transform.position - transform.position, transform.TransformDirection (Vector3.up));
+			//transform.rotation = new Quaternion (0, 0, rotation.z, rotation.w);
 		} else {
 		
 			Destroy(this.gameObject);
