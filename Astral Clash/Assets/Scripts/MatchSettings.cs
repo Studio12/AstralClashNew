@@ -161,7 +161,7 @@ public class MatchSettings : Menu {
 		match.p4 = -1;
 
 		MenuOptions [0].text = match.rounds.ToString ();
-		MenuOptions [1].text = match.maxPlayers.ToString ();
+		//MenuOptions [1].text = match.maxPlayers.ToString ();
 		MenuOptions [2].text = match.humans.ToString ();
 
 	}
