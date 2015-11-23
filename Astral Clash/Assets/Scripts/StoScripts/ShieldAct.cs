@@ -19,8 +19,8 @@ public class ShieldAct : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 		
-		this.GetComponent<SpriteRenderer> ().color = new Color (fighter.shieldhealth / 30, fighter.shieldhealth / 30, fighter.shieldhealth / 30);
-		print (fighter.shieldhealth / 30);
+		this.GetComponent<SpriteRenderer> ().color = new Color (fighter.shieldHealth / 30, fighter.shieldHealth / 30, fighter.shieldHealth / 30);
+		print (fighter.shieldHealth / 30);
 		
 	}
 	
