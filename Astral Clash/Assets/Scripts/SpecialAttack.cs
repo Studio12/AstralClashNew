@@ -9,6 +9,8 @@ public class SpecialAttack : MonoBehaviour
 	private GameObject BullObj;
 	public GameObject smoke;
 	public GameObject knife;
+	public GameObject Flame;
+	public GameObject Water;
 
 	void Start ()
 	{
@@ -117,12 +119,17 @@ public class SpecialAttack : MonoBehaviour
 
 	IEnumerator ASpecial(GameObject player){
 
+		GameObject WaterObj = (GameObject)Instantiate (Water, new Vector2 (0, -20), this.transform.rotation);
+		WaterObj.GetComponent<AquaSpecial> ().activator = player;
 		yield return new WaitForEndOfFrame();
 
 	}
 
 
 	IEnumerator LSpecial(GameObject player){
+
+		GameObject FlameObj = (GameObject)Instantiate (Flame, player.transform.position, player.transform.rotation);
+		FlameObj.GetComponent<LeoProj> ().activator = player;
 
 		yield return new WaitForEndOfFrame();
 

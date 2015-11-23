@@ -12,6 +12,7 @@ public class LeoProj : MonoBehaviour {
 	public float knockback;
 	public GameObject activator;
 	public float facing;
+	public float armorbreak;
 
 	// Use this for initialization
 	void Start () {
@@ -25,7 +26,7 @@ public class LeoProj : MonoBehaviour {
 		}
 		if (this.name == "LeoMedProj(Clone)") {
 		
-			this.transform.position = new Vector2(this.transform.position.x+facing, transform.position.y);
+			this.transform.position = new Vector2(this.transform.position.x+(facing*2), transform.position.y);
 		
 		}else if (this.name == "LeoHeavyProj(Clone)") {
 			
@@ -44,7 +45,7 @@ public class LeoProj : MonoBehaviour {
 		this.transform.Translate( new Vector3(speed*Time.deltaTime, 0, 0));
 		life -= Time.deltaTime;
 
-		this.transform.localScale = new Vector2 (transform.localScale.x * (1+(scalespeed*Time.deltaTime)), transform.localScale.y * (1+(scalespeed*Time.deltaTime)));
+		this.transform.localScale = new Vector2 (transform.localScale.x + (scalespeed*Time.deltaTime), transform.localScale.y + (scalespeed*Time.deltaTime));
 
 		if(life<(tempLife-(tempLife/3)) && life>(tempLife/3)){
 
@@ -73,7 +74,18 @@ public class LeoProj : MonoBehaviour {
 					coll.GetComponent<Rigidbody2D> ().AddForce (new Vector2 (facing * knockback, knockback), ForceMode2D.Impulse);
 				}
 				coll.gameObject.SendMessage("Damage", damAmt);
+				coll.gameObject.SendMessage("ArmorDamage", armorbreak);
+				if(this.name == "LeoHeavyProj(Clone)" && coll.GetComponent<Fighter>().stars>0){
+					
+					coll.gameObject.GetComponent<Fighter>().StarLoss();
+					if(activator.GetComponent<Fighter>().stars<activator.GetComponent<Fighter>().starMax){
+						activator.GetComponent<Fighter>().stars++;
+					}
+					
+				}
+				if(this.name != "LeoSpecialProj(Clone)"){
 				Destroy (this.gameObject);
+				}
 			}
 		}
 	}
