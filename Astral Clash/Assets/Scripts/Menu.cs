@@ -10,6 +10,7 @@ public class Menu : MonoBehaviour {
 	public GameObject firstSelected;
 	public GameObject prevMenu;
 	public AudioClip BackOutSound;
+	public float idleTimer = 0;
 	
 	// Use this for initialization
 	void Start () {
@@ -27,6 +28,13 @@ public class Menu : MonoBehaviour {
 		if(Input.GetButtonDown("Cancel")){
 			BackMenu();
 		}
+		if (Input.anyKey)
+			idleTimer = 0;
+		else
+			idleTimer += Time.deltaTime;
+
+		if (idleTimer >= 30)
+			Application.LoadLevel ("openingSPcutscene");
 	}
 
 	public void SwitchTo (GameObject newMenu)
