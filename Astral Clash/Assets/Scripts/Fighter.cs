@@ -286,8 +286,13 @@ public class Fighter : MonoBehaviour
 			}
 
 			//If attack has a projectile, send it out
-			if (attack.projectile)
-				Instantiate (attack.projectile, transform.position, transform.rotation);
+			if (attack.projectile){
+				GameObject proj = (GameObject)Instantiate (attack.projectile, transform.position, transform.rotation);
+				if(proj.GetComponent<AquaMissiles>()) 
+					proj.GetComponent<AquaMissiles>().aquaReal = gameObject;
+				else if(proj.GetComponent<AquaGrenade>())
+					proj.GetComponent<AquaGrenade>().aquaHost = gameObject;
+			}
 		}
 
 		//Reset armor to 1 to prevent overlap on button mash, reset state to not attacking.
