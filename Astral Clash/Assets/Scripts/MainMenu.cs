@@ -1,9 +1,15 @@
 ﻿using UnityEngine;
 using System.Collections;
+using UnityEngine.EventSystems;
 
 public class MainMenu : Menu
 {
 	public GameObject charMenu;
+
+	void OnEnable () {
+		EventSystem.current.SetSelectedGameObject (firstSelected);
+		EventSystem.current.GetComponent<AudioSource>().PlayOneShot (entered);
+	}
 
 	public void prepareSinglePlayer ()
 	{
@@ -16,7 +22,7 @@ public class MainMenu : Menu
 		match.p2 = -1;
 		match.p3 = -1;
 		match.p4 = -1;
-		match.Level = "FireStage SP";
+		match.Level = "SPPlaceholder";
 		charMenu.GetComponent<CharSelect> ().SetMatch (match);
 		Invoke ("SwitchToChars",1.5f);
 	}
