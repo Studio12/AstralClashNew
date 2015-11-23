@@ -13,12 +13,6 @@ public class PlayerController : MonoBehaviour {
 		case 1:
 			fighter.direction = Input.GetAxis ("Horizontal1");
 			fighter.jumping = Input.GetButton ("Jump1");
-//			if(Input.GetButtonUp ("Jump1")){
-//
-//				if(GetComponent<Rigidbody2D>().velocity.y>0)
-//					GetComponent<Rigidbody2D>().velocity = new Vector2(GetComponent<Rigidbody2D>().velocity.x, GetComponent<Rigidbody2D>().velocity.y/3);
-//
-//			}
 			if(Input.GetButton("Block1") && fighter.attacking == false){fighter.blocking = true;}
 			if(Input.GetButton("Block1")==false){
 				fighter.blocking = false;
@@ -35,12 +29,6 @@ public class PlayerController : MonoBehaviour {
 		case 2:
 			fighter.direction = Input.GetAxis ("Horizontal2");
 			fighter.jumping = Input.GetButton ("Jump2");
-//			if(Input.GetButtonUp ("Jump2")){
-//				
-//				if(GetComponent<Rigidbody2D>().velocity.y>0)
-//					GetComponent<Rigidbody2D>().velocity = new Vector2(GetComponent<Rigidbody2D>().velocity.x, GetComponent<Rigidbody2D>().velocity.y/3);
-//				
-//			}
 			if(Input.GetButton("Block2") && fighter.attacking == false){fighter.blocking = true;}
 			if(Input.GetButton("Block2")==false){
 				fighter.blocking = false;
@@ -57,12 +45,6 @@ public class PlayerController : MonoBehaviour {
 		case 3:
 			fighter.direction = Input.GetAxis ("Horizontal3");
 			fighter.jumping = Input.GetButton ("Jump3");
-			if(Input.GetButtonUp ("Jump3")){
-				
-				if(GetComponent<Rigidbody2D>().velocity.y>0)
-					GetComponent<Rigidbody2D>().velocity = new Vector2(GetComponent<Rigidbody2D>().velocity.x, GetComponent<Rigidbody2D>().velocity.y/3);
-				
-			}
 			if(Input.GetButton("Block3") && fighter.attacking == false){fighter.blocking = true;}
 			if(Input.GetButton("Block3")==false){
 				fighter.blocking = false;
@@ -79,12 +61,6 @@ public class PlayerController : MonoBehaviour {
 		case 4:
 			fighter.direction = Input.GetAxis ("Horizontal4");
 			fighter.jumping = Input.GetButton ("Jump4");
-			if(Input.GetButtonUp ("Jump4")){
-				
-				if(GetComponent<Rigidbody2D>().velocity.y>0)
-					GetComponent<Rigidbody2D>().velocity = new Vector2(GetComponent<Rigidbody2D>().velocity.x, GetComponent<Rigidbody2D>().velocity.y/3);
-				
-			}
 			if(Input.GetButton("Block4") && fighter.attacking == false){fighter.blocking = true;}
 			if(Input.GetButton("Block4")==false){
 				fighter.blocking = false;
