@@ -75,6 +75,11 @@ public class Fighter : MonoBehaviour
 	public float shieldhealth;
 
 
+	public AudioSource SFX;
+	public AudioSource Voice;
+
+	public AudioClip[] Voices;
+
 
 	// Use this for initialization
 	void Start ()
@@ -91,6 +96,7 @@ public class Fighter : MonoBehaviour
 		specialControl = GameObject.Find ("SpecialManager"); 				//Find the special attack controller in scene.
 		this.transform.position = SpawnPoint.transform.position; 			//Sets position to spawnpoint.
 		countdown = GameObject.Find ("Countdown");
+		shieldhealth = 30;
 		
 	}
 	
@@ -101,10 +107,11 @@ public class Fighter : MonoBehaviour
 
 			blocking = false;
 		
-			if(shieldcooldown>5){
+			if(shieldcooldown>6){
 
 				shieldbroken = false;
 				shieldcooldown = 0; 
+				shieldhealth = 30;
 
 			}else{
 
@@ -191,7 +198,7 @@ public class Fighter : MonoBehaviour
 					this.GetComponentInChildren<Animator> ().SetBool ("Run", true);
 					if(isGrounded && GetComponent<AudioSource>().isPlaying == false){
 
-						PlaySound(Sounds[5]);
+						PlaySound(Sounds[5], SFX);
 
 					}
 				
@@ -211,7 +218,7 @@ public class Fighter : MonoBehaviour
 						isGrounded = false;
 						GetComponent<Rigidbody2D> ().velocity = new Vector2 (this.GetComponent<Rigidbody2D> ().velocity.x, jumpPower);
 						this.GetComponentInChildren<Animator> ().SetBool ("Jump", true);
-						PlaySound(Sounds[6]);
+						PlaySound(Sounds[6], SFX);
 						
 					} 
 
@@ -223,7 +230,7 @@ public class Fighter : MonoBehaviour
 							jump2 = false;
 							GetComponent<Rigidbody2D> ().velocity = new Vector2 (this.GetComponent<Rigidbody2D> ().velocity.x, jumpPower);
 							GetComponentInChildren<Animator>().Play("jumping", -1, 0f);
-							PlaySound(Sounds[6]);
+							PlaySound(Sounds[6], SFX);
 
 						}
 						//While button is held, add a diminishing force to the jump for extra height.
@@ -244,14 +251,16 @@ public class Fighter : MonoBehaviour
 			Debug.DrawLine (transform.position, transform.position + transform.right * 1); //Line drawn in front of character for debug.
 			}
 
-			if(shieldhealth+(Time.deltaTime*8) >= 40){
+			if(!blocking){
+			if(shieldhealth+(Time.deltaTime*5) >= 30){
 
-				shieldhealth = 40;
+				shieldhealth = 30;
 
 			}else{
 
-				shieldhealth += Time.deltaTime*8;
+				shieldhealth += Time.deltaTime*5;
 
+			}
 			}
 
 		}
@@ -299,10 +308,10 @@ public class Fighter : MonoBehaviour
 			if(charType == "Taurus"){
 				switch(attnum){
 				case 1:
-					PlaySound(Sounds[7]);
+					PlaySound(Sounds[7], SFX);
 					break;
 				case 3:
-					PlaySound(Sounds[8]);
+					PlaySound(Sounds[8], SFX);
 					break;
 				default:
 					break;
@@ -319,7 +328,7 @@ public class Fighter : MonoBehaviour
 				//If the object hit is another fighter
 				if (hit.collider.gameObject.GetComponent<Fighter> ()) {
 
-					PlaySound(Sounds[attnum]);
+					PlaySound(Sounds[attnum], SFX);
 
 					//Reduce health and armor
 					hit.collider.SendMessage ("Damage", attack.damage);
@@ -335,9 +344,14 @@ public class Fighter : MonoBehaviour
 					}
 
 					//If attack has a knockback associated with it, knock back hit object, prevent their movement while knocked back, and set interrupt animation
-					if (attack.knockback > 0){
+						if (attack.knockback > 0 && hit.collider.GetComponent<Fighter> ().blocking == false){
 						hit.collider.GetComponent<Fighter> ().isKnockedBack = true;
 						hit.collider.GetComponent<Rigidbody2D> ().AddForce (new Vector2 (facing * attack.knockback, attack.knockback), ForceMode2D.Impulse);
+							if(hit.collider.GetComponent<Fighter> ().attacking == false){
+
+								hit.collider.GetComponentInChildren<Animator>().Play("interrupt", -1, 0);
+
+							}
 					}
 				}
 				else if (hit.collider.gameObject.GetComponent<CometBug> ()) {
@@ -404,6 +418,19 @@ public class Fighter : MonoBehaviour
 	void Damage (float amount)
 	{
 		//If not blocking, reduce health and convey damage on character
+
+		if (blocking) {
+		
+			shieldhealth-=amount;
+			if(shieldhealth<=0){
+
+				this.GetComponentInChildren<Animator> ().Play ("interrupt", -1, 0f);
+				shieldbroken = true;
+				blocking = false;
+
+			}
+		
+		}
 		if (blocking == false || dodgeDelay==true) {
 			health -= amount;
 			StartCoroutine ("ShowDamage");
@@ -535,7 +562,7 @@ public class Fighter : MonoBehaviour
 			//Set special attack animation, trigger special attack, and reset special stars
 			print ("Special Attack button pressed");
 			this.GetComponentInChildren<Animator> ().SetTrigger ("Special");
-			PlaySound(Sounds[0]);
+			PlaySound(Sounds[0], SFX);
 			specialControl.GetComponent<SpecialAttack> ().Special (charType, this.gameObject);
 			
 			stars = 0;
@@ -545,10 +572,10 @@ public class Fighter : MonoBehaviour
 	/// PLAY SOUND
 	/// Switches audiosource clip to passed clip, and plays sound.
 	/// 
-	void PlaySound (AudioClip clip)
+	void PlaySound (AudioClip clip, AudioSource source)
 	{
-		GetComponent<AudioSource> ().clip = clip;
-		GetComponent<AudioSource> ().Play ();
+		source.clip = clip;
+		source.Play ();
 	}
 
 	/// SHOW DAMAGE
@@ -628,8 +655,9 @@ public class Fighter : MonoBehaviour
 
 	public void StarLoss(){
 
-		stars--;
-		Instantiate (starObj, this.transform.position, this.transform.rotation);
+		if (!blocking) {
+			stars--;
+		}
 
 
 	}
