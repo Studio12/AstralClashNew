@@ -70,9 +70,9 @@ public class Fighter : MonoBehaviour
 	public bool isDead = false;
 	
 	public GameObject shield;
-	public bool shieldbroken = false;
-	public float shieldcooldown = 0;
-	public float shieldhealth;
+	public bool shieldBroken = false;
+	public float shieldCooldown = 0;
+	public float shieldHealth;
 	
 	
 	public AudioSource SFX;
@@ -96,26 +96,26 @@ public class Fighter : MonoBehaviour
 		specialControl = GameObject.Find ("SpecialManager"); 				//Find the special attack controller in scene.
 		this.transform.position = SpawnPoint.transform.position; 			//Sets position to spawnpoint.
 		countdown = GameObject.Find ("Countdown");
-		shieldhealth = 30;
+		shieldHealth = 30;
 		
 	}
 	
 	// Update is called once per frame
 	void Update ()
 	{
-		if (shieldbroken) {
+		if (shieldBroken) {
 			
 			blocking = false;
 			
-			if(shieldcooldown>6){
+			if(shieldCooldown>6){
 				
-				shieldbroken = false;
-				shieldcooldown = 0; 
-				shieldhealth = 30;
+				shieldBroken = false;
+				shieldCooldown = 0; 
+				shieldHealth = 30;
 				
 			}else{
 				
-				shieldcooldown+=Time.deltaTime;
+				shieldCooldown+=Time.deltaTime;
 				
 			}
 			
@@ -252,13 +252,13 @@ public class Fighter : MonoBehaviour
 			}
 			
 			if(!blocking){
-				if(shieldhealth+(Time.deltaTime*5) >= 30){
+				if(shieldHealth+(Time.deltaTime*5) >= 30){
 					
-					shieldhealth = 30;
+					shieldHealth = 30;
 					
 				}else{
 					
-					shieldhealth += Time.deltaTime*5;
+					shieldHealth += Time.deltaTime*5;
 					
 				}
 			}
@@ -421,11 +421,11 @@ public class Fighter : MonoBehaviour
 		
 		if (blocking) {
 			
-			shieldhealth-=amount;
-			if(shieldhealth<=0){
+			shieldHealth-=amount;
+			if(shieldHealth<=0){
 				
 				this.GetComponentInChildren<Animator> ().Play ("interrupt", -1, 0f);
-				shieldbroken = true;
+				shieldBroken = true;
 				blocking = false;
 				
 			}
