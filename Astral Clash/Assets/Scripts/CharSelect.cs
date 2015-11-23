@@ -6,9 +6,6 @@ using System.Collections.Generic;
 
 public class CharSelect : Menu {
 
-	public Sprite[,] CharSprite = new Sprite[2, 2];
-	public Sprite[] sprites;
-	public int selected2;
 	private int Players;
 	public Sprite[] indicators;
 	public List<GameObject> spawnedIndicators;
@@ -18,12 +15,8 @@ public class CharSelect : Menu {
 	// Use this for initialization
 	void OnEnable () {
 		EventSystem.current.SetSelectedGameObject (firstSelected);
-		CharSprite [0, 0] = sprites[0];
-		CharSprite [1, 0] = sprites[1];
-		CharSprite [0, 1] = sprites[2];
-		CharSprite [1, 1] = sprites[3];
+		EventSystem.current.GetComponent<AudioSource>().PlayOneShot (entered);
 		selected = 0;
-		selected2 = 0;
 		Players = 1;
 		pText.text = "Player "+Players.ToString();
 		createIndicator ();
@@ -43,12 +36,6 @@ public class CharSelect : Menu {
 		newIndicator.GetComponent<Image> ().raycastTarget = false;
 		spawnedIndicators.Add (newIndicator);
 		currentIndicator = newIndicator;
-	}
-
-	void selectionEffect ()
-	{
-		print ("Changing sprite...");
-		this.GetComponent<SpriteRenderer> ().sprite = CharSprite [selected, selected2];
 	}
 
 	public void updateIndicator ()
@@ -123,11 +110,15 @@ public class CharSelect : Menu {
 			}
 		
 		} if(Players == match.maxPlayers+1) {
-		
-			GameObject.Find("GameManager").GetComponent<GameManager>().CreateNewMatch(match);
+			Invoke ("BeginMatch",1.5f);
 		
 		}
 		
+	}
+
+	public void BeginMatch()
+	{
+		GameObject.Find("GameManager").GetComponent<GameManager>().CreateNewMatch(match);
 	}
 
 	override public void BackMenu()
