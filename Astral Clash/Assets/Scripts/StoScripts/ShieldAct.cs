@@ -3,38 +3,23 @@ using System.Collections;
 
 public class ShieldAct : MonoBehaviour {
 
-//	public int maxShieldHP = 100;
-//	public int currentShieldHP;
-//
-//	/*Variable that can be changed from inspector....this is the cooldown 
-//	for broken shield or how long it takes for the broken shield to regenerate
-//	*/
-//	public float brokenCooldown;
-//	
-//	public GameObject myShield;
-//
+
 public Fighter fighter;
-//
-//	//Used to figure out if coroutine is running
-//	public bool CRrunning;
-//	public bool sBroken;
+
 	
 	// Use this for initialization
 	void Awake () {
-//		currentShieldHP = maxShieldHP;
-//		CRrunning = false;
-//		sBroken = false;
-//
-//		//Locate the fighter script on the character
-		fighter = transform.parent.GetComponent<Fighter> ();
 
-		this.GetComponent<Animator> ().Play ("ShieldAnim", -1, 0f);
+		fighter = transform.parent.GetComponent<Fighter> ();
+		this.GetComponent<Animator>().Play("ShieldAnim", -1, 0);
+
 
 	}
 	
 	// Update is called once per frame
 	void Update () {
 
+<<<<<<< HEAD
 		this.GetComponent<SpriteRenderer> ().color = new Color (fighter.shieldHealth / 40, fighter.shieldHealth / 40, fighter.shieldHealth / 40);
 
 //		//This tests damage numbers
@@ -75,33 +60,14 @@ public Fighter fighter;
 //				}
 //			}
 //		}
+=======
+		this.GetComponent<SpriteRenderer> ().color = new Color (fighter.shieldhealth / 30, fighter.shieldhealth / 30, fighter.shieldhealth / 30);
+		print (fighter.shieldhealth / 30);
+>>>>>>> refs/remotes/origin/master
 		
 	}
 	
-	//Function to reset the shield health
-//	IEnumerator resetShieldHP() {
-//		CRrunning = true;
-//		//Debug
-//		print ("CoRo is running!");
-//		
-//		yield return new WaitForSeconds(4.0f);
-//		currentShieldHP = maxShieldHP;
-//		CRrunning = false;
-//		
-//		print ("CoRo stopped running.");
-//		
-//	}
-	
-	//For when shield health reaches 0
-//	IEnumerator shieldBreak(){
-//		//I would want to make it so the player cannot access the shield
-//		sBroken = true;
-//		CRrunning = true;
-//
-//		yield return new WaitForSeconds (brokenCooldown);
-//		
-//		currentShieldHP = maxShieldHP;
-//	}
+
 
 
 
