@@ -1,6 +1,6 @@
 fileFormatVersion: 2
 guid: c2975b0fca580954f940cc062d4136b4
-timeCreated: 1445648010
+timeCreated: 1447897140
 licenseType: Free
 TextureImporter:
   fileIDToRecycleName:
@@ -53,8 +53,8 @@ TextureImporter:
   cubemapConvolutionSteps: 8
   cubemapConvolutionExponent: 1.5
   seamlessCubemap: 0
-  textureFormat: -3
-  maxTextureSize: 8192
+  textureFormat: -1
+  maxTextureSize: 2048
   textureSettings:
     filterMode: -1
     aniso: 16
@@ -64,7 +64,6 @@ TextureImporter:
   lightmap: 0
   rGBM: 0
   compressionQuality: 50
-  allowsAlphaSplitting: 0
   spriteMode: 2
   spriteExtrude: 1
   spriteMeshType: 1
@@ -80,10 +79,10 @@ TextureImporter:
     - name: Head
       rect:
         serializedVersion: 2
-        x: 98
-        y: 2097
-        width: 960
-        height: 1088
+        x: 55
+        y: 2050
+        width: 1022
+        height: 1176
       alignment: 9
       pivot: {x: .534443855, y: .162314922}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -91,49 +90,49 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 1134
-        y: 2384
-        width: 515
-        height: 610
+        y: 2366
+        width: 545
+        height: 628
       alignment: 9
       pivot: {x: .557071805, y: .0723688826}
       border: {x: 0, y: 0, z: 0, w: 0}
     - name: LeftUpperArm
       rect:
         serializedVersion: 2
-        x: 1792
-        y: 2882
-        width: 134
-        height: 204
+        x: 1768
+        y: 2867
+        width: 177
+        height: 245
       alignment: 9
       pivot: {x: .170984074, y: .752138615}
       border: {x: 0, y: 0, z: 0, w: 0}
     - name: leftThigh
       rect:
         serializedVersion: 2
-        x: 2168
-        y: 2716
-        width: 219
-        height: 364
+        x: 2109
+        y: 2701
+        width: 316
+        height: 379
       alignment: 9
       pivot: {x: .466447949, y: .711962998}
       border: {x: 0, y: 0, z: 0, w: 0}
     - name: LeftHand
       rect:
         serializedVersion: 2
-        x: 1824
-        y: 2594
-        width: 156
-        height: 98
+        x: 1793
+        y: 2539
+        width: 217
+        height: 180
       alignment: 0
       pivot: {x: .5, y: .5}
       border: {x: 0, y: 0, z: 0, w: 0}
     - name: LeftLeg
       rect:
         serializedVersion: 2
-        x: 2046
-        y: 2051
-        width: 319
-        height: 574
+        x: 2021
+        y: 1981
+        width: 360
+        height: 650
       alignment: 9
       pivot: {x: .707310617, y: .903245866}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -147,33 +146,23 @@ TextureImporter:
       alignment: 0
       pivot: {x: .5, y: .5}
       border: {x: 0, y: 0, z: 0, w: 0}
-    - name: AquariusWorking_Sliced_7
-      rect:
-        serializedVersion: 2
-        x: 406
-        y: 2031
-        width: 50
-        height: 20
-      alignment: 0
-      pivot: {x: .5, y: .5}
-      border: {x: 0, y: 0, z: 0, w: 0}
     - name: Jug
       rect:
         serializedVersion: 2
-        x: 1363
-        y: 1382
-        width: 658
-        height: 673
+        x: 1313
+        y: 1587
+        width: 712
+        height: 739
       alignment: 0
       pivot: {x: .5, y: .5}
       border: {x: 0, y: 0, z: 0, w: 0}
     - name: Neck
       rect:
         serializedVersion: 2
-        x: 363
-        y: 1823
-        width: 190
-        height: 198
+        x: 334
+        y: 1749
+        width: 261
+        height: 272
       alignment: 7
       pivot: {x: .5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -190,10 +179,10 @@ TextureImporter:
     - name: Hips
       rect:
         serializedVersion: 2
-        x: 679
-        y: 1382
-        width: 552
-        height: 594
+        x: 643
+        y: 1367
+        width: 636
+        height: 665
       alignment: 0
       pivot: {x: .5, y: .5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -230,10 +219,10 @@ TextureImporter:
     - name: LeftFoot
       rect:
         serializedVersion: 2
-        x: 2086
-        y: 1636
-        width: 302
-        height: 150
+        x: 2116
+        y: 1562
+        width: 379
+        height: 199
       alignment: 9
       pivot: {x: .317515403, y: .695948064}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -270,30 +259,30 @@ TextureImporter:
     - name: RightForeArm
       rect:
         serializedVersion: 2
-        x: 202
-        y: 583
-        width: 478
-        height: 501
+        x: 7
+        y: 606
+        width: 643
+        height: 573
       alignment: 9
       pivot: {x: .284785509, y: .852001548}
       border: {x: 0, y: 0, z: 0, w: 0}
     - name: BackDressMid
       rect:
         serializedVersion: 2
-        x: 1115
-        y: 749
-        width: 664
-        height: 539
+        x: 1099
+        y: 735
+        width: 723
+        height: 599
       alignment: 9
       pivot: {x: .59406364, y: .847634256}
       border: {x: 0, y: 0, z: 0, w: 0}
     - name: RightThigh
       rect:
         serializedVersion: 2
-        x: 2103
-        y: 995
-        width: 254
-        height: 406
+        x: 2065
+        y: 963
+        width: 342
+        height: 467
       alignment: 9
       pivot: {x: .514240563, y: .840518415}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -310,40 +299,40 @@ TextureImporter:
     - name: RightHand
       rect:
         serializedVersion: 2
-        x: 48
-        y: 48
-        width: 283
-        height: 197
+        x: 4
+        y: 236
+        width: 338
+        height: 226
       alignment: 9
       pivot: {x: .192667797, y: .581194103}
       border: {x: 0, y: 0, z: 0, w: 0}
     - name: BackDressBottom
       rect:
         serializedVersion: 2
-        x: 429
-        y: 44
-        width: 1409
-        height: 652
+        x: 360
+        y: 22
+        width: 1495
+        height: 724
       alignment: 9
       pivot: {x: .781613529, y: .888814747}
       border: {x: 0, y: 0, z: 0, w: 0}
     - name: RightLeg
       rect:
         serializedVersion: 2
-        x: 2152
-        y: 388
-        width: 250
-        height: 476
+        x: 2116
+        y: 353
+        width: 342
+        height: 514
       alignment: 9
       pivot: {x: .397127926, y: .831896484}
       border: {x: 0, y: 0, z: 0, w: 0}
     - name: RightFoot
       rect:
         serializedVersion: 2
-        x: 2207
-        y: 151
-        width: 316
-        height: 148
+        x: 2175
+        y: 118
+        width: 368
+        height: 198
       alignment: 9
       pivot: {x: .279094458, y: .72342062}
       border: {x: 0, y: 0, z: 0, w: 0}
