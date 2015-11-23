@@ -19,6 +19,7 @@ public class Menu : MonoBehaviour {
 	void OnEnable () {
 		EventSystem.current.SetSelectedGameObject (firstSelected);
 		EventSystem.current.GetComponent<AudioSource>().PlayOneShot (entered);
+		EventSystem.current.GetComponent<AudioSource> ().volume = PlayerPrefs.GetFloat ("SFX Volume");
 	}
 
 	// Update is called once per frame
