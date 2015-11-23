@@ -108,6 +108,7 @@ public class PauseMenu : MonoBehaviour {
 			pausePressed();
 			break;
 		case 1:
+			Time.timeScale = 1;
 			GameManager.ChooseLevel ("MainMenu");
 			break;
 		default:

@@ -118,7 +118,7 @@ public class CharSelect : Menu {
 				else if(match.p1 == 2) match.Level = "starrySky SP";
 				else if(match.p1 == 3) match.Level = "FireStage SP";
 			}
-			Invoke ("BeginMatch",1.5f);
+			BeginMatch();
 		
 		}
 		
