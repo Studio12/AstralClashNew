@@ -45,7 +45,7 @@ public class BullScript : MonoBehaviour {
 
 	public void OnTriggerEnter2D(Collider2D collider)
 	{
-		if(collider.tag == "Player" && collider.gameObject != activator)
+		if(collider.GetComponent <Actor>() && collider.gameObject != activator)
 		{
 			print("Bull HIT");
 			collider.SendMessage("Damage", 25);

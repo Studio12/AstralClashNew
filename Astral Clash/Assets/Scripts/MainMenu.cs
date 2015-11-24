@@ -6,11 +6,6 @@ public class MainMenu : Menu
 {
 	public GameObject charMenu;
 
-	void OnEnable () {
-		EventSystem.current.SetSelectedGameObject (firstSelected);
-		EventSystem.current.GetComponent<AudioSource>().PlayOneShot (entered);
-	}
-
 	public void prepareSinglePlayer ()
 	{
 		var match = new Match();
