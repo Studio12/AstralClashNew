@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 
 public class DynamicScale : MonoBehaviour {
-
+	
 	public float minX;
 	public float minY;
 	public float maxX;
@@ -19,27 +19,40 @@ public class DynamicScale : MonoBehaviour {
 	public float camSpeed = 10f;
 	public float camMinSize;
 	public float camMaxSize;
-
+	public bool wait;
+	
 	// Use this for initialization
 	void Start () {
+		wait = false;
+		StartCoroutine ("Waiting");
 	}
 	
 	// Update is called once per frame
 	void LateUpdate () {
-
-		//ChangeScale ();
-		CalculateBounds ();
-		CalculateCameraPosAndSize ();
-
+		
+		if (wait) {
+			//ChangeScale ();
+			CalculateBounds ();
+			CalculateCameraPosAndSize ();
+			
+		}
+		
 	}
-
+	
+	IEnumerator Waiting(){
+		
+		yield return new WaitForSeconds (3f);
+		wait = true;
+		
+	}
+	
 	void CalculateBounds(){
-
+		
 		minX = Mathf.Infinity; 
 		maxX = -Mathf.Infinity; 
 		minY = Mathf.Infinity; 
 		maxY = -Mathf.Infinity;
-
+		
 		players = GameObject.FindGameObjectsWithTag ("Player");
 		foreach (GameObject player in players) {
 			Vector3 tempPlayer = player.transform.position;
@@ -56,9 +69,9 @@ public class DynamicScale : MonoBehaviour {
 			
 		}
 	}
-		
+	
 	void CalculateCameraPosAndSize(){
-
+		
 		Vector3 cameraCenter = Vector3.zero;
 		
 		foreach(GameObject player in players){
@@ -69,15 +82,15 @@ public class DynamicScale : MonoBehaviour {
 		//transform.position = new Vector3 (Mathf.Clamp (transform.position.x, minBoundsX + (CalculateScreenSizeInWorldCoords().x / 2), maxBoundsX - (CalculateScreenSizeInWorldCoords().x / 2)), Mathf.Clamp (transform.position.y, minBoundsY + (CalculateScreenSizeInWorldCoords().y / 2), maxBoundsY - (CalculateScreenSizeInWorldCoords().y / 2)),transform.position.z);
 		//transform.position = new Vector3 (Mathf.Clamp (transform.position.x - (transform.position.x - finalCameraCenter.x) * (1/camSpeed), minBoundsX + (CalculateScreenSizeInWorldCoords().x / 2), maxBoundsX - (CalculateScreenSizeInWorldCoords().x / 2)), Mathf.Clamp (transform.position.y, minBoundsY + (CalculateScreenSizeInWorldCoords().y / 2), maxBoundsY - (CalculateScreenSizeInWorldCoords().y / 2)),transform.position.z);
 		transform.position = new Vector3 (Mathf.Clamp (transform.position.x - (transform.position.x - finalCameraCenter.x) * (1/camSpeed), minBoundsX + (CalculateScreenSizeInWorldCoords().x / 2), maxBoundsX - (CalculateScreenSizeInWorldCoords().x / 2)), Mathf.Clamp (transform.position.y - (transform.position.y - finalCameraCenter.y) * (1/camSpeed), minBoundsY + (CalculateScreenSizeInWorldCoords().y / 2), maxBoundsY - (CalculateScreenSizeInWorldCoords().y / 2)),transform.position.z);
-
+		
 		//Size
 		float sizeX = maxX - minX + cameraBuffer.x;
 		float sizeY = maxY - minY + cameraBuffer.y;
 		camSize = (sizeX > sizeY ? sizeX : sizeY);
 		Camera.main.orthographicSize -= (Camera.main.orthographicSize - Mathf.Clamp(camSize * 0.5f,camMinSize,camMaxSize)) * (1/camSpeed);
-
+		
 	}
-
+	
 	Vector2 CalculateScreenSizeInWorldCoords () {
 		Vector3 p1 = Camera.main.ViewportToWorldPoint(new Vector3(0,0,Camera.main.nearClipPlane));  
 		Vector3 p2 = Camera.main.ViewportToWorldPoint(new Vector3(1,0,Camera.main.nearClipPlane));
@@ -87,8 +100,8 @@ public class DynamicScale : MonoBehaviour {
 		float height = (p3 - p2).magnitude;
 		
 		Vector2 dimensions = new Vector2(width,height);
-
+		
 		return dimensions;
 	}
-
+	
 }
