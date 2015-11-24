@@ -19,17 +19,30 @@ public class DynamicScale : MonoBehaviour {
 	public float camSpeed = 10f;
 	public float camMinSize;
 	public float camMaxSize;
+	public bool wait;
 
 	// Use this for initialization
 	void Start () {
+		wait = false;
+		StartCoroutine ("Waiting");
 	}
 	
 	// Update is called once per frame
 	void LateUpdate () {
 
-		//ChangeScale ();
-		CalculateBounds ();
-		CalculateCameraPosAndSize ();
+		if (wait) {
+			//ChangeScale ();
+			CalculateBounds ();
+			CalculateCameraPosAndSize ();
+
+		}
+
+	}
+
+	IEnumerator Waiting(){
+
+		yield return new WaitForSeconds (3f);
+		wait = true;
 
 	}
 

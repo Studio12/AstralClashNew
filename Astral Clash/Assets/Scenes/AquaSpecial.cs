@@ -48,6 +48,15 @@ public class AquaSpecial : MonoBehaviour {
 		case "Storm Coast":
 			stop = -2;
 			break;
+		case "StarrySky SP":
+			stop = 4;
+			break;
+		case "Arena SP":
+			stop = 0;
+			break;
+		case "Storm Coast SP":
+			stop = -2;
+			break;
 		default:
 			stop = 0;
 			break;
