@@ -1,13 +1,8 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class CometBug : MonoBehaviour {
+public class CometBug : Actor {
 
-	public float health = 5;
-	// Use this for initialization
-	void Start () {
-	
-	}
 	
 	// Update is called once per frame
 	void Update () {
@@ -18,7 +13,7 @@ public class CometBug : MonoBehaviour {
 			transform.eulerAngles = new Vector3(transform.eulerAngles.x,transform.eulerAngles.y + 180,transform.eulerAngles.z);
 		}
 		if (health <= 0) {
-			Destroy (gameObject);
+			Death();
 		}
 	}
 
@@ -34,8 +29,17 @@ public class CometBug : MonoBehaviour {
 		transform.eulerAngles = new Vector3 (transform.eulerAngles.x, transform.eulerAngles.y + 180, transform.eulerAngles.z);
 	}
 
-	void Damage (float amount)
+	/// RINGOUT
+	/// If character falls outside of the arena, reduce health and respawn.
+	/// 
+	public void Ringout ()
 	{
-		health -= amount;
+		
+		Death ();
+	}
+
+	void Death ()
+	{
+		Destroy (gameObject);
 	}
 }

@@ -42,10 +42,19 @@ public class AquaSpecial : MonoBehaviour {
 		case "StarrySky":
 			stop = 4;
 			break;
+		case "StarrySky SP":
+			stop = 4;
+			break;
 		case "Arena":
 			stop = 0;
 			break;
+		case "Arena SP":
+			stop = 0;
+			break;
 		case "Storm Coast":
+			stop = -2;
+			break;
+		case "Storm Coast SP":
 			stop = -2;
 			break;
 		default:
@@ -65,7 +74,7 @@ public class AquaSpecial : MonoBehaviour {
 
 	void OnTriggerStay2D(Collider2D coll){
 
-		if (coll.tag == "Player" && coll.gameObject != activator && !coll.gameObject.transform.IsChildOf(activator.transform)) {
+		if (coll.GetComponent <Actor>() && coll.gameObject != activator && !coll.gameObject.transform.IsChildOf(activator.transform)) {
 
 			print("Dealing damage");
 		

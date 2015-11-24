@@ -30,7 +30,7 @@ public class Knife : MonoBehaviour {
 
 	public void OnTriggerEnter2D(Collider2D collider)
 	{
-		if(collider.tag == "Player" && collider.gameObject != activator)
+		if(collider.GetComponent <Actor>() && collider.gameObject != activator)
 		{
 			print("Knife HIT");
 			collider.SendMessage("Damage", 10);

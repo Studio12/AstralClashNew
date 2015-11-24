@@ -9,7 +9,7 @@ Controlled via either playercontroller script or main AI script, and interacts d
 
 */
 
-public class Fighter : MonoBehaviour
+public class Fighter : Actor
 {
 	[System.Serializable]
 	
@@ -29,7 +29,6 @@ public class Fighter : MonoBehaviour
 	}
 	
 	//Attributes of the class. All public for now as we write code.
-	public float health; 				//Manipulatable health of fighter.
 	public float armor; 				//Used for interrupt threshold.
 	public float speed; 				//Speed multiplier for movement.
 	public Attack lightAttack; 			//Character's light attack, defined in editor.
@@ -47,13 +46,11 @@ public class Fighter : MonoBehaviour
 	public float exJump; 				//Force added on holding jump.
 	public float resetJumpVal; 			//Reset value for extra jump force.
 	public float negAcc; 				//Reduces extra jump force at this rate in air.
-	public float maxHealth; 			//Maximum health value of character, not changed
 	public float dodgeCool; 			//Time between dodge actions.
 	public bool blocking; 				//Block state.
 	public bool attacking; 				//Attacking state.
 	public string charType; 			//Which fighter is this?
 	public GameObject specialControl; 	//Reference to special attack controller object.
-	public bool isKnockedBack; 			//Knockback state.
 	public int facing; 					//Reference for last facing of character.
 	public AudioClip[] Sounds; 			//Soundclips associated with character.
 	public GameObject curPlatform; 		//Current platform the character is on.
@@ -62,13 +59,8 @@ public class Fighter : MonoBehaviour
 	public bool jump2 = true;
 	public GameObject countdown;
 	public GameObject starObj;
-	public GameObject damParts;
-	public GameObject Hit1;
-	public GameObject Hit2;
-	public GameObject Hit3;
 	public GameObject deathEffect;
-	public bool isDead = false;
-	
+
 	public GameObject shield;
 	public bool shieldBroken = false;
 	public float shieldCooldown = 0;
@@ -354,7 +346,7 @@ public class Fighter : MonoBehaviour
 							}
 						}
 					}
-					else if (hit.collider.gameObject.GetComponent<CometBug> ()) {
+					else if (hit.collider.gameObject.GetComponent<Actor> ()) {
 						
 						//Reduce health
 						hit.collider.SendMessage ("Damage", attack.damage);
@@ -408,32 +400,6 @@ public class Fighter : MonoBehaviour
 		if (cooldown <= 0) {
 			StartCoroutine (PerformAttack (heavyAttack, 3));
 			this.GetComponentInChildren<Animator> ().Play ("hAttack", -1, 0f);
-		}
-	}
-	
-	
-	/// DAMAGE
-	/// Reduces health by specified amount. Accessed via SendMessage.
-	/// 
-	void Damage (float amount)
-	{
-		//If not blocking, reduce health and convey damage on character
-		
-		if (blocking) {
-			
-			shieldHealth-=amount;
-			if(shieldHealth<=0){
-				
-				this.GetComponentInChildren<Animator> ().Play ("interrupt", -1, 0f);
-				shieldBroken = true;
-				blocking = false;
-				
-			}
-			
-		}
-		if (blocking == false || dodgeDelay==true) {
-			health -= amount;
-			StartCoroutine ("ShowDamage");
 		}
 	}
 	
@@ -576,51 +542,6 @@ public class Fighter : MonoBehaviour
 	{
 		source.clip = clip;
 		source.Play ();
-	}
-	
-	/// SHOW DAMAGE
-	/// Creates visual effects to show attack damage on characters.
-	/// 
-	IEnumerator ShowDamage ()
-	{
-		
-		
-		Instantiate (damParts, new Vector2(transform.position.x, transform.position.y+1.5f), transform.rotation);
-		
-		int r = Random.Range (0, 3);
-		
-		switch (r) {
-			
-		case 0:
-			Instantiate(Hit1, new Vector2(transform.position.x, transform.position.y+1.5f), transform.rotation);
-			break;
-		case 1:
-			Instantiate(Hit2, new Vector2(transform.position.x, transform.position.y+1.5f), transform.rotation);
-			break;
-		case 2:
-			Instantiate(Hit3, new Vector2(transform.position.x, transform.position.y+1.5f), transform.rotation);
-			break;
-		default:
-			break;
-			
-		}
-		
-		//Causes all children objects to take on a red tint
-		foreach (SpriteRenderer s in GetComponentsInChildren<SpriteRenderer>()) {
-			
-			s.color = Color.red;
-			
-		}
-		
-		//Waits .1s, changes back to normal
-		yield return new WaitForSeconds (.1f);
-		
-		foreach (SpriteRenderer s in GetComponentsInChildren<SpriteRenderer>()) {
-			
-			s.color = new Color (1, 1, 1);
-			
-		}
-		
 	}
 	
 	IEnumerator ShowStarMax(){

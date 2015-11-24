@@ -62,14 +62,14 @@ public class MatchSettings : Menu {
 		adjustText (value);
 
 		match.maxPlayers = (int)value;
-		Slider humanSlider = MenuOptions [2].gameObject.transform.parent.GetComponent<Slider>();
+		//Slider humanSlider = MenuOptions [2].gameObject.transform.parent.GetComponent<Slider>();
 		if(match.humans>match.maxPlayers){
 			
 			match.humans = match.maxPlayers;
 			match.AI = match.maxPlayers-match.humans;
-			MenuOptions [2].text = match.humans.ToString ();
+			//MenuOptions [2].text = match.humans.ToString ();
 		}
-		humanSlider.maxValue = match.maxPlayers;
+		//humanSlider.maxValue = match.maxPlayers;
 	}
 
 	public void adjustPlayers (float value)

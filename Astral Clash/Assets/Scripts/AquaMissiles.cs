@@ -60,23 +60,26 @@ public class AquaMissiles : MonoBehaviour {
 	
 	void OnTriggerEnter2D(Collider2D coll){
 		
-		if (coll.tag =="Player") {
+		if (coll.GetComponent <Actor>()) {
 			if(coll.gameObject != aquaReal && !coll.transform.IsChildOf(aquaReal.transform))
 			{
 				print (coll.gameObject.name + " colliding with" + gameObject.name);
 				if (knockback > 0){
-					coll.GetComponent<Fighter> ().isKnockedBack = true;
+					coll.GetComponent<Actor> ().isKnockedBack = true;
 					coll.GetComponent<Rigidbody2D> ().AddForce (new Vector2 (facing * knockback, knockback), ForceMode2D.Impulse);
 				}
 				coll.gameObject.SendMessage("Damage", missileDamage);
-				coll.gameObject.SendMessage("ArmorDamage", armorbreak);
-				if(this.name == "AquaHeavyProj(Clone)" && coll.GetComponent<Fighter>().stars>0){
-					
-					coll.gameObject.GetComponent<Fighter>().StarLoss();
-					if(aquaReal.GetComponent<Fighter>().stars<aquaReal.GetComponent<Fighter>().starMax){
-						aquaReal.GetComponent<Fighter>().stars++;
+				if(coll.GetComponent <Fighter>())
+				{
+					coll.gameObject.SendMessage("ArmorDamage", armorbreak);
+					if(this.name == "AquaHeavyProj(Clone)" && coll.GetComponent<Fighter>().stars>0){
+						
+						coll.gameObject.GetComponent<Fighter>().StarLoss();
+						if(aquaReal.GetComponent<Fighter>().stars<aquaReal.GetComponent<Fighter>().starMax){
+							aquaReal.GetComponent<Fighter>().stars++;
+						}
+						
 					}
-					
 				}
 				Instantiate(part, transform.position, transform.rotation);
 				Destroy (this.gameObject);
