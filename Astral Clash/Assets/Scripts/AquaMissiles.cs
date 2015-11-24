@@ -69,7 +69,7 @@ public class AquaMissiles : MonoBehaviour {
 					coll.GetComponent<Rigidbody2D> ().AddForce (new Vector2 (facing * knockback, knockback), ForceMode2D.Impulse);
 				}
 				coll.gameObject.SendMessage("Damage", missileDamage);
-				coll.gameObject.SendMessage("ArmorDamage", armorbreak);
+				coll.gameObject.SendMessage("ArmorDamage", armorbreak, SendMessageOptions.DontRequireReceiver);
 				if(this.name == "AquaHeavyProj(Clone)" && coll.GetComponent<Fighter>().stars>0){
 					
 					coll.gameObject.GetComponent<Fighter>().StarLoss();
