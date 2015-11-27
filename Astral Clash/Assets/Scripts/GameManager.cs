@@ -109,7 +109,7 @@ public class GameManager : MonoBehaviour
 
 		case 1:
 
-			charRef.GetComponent<Fighter> ().SpawnPoint = spawn1;
+			charRef.GetComponent<Fighter> ().SpawnPoint = spawn1.transform;
 			charRef.name = "Player 1";
 			print ("Player 1 created");
 			barRef = (GameObject)Instantiate(healthbars[0], new Vector2(-26f, 17.5f), Quaternion.Euler(0,0,0));
@@ -118,7 +118,7 @@ public class GameManager : MonoBehaviour
 			break;
 
 		case 2:
-			charRef.GetComponent<Fighter> ().SpawnPoint = spawn2;
+			charRef.GetComponent<Fighter> ().SpawnPoint = spawn2.transform;
 			charRef.name = "Player 2";
 			barRef = (GameObject)Instantiate(healthbars[1], new Vector2(-12f, 17.5f), Quaternion.Euler(0,0,0));
 			barRef.name = "HealthBar2";
@@ -126,7 +126,7 @@ public class GameManager : MonoBehaviour
 			break;
 
 		case 3:
-			charRef.GetComponent<Fighter> ().SpawnPoint = spawn3;
+			charRef.GetComponent<Fighter> ().SpawnPoint = spawn3.transform;
 			charRef.name = "Player 3";
 			barRef = (GameObject)Instantiate(healthbars[2], new Vector2(2f, 17.5f), Quaternion.Euler(0,0,0));
 			barRef.name = "HealthBar3";
@@ -134,7 +134,7 @@ public class GameManager : MonoBehaviour
 			break;
 
 		case 4:
-			charRef.GetComponent<Fighter> ().SpawnPoint = spawn4;
+			charRef.GetComponent<Fighter> ().SpawnPoint = spawn4.transform;
 			charRef.name = "Player 4";
 			barRef = (GameObject)Instantiate(healthbars[3], new Vector2(16f, 17.5f), Quaternion.Euler(0,0,0));
 			barRef.name = "HealthBar4";

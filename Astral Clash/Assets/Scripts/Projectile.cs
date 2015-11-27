@@ -1,39 +1,40 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System.Collections;
 
-public class AquaMissiles : Projectile {
-
-	public GameObject part;
-
-
+public class Projectile : MonoBehaviour {
 	
+	//This is for referencing the activator specifically
+	public GameObject activator;
+	//the speed of the projectile
+	public float speed;
+	//How long the missile lasts for
+	public float lifespan;
+	//The damage it does
+	public int damage;
+	public float knockback;
+	public float facing;
+	public float armorBreak;
 	
+
 	// Use this for initialization
 	void Start () {
 		Debug.Log ("Spawning " + gameObject.name);
 
-		GameObject notThis = GameObject.Find("AquaHeavyProj(Clone)");
-
-		if (this.name == "AquaHeavyProj(Clone)") {
-		
-			transform.position = new Vector2(this.transform.position.x+(facing*2), transform.position.y);
-
-			if(this.gameObject != notThis){
-
-				Destroy(this.gameObject);
-
-			}
-		
-		}
-
 		facing = activator.GetComponent<Fighter> ().facing;
 		if (facing == 0) {
-		
+			
 			facing = 1;
-		
+			
 		}
-		//transform.localScale = new Vector2(transform.localScale.x*facing, transform.localScale.y);
 
+	}
+	
+	// Update is called once per frame
+	void Update () {
+		this.transform.Translate( new Vector3(speed*Time.deltaTime, 0, 0));
+		lifespan -= Time.deltaTime;
+		if(lifespan <= 0) 
+			Destroy (this.gameObject);
 	}
 	
 	void OnTriggerEnter2D(Collider2D coll){
@@ -50,18 +51,10 @@ public class AquaMissiles : Projectile {
 				if(coll.GetComponent <Fighter>())
 				{
 					coll.gameObject.SendMessage("ArmorDamage", armorBreak);
-					if(this.name == "AquaHeavyProj(Clone)" && coll.GetComponent<Fighter>().stars>0){
-						
-						coll.gameObject.GetComponent<Fighter>().StarLoss();
-						if(activator.GetComponent<Fighter>().stars<activator.GetComponent<Fighter>().starMax){
-							activator.GetComponent<Fighter>().stars++;
-						}
-						
-					}
 				}
-				Instantiate(part, transform.position, transform.rotation);
 				Destroy (this.gameObject);
 			}
 		}
 	}
 }
+
