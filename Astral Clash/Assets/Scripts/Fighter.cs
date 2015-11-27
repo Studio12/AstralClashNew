@@ -23,6 +23,7 @@ public class Fighter : Actor
 		public float recovery; //Time before attack can be used again
 		public float reach; //Distance covered by attack
 		public float armor; //Interrupt threshold on attack
+		public GameObject weapon; //The body part or weapon the player will be attacking with
 		public float armorBreak; //Attempts to defeat interrupt threshold of other's attacks
 		public float knockback; //Force for knockback on hit
 		
@@ -65,6 +66,8 @@ public class Fighter : Actor
 	public bool shieldBroken = false;
 	public float shieldCooldown = 0;
 	public float shieldHealth;
+
+	public Attack currentAttack;
 	
 	
 	public AudioSource SFX;
@@ -312,47 +315,10 @@ public class Fighter : Actor
 			
 			if(!attack.projectile){
 				RaycastHit2D hit = Physics2D.Raycast (transform.position, transform.right, attack.reach);
-				
+
+				currentAttack = attack;
 				//If it hits something, that's not the current character
-				if (hit.collider != null && hit.collider != this.GetComponent<Collider2D> ()) {
-					
-					print ("Pow from " + gameObject.name);
-					//If the object hit is another fighter
-					if (hit.collider.gameObject.GetComponent<Fighter> ()) {
-						
-						PlaySound(Sounds[attnum], SFX);
-						
-						//Reduce health and armor
-						hit.collider.SendMessage ("Damage", attack.damage);
-						hit.collider.SendMessage ("ArmorDamage", attack.armorBreak);
-						StartCoroutine ("DamagePause");
-						if(attnum == 3 && hit.collider.GetComponent<Fighter>().stars>0){
-							
-							hit.collider.gameObject.GetComponent<Fighter>().StarLoss();
-							if(stars<starMax){
-								stars++;
-							}
-							
-						}
-						
-						//If attack has a knockback associated with it, knock back hit object, prevent their movement while knocked back, and set interrupt animation
-						if (attack.knockback > 0 && hit.collider.GetComponent<Fighter> ().blocking == false){
-							hit.collider.GetComponent<Fighter> ().isKnockedBack = true;
-							hit.collider.GetComponent<Rigidbody2D> ().AddForce (new Vector2 (facing * attack.knockback, attack.knockback), ForceMode2D.Impulse);
-							if(hit.collider.GetComponent<Fighter> ().attacking == false){
-								
-								hit.collider.GetComponentInChildren<Animator>().Play("interrupt", -1, 0);
-								
-							}
-						}
-					}
-					else if (hit.collider.gameObject.GetComponent<Actor> ()) {
-						
-						//Reduce health
-						hit.collider.SendMessage ("Damage", attack.damage);
-					}
-					
-				}
+
 			}
 			
 			//If attack has a projectile, send it out
@@ -375,7 +341,13 @@ public class Fighter : Actor
 		//Reset armor to 1 to prevent overlap on button mash, reset state to not attacking.
 		print ("Attack ended");
 		armor = 1;
+		currentAttack = null;
 		attacking = false;
+	}
+
+	void SayBlargh ()
+	{
+		print ("Blargh");
 	}
 	
 	/// ATTACKS
@@ -581,6 +553,39 @@ public class Fighter : Actor
 		}
 		
 		
+	}
+
+	void OnTriggerEnter2D (Collider2D col)
+	{
+		if(attacking && currentAttack != null)
+		{
+			//print (col.otherCollider.name + " of " + col.otherCollider.transform.root + " has struck a blow against " + col.name + " of " + col.transform.root);
+			print ("Pow from " + gameObject.name);
+			//If the object hit is another fighter
+			if (col.gameObject.GetComponent<Fighter> ()) {
+				//Reduce health and armor
+				col.SendMessage ("Damage", currentAttack.damage);
+				col.SendMessage ("ArmorDamage", currentAttack.armorBreak);
+				StartCoroutine ("DamagePause");
+				
+				//If attack has a knockback associated with it, knock back hit object, prevent their movement while knocked back, and set interrupt animation
+				if (currentAttack.knockback > 0 && col.GetComponent<Fighter> ().blocking == false){
+					col.GetComponent<Fighter> ().isKnockedBack = true;
+					col.GetComponent<Rigidbody2D> ().AddForce (new Vector2 (facing * currentAttack.knockback, currentAttack.knockback), ForceMode2D.Impulse);
+					if(col.GetComponent<Fighter> ().attacking == false){
+						
+						col.GetComponentInChildren<Animator>().Play("interrupt", -1, 0);
+						
+					}
+				}
+			}
+			else if (col.gameObject.GetComponent<Actor> ()) {
+				
+				//Reduce health
+				col.SendMessage ("Damage", currentAttack.damage);
+			}
+				
+		}
 	}
 	
 }
