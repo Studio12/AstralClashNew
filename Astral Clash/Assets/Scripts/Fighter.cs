@@ -314,7 +314,6 @@ public class Fighter : Actor
 			}
 			
 			if(!attack.projectile){
-				RaycastHit2D hit = Physics2D.Raycast (transform.position, transform.right, attack.reach);
 
 				currentAttack = attack;
 				//If it hits something, that's not the current character
@@ -324,6 +323,7 @@ public class Fighter : Actor
 			//If attack has a projectile, send it out
 			if (attack.projectile){
 				print("Spawning projectile");
+				currentAttack = null;
 				GameObject proj = (GameObject)Instantiate (attack.projectile, transform.position, transform.rotation);
 				if(proj.GetComponent<AquaGrenade>()){
 					proj.GetComponent<AquaGrenade>().aquaHost = gameObject;
@@ -337,15 +337,10 @@ public class Fighter : Actor
 		//Reset armor to 1 to prevent overlap on button mash, reset state to not attacking.
 		print ("Attack ended");
 		armor = 1;
-		currentAttack = null;
+		//currentAttack = null;
 		attacking = false;
 	}
 
-	void SayBlargh ()
-	{
-		print ("Blargh");
-	}
-	
 	/// ATTACKS
 	/// Attacks of current fighter. Intermediary for PerformAttack, sets correct animation and passes correct attack if character isn't cooling down.
 	///
@@ -553,12 +548,11 @@ public class Fighter : Actor
 
 	void OnTriggerEnter2D (Collider2D col)
 	{
-		if(attacking && currentAttack != null)
+		if(attacking && currentAttack != null && cooldown <= currentAttack.recovery && col.GetComponent<Actor> ())
 		{
-			//print (col.otherCollider.name + " of " + col.otherCollider.transform.root + " has struck a blow against " + col.name + " of " + col.transform.root);
-			print ("Pow from " + gameObject.name);
 			//If the object hit is another fighter
-			if (col.gameObject.GetComponent<Fighter> ()) {
+			if (col.GetComponent<Fighter> ()) {
+				print ("Pow from " + gameObject.name + " upon " + col.name);
 				//Reduce health and armor
 				col.SendMessage ("Damage", currentAttack.damage);
 				col.SendMessage ("ArmorDamage", currentAttack.armorBreak);
@@ -575,12 +569,46 @@ public class Fighter : Actor
 					}
 				}
 			}
-			else if (col.gameObject.GetComponent<Actor> ()) {
+			else if (col.GetComponent<Actor> ()) {
 				
 				//Reduce health
 				col.SendMessage ("Damage", currentAttack.damage);
 			}
+			currentAttack = null;
 				
+		}
+	}
+
+	void OnTriggerStay2D (Collider2D col)
+	{
+		if(attacking && currentAttack != null && cooldown <= currentAttack.recovery && col.GetComponent<Actor> ())
+		{
+			//If the object hit is another fighter
+			if (col.GetComponent<Fighter> ()) {
+				print ("Pow from " + gameObject.name + " upon " + col.name);
+				//Reduce health and armor
+				col.SendMessage ("Damage", currentAttack.damage);
+				col.SendMessage ("ArmorDamage", currentAttack.armorBreak);
+				StartCoroutine ("DamagePause");
+				
+				//If attack has a knockback associated with it, knock back hit object, prevent their movement while knocked back, and set interrupt animation
+				if (currentAttack.knockback > 0 && col.GetComponent<Fighter> ().blocking == false){
+					col.GetComponent<Fighter> ().isKnockedBack = true;
+					col.GetComponent<Rigidbody2D> ().AddForce (new Vector2 (facing * currentAttack.knockback, currentAttack.knockback), ForceMode2D.Impulse);
+					if(col.GetComponent<Fighter> ().attacking == false){
+						
+						col.GetComponentInChildren<Animator>().Play("interrupt", -1, 0);
+						
+					}
+				}
+			}
+			else if (col.GetComponent<Actor> ()) {
+				
+				//Reduce health
+				col.SendMessage ("Damage", currentAttack.damage);
+			}
+			currentAttack = null;
+			
 		}
 	}
 	
