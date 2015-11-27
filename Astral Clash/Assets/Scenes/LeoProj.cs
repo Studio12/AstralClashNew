@@ -1,23 +1,16 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class LeoProj : MonoBehaviour {
+public class LeoProj : Projectile {
 
 	public Sprite[] attSprites;
-	public float damAmt;
-	public float speed;
-	public float life;
 	public float tempLife;
-	public float scalespeed;
-	public float knockback;
-	public GameObject activator;
-	public float facing;
-	public float armorbreak;
+	public float scaleSpeed;
 
 	// Use this for initialization
 	void Start () {
 
-		tempLife = life;
+		tempLife = lifespan;
 		facing = activator.GetComponent<Fighter> ().facing;
 		if (facing == 0) {
 		
@@ -43,20 +36,20 @@ public class LeoProj : MonoBehaviour {
 	void Update () {
 
 		this.transform.Translate( new Vector3(speed*Time.deltaTime, 0, 0));
-		life -= Time.deltaTime;
+		lifespan -= Time.deltaTime;
 
-		this.transform.localScale = new Vector2 (transform.localScale.x + (scalespeed*Time.deltaTime), transform.localScale.y + (scalespeed*Time.deltaTime));
+		this.transform.localScale = new Vector2 (transform.localScale.x + (scaleSpeed*Time.deltaTime), transform.localScale.y + (scaleSpeed*Time.deltaTime));
 
-		if(life<(tempLife-(tempLife/3)) && life>(tempLife/3)){
+		if(lifespan<(tempLife-(tempLife/3)) && lifespan>(tempLife/3)){
 
 			this.GetComponent<SpriteRenderer>().sprite = attSprites[1];
 
-		}else if(life>(tempLife/3) && life>0){
+		}else if(lifespan>(tempLife/3) && lifespan>0){
 
 			this.GetComponent<SpriteRenderer>().sprite = attSprites[2];
 
 		}
-		if(life <= 0) {
+		if(lifespan <= 0) {
 			Destroy (this.gameObject);
 		}
 
@@ -73,10 +66,10 @@ public class LeoProj : MonoBehaviour {
 					coll.GetComponent<Fighter> ().isKnockedBack = true;
 					coll.GetComponent<Rigidbody2D> ().AddForce (new Vector2 (facing * knockback, knockback), ForceMode2D.Impulse);
 				}
-				coll.gameObject.SendMessage("Damage", damAmt);
+				coll.gameObject.SendMessage("Damage", damage);
 				if(coll.GetComponent <Fighter>())
 				{
-					coll.gameObject.SendMessage("ArmorDamage", armorbreak);
+					coll.gameObject.SendMessage("ArmorDamage", armorBreak);
 					if(this.name == "LeoHeavyProj(Clone)" && coll.GetComponent<Fighter>().stars>0){
 						
 						coll.gameObject.GetComponent<Fighter>().StarLoss();
