@@ -415,6 +415,7 @@ public class Fighter : Actor
 		GameObject deathObj = (GameObject)Instantiate (deathEffect, this.transform.position, this.transform.rotation);
 		deathObj.transform.SetParent (this.gameObject.transform);
 		this.GetComponentInChildren<Animator> ().Play ("death", -1, 0f);
+		this.gameObject.layer = LayerMask.NameToLayer ("Dodge");
 		for (int i = 0; i<150; i++) {
 			
 			yield return new WaitForSeconds(.01f);
