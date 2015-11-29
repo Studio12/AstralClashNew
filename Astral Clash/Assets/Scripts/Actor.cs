@@ -8,9 +8,6 @@ public class Actor : MonoBehaviour {
 	public bool isDead = false;
 	public bool isKnockedBack;
 	public GameObject damParts;
-	/*public GameObject Hit1;
-	public GameObject Hit2;
-	public GameObject Hit3;*/
 	public GameObject[] hits;
 
 	// Use this for initialization
