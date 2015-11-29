@@ -5,7 +5,6 @@ public class Indicator : MonoBehaviour {
 
 	public GameObject indicated;
 	public GameObject box;
-	public LayerMask layer;
 
 	// Use this for initialization
 	void Start () {
@@ -16,7 +15,7 @@ public class Indicator : MonoBehaviour {
 	void Update () {
 
 		if (indicated != null) {
-			RaycastHit2D ray = Physics2D.Linecast (indicated.transform.position, box.transform.position, layer);
+			RaycastHit2D ray = Physics2D.Linecast (indicated.transform.position, box.transform.position, gameObject.layer);
 			this.transform.position = ray.point;
 			//transform.LookAt(indicated.transform.position);
 			Vector3 dir = indicated.transform.position - transform.position;

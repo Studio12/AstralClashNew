@@ -66,7 +66,7 @@ public class MatchSettings : Menu {
 		if(match.humans>match.maxPlayers){
 			
 			match.humans = match.maxPlayers;
-			match.AI = match.maxPlayers-match.humans;
+			//match.AI = match.maxPlayers-match.humans;
 			//MenuOptions [2].text = match.humans.ToString ();
 		}
 		//humanSlider.maxValue = match.maxPlayers;
@@ -76,6 +76,7 @@ public class MatchSettings : Menu {
 	{
 		adjustText (value);
 		match.humans = (int)value;
+		match.maxPlayers = (int)value;
 	}
 
 	public void selectionEffect2 (int increment)
@@ -113,7 +114,7 @@ public class MatchSettings : Menu {
 				MenuOptions [2].text = match.humans.ToString ();
 			}
 			MenuOptions [1].text = match.maxPlayers.ToString ();
-			MenuOptions [2].gameObject.transform.parent.GetComponent<Slider>().maxValue = match.maxPlayers;
+			//MenuOptions [2].gameObject.transform.parent.GetComponent<Slider>().maxValue = match.maxPlayers;
 			targetSlider.value = match.maxPlayers;
 			break;
 

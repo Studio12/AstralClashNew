@@ -42,7 +42,7 @@ public class Fighter : Actor
 	public int playID; 					//Player controlling character, or 0 for AI.
 	public int stars; 					//Stars carried, for special attack trigger.
 	public int starMax; 				//Max stars carried.
-	public GameObject SpawnPoint; 		//Respawn point, set via game manager.
+	public Transform SpawnPoint; 		//Respawn point, set via game manager.
 	public float exJump; 				//Force added on holding jump.
 	public float resetJumpVal; 			//Reset value for extra jump force.
 	public float negAcc; 				//Reduces extra jump force at this rate in air.
@@ -86,7 +86,7 @@ public class Fighter : Actor
 		exJump = resetJumpVal;
 		this.GetComponentInChildren<Animator> ().SetTrigger ("OpenTaunt"); 	//Play opening taunt animation.
 		specialControl = GameObject.Find ("SpecialManager"); 				//Find the special attack controller in scene.
-		this.transform.position = SpawnPoint.transform.position; 			//Sets position to spawnpoint.
+		this.transform.position = SpawnPoint.position; 			//Sets position to spawnpoint.
 		countdown = GameObject.Find ("Countdown");
 		shieldHealth = 30;
 		
@@ -359,15 +359,11 @@ public class Fighter : Actor
 			if (attack.projectile){
 				print("Spawning projectile");
 				GameObject proj = (GameObject)Instantiate (attack.projectile, transform.position, transform.rotation);
-				if(proj.GetComponent<AquaMissiles>()) {
-					proj.GetComponent<AquaMissiles>().aquaReal = gameObject;
-				}
-				else if(proj.GetComponent<AquaGrenade>()){
+				if(proj.GetComponent<AquaGrenade>()){
 					proj.GetComponent<AquaGrenade>().aquaHost = gameObject;
-				}else if(proj.GetComponent<LeoProj>()){
-					
-					proj.GetComponent<LeoProj>().activator = gameObject;
-					
+				}
+				else if(proj.GetComponent<Projectile>()) {
+					proj.GetComponent<Projectile>().activator = gameObject;
 				}
 			}
 		}
@@ -454,7 +450,7 @@ public class Fighter : Actor
 			
 		}
 		//Respawn character at spawnpoint.
-		this.transform.position = SpawnPoint.transform.position;
+		this.transform.position = SpawnPoint.position;
 	}
 	
 	/// DODGE
