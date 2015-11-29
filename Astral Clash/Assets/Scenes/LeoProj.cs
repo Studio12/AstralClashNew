@@ -65,7 +65,7 @@ public class LeoProj : MonoBehaviour {
 
 	void OnTriggerEnter2D(Collider2D coll){
 		
-		if (coll.tag =="Player") {
+		if (coll.GetComponent <Actor>()) {
 			if(coll.gameObject != activator && !coll.transform.IsChildOf(activator.transform))
 			{
 				print (coll.gameObject.name + " colliding with" + gameObject.name);
@@ -74,14 +74,17 @@ public class LeoProj : MonoBehaviour {
 					coll.GetComponent<Rigidbody2D> ().AddForce (new Vector2 (facing * knockback, knockback), ForceMode2D.Impulse);
 				}
 				coll.gameObject.SendMessage("Damage", damAmt);
-				coll.gameObject.SendMessage("ArmorDamage", armorbreak);
-				if(this.name == "LeoHeavyProj(Clone)" && coll.GetComponent<Fighter>().stars>0){
-					
-					coll.gameObject.GetComponent<Fighter>().StarLoss();
-					if(activator.GetComponent<Fighter>().stars<activator.GetComponent<Fighter>().starMax){
-						activator.GetComponent<Fighter>().stars++;
+				if(coll.GetComponent <Fighter>())
+				{
+					coll.gameObject.SendMessage("ArmorDamage", armorbreak);
+					if(this.name == "LeoHeavyProj(Clone)" && coll.GetComponent<Fighter>().stars>0){
+						
+						coll.gameObject.GetComponent<Fighter>().StarLoss();
+						if(activator.GetComponent<Fighter>().stars<activator.GetComponent<Fighter>().starMax){
+							activator.GetComponent<Fighter>().stars++;
+						}
+						
 					}
-					
 				}
 				if(this.name != "LeoSpecialProj(Clone)"){
 				Destroy (this.gameObject);

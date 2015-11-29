@@ -75,15 +75,15 @@ public class AquaGrenade : MonoBehaviour {
 	
 	void OnTriggerEnter2D(Collider2D coll){
 		
-		if (coll.tag == "Player") {
+		if (coll.GetComponent <Actor>()) {
 			if (coll.gameObject != aquaHost && !coll.transform.IsChildOf (aquaHost.transform)) {
 				print (coll.gameObject.name + " colliding with" + gameObject.name);
 				if (knockback > 0){
-					coll.GetComponent<Fighter> ().isKnockedBack = true;
+					coll.GetComponent<Actor> ().isKnockedBack = true;
 					coll.GetComponent<Rigidbody2D> ().AddForce (new Vector2 (storeDirection * knockback, knockback), ForceMode2D.Impulse);
 				}
 				coll.gameObject.SendMessage("Damage", damage);
-				coll.gameObject.SendMessage("ArmorDamage", armorbreak, SendMessageOptions.DontRequireReceiver);
+				if(coll.GetComponent <Fighter>()) coll.gameObject.SendMessage("ArmorDamage", armorbreak);
 				Instantiate(part, transform.position, transform.rotation);
 				Destroy (this.gameObject);
 			}
