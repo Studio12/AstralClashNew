@@ -30,7 +30,7 @@ public class MainMenu : Menu
 
 	public void Quit(){
 
-		GameObject.Find ("GameManager").GetComponent<GameManager> ().QuitGame ();
+		Application.Quit ();
 
 	}
 

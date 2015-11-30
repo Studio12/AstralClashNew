@@ -72,11 +72,6 @@ public class GameManager : MonoBehaviour
 
 	}
 
-	public void QuitGame ()
-	{
-		Application.Quit ();
-	}
-
 	public void CreateNewMatch (Match match)
 	{
 		curMatch = match;
