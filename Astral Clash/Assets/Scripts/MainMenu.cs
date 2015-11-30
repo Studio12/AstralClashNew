@@ -27,4 +27,11 @@ public class MainMenu : Menu
 		SwitchTo (charMenu);
 	}
 
+
+	public void Quit(){
+
+		GameObject.Find ("GameManager").GetComponent<GameManager> ().QuitGame ();
+
+	}
+
 }
