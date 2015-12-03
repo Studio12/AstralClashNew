@@ -5,6 +5,14 @@ using UnityEngine.EventSystems;
 public class MainMenu : Menu
 {
 	public GameObject charMenu;
+	public float idleTimer = 0;
+
+	void OnEnable () {
+		EventSystem.current.SetSelectedGameObject (firstSelected);
+		EventSystem.current.GetComponent<AudioSource>().PlayOneShot (entered);
+		EventSystem.current.GetComponent<AudioSource> ().volume = PlayerPrefs.GetFloat ("SFX Volume");
+		idleTimer = 0;
+	}
 
 	public void prepareSinglePlayer ()
 	{
@@ -21,6 +29,19 @@ public class MainMenu : Menu
 		charMenu.GetComponent<CharSelect> ().SetMatch (match);
 		Invoke ("SwitchToChars",1.5f);
 	}
+
+	void Update () {
+		if (Input.GetButtonDown ("Cancel")) {
+			BackMenu ();
+		}
+		if (Input.anyKey)
+			idleTimer = 0;
+		else
+			idleTimer += Time.deltaTime;
+		
+		if (idleTimer >= 30)
+			Application.LoadLevel ("openingSPcutscene");
+	}
 	
 	public void SwitchToChars()
 	{
@@ -30,7 +51,7 @@ public class MainMenu : Menu
 
 	public void Quit(){
 
-		GameObject.Find ("GameManager").GetComponent<GameManager> ().QuitGame ();
+		Application.Quit ();
 
 	}
 
