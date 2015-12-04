@@ -19,6 +19,7 @@ public class CharSelect : Menu {
 		selected = 0;
 		Players = 1;
 		EventSystem.current.GetComponent<StandaloneInputModule> ().horizontalAxis = "CharLR" + Players;
+		EventSystem.current.GetComponent<StandaloneInputModule> ().verticalAxis = "CharUD" + Players;
 		pText.text = "Player "+Players.ToString();
 		createIndicator ();
 	
@@ -109,6 +110,7 @@ public class CharSelect : Menu {
 				createIndicator();
 				pText.text = "Player "+Players.ToString();
 				EventSystem.current.GetComponent<StandaloneInputModule> ().horizontalAxis = "CharLR" + Players;
+				EventSystem.current.GetComponent<StandaloneInputModule> ().verticalAxis = "CharUD" + Players;
 			}
 		
 		} if(Players == match.maxPlayers+1) {
@@ -137,6 +139,8 @@ public class CharSelect : Menu {
 		clearPointers ();
 		EventSystem.current.GetComponent<AudioSource>().PlayOneShot (BackOutSound);
 		EventSystem.current.GetComponent<StandaloneInputModule> ().horizontalAxis = "MenuLR";
+		EventSystem.current.GetComponent<StandaloneInputModule> ().verticalAxis = "MenuDPad";
+
 		SwitchTo (prevMenu);
 		
 	}
