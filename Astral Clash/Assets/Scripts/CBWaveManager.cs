@@ -43,8 +43,7 @@ public class CBWaveManager : MonoBehaviour {
 			roundManager.maxPlayers = 3;
 		}*/
 		for (int i = 0; i < (GameManager.roundNum + 1); i++) {
-			GameObject spawnedBug = (GameObject)Instantiate (bug, GameObject.Find ("SpawnPoint2").transform.position, GameObject.Find ("SpawnPoint2").transform.rotation);
-			roundManager.Players.Add (spawnedBug);
+			GameObject.Find ("GameManager").GetComponent<GameManager>().CreateCharacter (8, i + 2);
 		}
 	}
 

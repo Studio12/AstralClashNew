@@ -13,7 +13,7 @@ public class DynamicScale : MonoBehaviour {
 	public float maxBoundsX;
 	public float minBoundsY;
 	public float maxBoundsY;
-	public GameObject[] players;
+	public Actor[] players;
 	public Vector2 cameraBuffer = new Vector2(0,7);
 	public float camSize = 2f;
 	public float camSpeed = 10f;
@@ -39,8 +39,8 @@ public class DynamicScale : MonoBehaviour {
 		minY = Mathf.Infinity; 
 		maxY = -Mathf.Infinity;
 		
-		players = GameObject.FindGameObjectsWithTag ("Player");
-		foreach (GameObject player in players) {
+		players = FindObjectsOfType (typeof(Actor)) as Actor[];
+		foreach (Actor player in players) {
 			Vector3 tempPlayer = player.transform.position;
 			//X Bounds
 			if (tempPlayer.x < minX)
@@ -60,7 +60,7 @@ public class DynamicScale : MonoBehaviour {
 		
 		Vector3 cameraCenter = Vector3.zero;
 		
-		foreach(GameObject player in players){
+		foreach(Actor player in players){
 			cameraCenter += player.transform.position;
 		}
 		Vector3 finalCameraCenter = new Vector3(cameraCenter.x / players.Length, cameraCenter.y/players.Length, -10);
