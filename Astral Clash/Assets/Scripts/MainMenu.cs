@@ -10,7 +10,7 @@ public class MainMenu : Menu
 	void OnEnable () {
 		EventSystem.current.SetSelectedGameObject (firstSelected);
 		EventSystem.current.GetComponent<AudioSource>().PlayOneShot (entered);
-		EventSystem.current.GetComponent<AudioSource> ().volume = PlayerPrefs.GetFloat ("SFX Volume");
+		EventSystem.current.GetComponent<AudioSource>().volume = PlayerPrefs.GetFloat ("SFX Volume");
 		idleTimer = 0;
 	}
 
@@ -34,7 +34,7 @@ public class MainMenu : Menu
 		if (Input.GetButtonDown ("Cancel")) {
 			BackMenu ();
 		}
-		if (Input.anyKey)
+		if (Input.anyKey || Input.GetAxis(EventSystem.current.GetComponent<StandaloneInputModule>().verticalAxis) != 0)
 			idleTimer = 0;
 		else
 			idleTimer += Time.deltaTime;

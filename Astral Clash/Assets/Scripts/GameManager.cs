@@ -90,8 +90,6 @@ public class GameManager : MonoBehaviour
 
 	public void CreateCharacter (int x, int y)
 	{
-
-
 		print ("Character number " + x);
 		print ("Player " + y);
 		charRef = (GameObject)Instantiate (characters [x], new Vector2 (0, 0), Quaternion.Euler (0, 0, 0));
@@ -103,37 +101,48 @@ public class GameManager : MonoBehaviour
 		switch (y) {
 
 		case 1:
-
 			charRef.GetComponent<Fighter> ().SpawnPoint = spawn1.transform;
-			charRef.name = "Player 1";
-			print ("Player 1 created");
-			barRef = (GameObject)Instantiate(healthbars[0], new Vector2(-26f, 17.5f), Quaternion.Euler(0,0,0));
-			barRef.name = "HealthBar1";
-			pObjRef = (GameObject)Instantiate(p1Obj, new Vector2(0,0), Quaternion.Euler(0,0,0));
+			charRef.transform.position = spawn1.transform.position;
+			if(charRef.GetComponent<Fighter> ()) {
+				charRef.name = "Player 1";
+				print ("Player 1 created");
+				barRef = (GameObject)Instantiate(healthbars[0], new Vector2(-26f, 17.5f), Quaternion.Euler(0,0,0));
+				barRef.name = "HealthBar1";
+				pObjRef = (GameObject)Instantiate(p1Obj, new Vector2(0,0), Quaternion.Euler(0,0,0));
+			}
 			break;
 
 		case 2:
-			charRef.GetComponent<Fighter> ().SpawnPoint = spawn2.transform;
-			charRef.name = "Player 2";
-			barRef = (GameObject)Instantiate(healthbars[1], new Vector2(-12f, 17.5f), Quaternion.Euler(0,0,0));
-			barRef.name = "HealthBar2";
-			pObjRef = (GameObject)Instantiate(p2Obj, new Vector2(0,0), Quaternion.Euler(0,0,0));
+			if(charRef.GetComponent<Fighter> ()) charRef.GetComponent<Fighter> ().SpawnPoint = spawn2.transform;
+			charRef.transform.position = spawn2.transform.position;
+			if(charRef.GetComponent<Fighter> ()) {
+				charRef.name = "Player 2";
+				barRef = (GameObject)Instantiate(healthbars[1], new Vector2(-12f, 17.5f), Quaternion.Euler(0,0,0));
+				barRef.name = "HealthBar2";
+				pObjRef = (GameObject)Instantiate(p2Obj, new Vector2(0,0), Quaternion.Euler(0,0,0));
+			}
 			break;
 
 		case 3:
-			charRef.GetComponent<Fighter> ().SpawnPoint = spawn3.transform;
-			charRef.name = "Player 3";
-			barRef = (GameObject)Instantiate(healthbars[2], new Vector2(2f, 17.5f), Quaternion.Euler(0,0,0));
-			barRef.name = "HealthBar3";
-			pObjRef = (GameObject)Instantiate(p3Obj, new Vector2(0,0), Quaternion.Euler(0,0,0));
+			if(charRef.GetComponent<Fighter> ()) charRef.GetComponent<Fighter> ().SpawnPoint = spawn3.transform;
+			charRef.transform.position = spawn3.transform.position;
+			if(charRef.GetComponent<Fighter> ()) {
+				charRef.name = "Player 3";
+				barRef = (GameObject)Instantiate(healthbars[2], new Vector2(2f, 17.5f), Quaternion.Euler(0,0,0));
+				barRef.name = "HealthBar3";
+				pObjRef = (GameObject)Instantiate(p3Obj, new Vector2(0,0), Quaternion.Euler(0,0,0));
+			}
 			break;
 
 		case 4:
-			charRef.GetComponent<Fighter> ().SpawnPoint = spawn4.transform;
-			charRef.name = "Player 4";
-			barRef = (GameObject)Instantiate(healthbars[3], new Vector2(16f, 17.5f), Quaternion.Euler(0,0,0));
-			barRef.name = "HealthBar4";
-			pObjRef = (GameObject)Instantiate(p4Obj, new Vector2(0,0), Quaternion.Euler(0,0,0));
+			if(charRef.GetComponent<Fighter> ()) charRef.GetComponent<Fighter> ().SpawnPoint = spawn4.transform;
+			charRef.transform.position = spawn4.transform.position;
+			if(charRef.GetComponent<Fighter> ()) {
+				charRef.name = "Player 4";
+				barRef = (GameObject)Instantiate(healthbars[3], new Vector2(16f, 17.5f), Quaternion.Euler(0,0,0));
+				barRef.name = "HealthBar4";
+				pObjRef = (GameObject)Instantiate(p4Obj, new Vector2(0,0), Quaternion.Euler(0,0,0));
+			}
 			break;
 
 		default:
@@ -142,31 +151,43 @@ public class GameManager : MonoBehaviour
 
 		}
 
-		GameObject portRef = (GameObject)Instantiate (portraits [x], barRef.transform.position, barRef.transform.rotation);
-		portRef.transform.parent = barRef.transform;
-		portRef.transform.localPosition = new Vector2 (-0.7864876f, 0.08238244f);
+		//charRef.transform.position = charRef.GetComponent<Fighter> ().SpawnPoint.position;
+		if (charRef.transform.position.x > 0) {
+			if(charRef.GetComponent<Fighter> ()) charRef.GetComponent<Fighter> ().facing = -1;
+			charRef.transform.LookAt (charRef.transform.position + new Vector3 (0, 0, -1));
+		}
+
+		if (x < 8) {
+			GameObject portRef = (GameObject)Instantiate (portraits [x], barRef.transform.position, barRef.transform.rotation);
+			portRef.transform.parent = barRef.transform;
+			portRef.transform.localPosition = new Vector2 (-0.7864876f, 0.08238244f);
+		}
 
 		foreach (HealthBar h in barRef.GetComponentsInChildren<HealthBar>()) {
 		
-			h.character = charRef.GetComponent<Fighter> ();
+			if(charRef.GetComponent<Fighter> ()) h.character = charRef.GetComponent<Fighter> ();
 
 		}
 
-		pObjRef.transform.SetParent(charRef.GetComponent<Transform>());
-		if (charRef.GetComponent<Fighter> ().charType == "Scorpio") {
+		if (x < 8) {
+			pObjRef.transform.SetParent (charRef.GetComponent<Transform> ());
+			if (charRef.GetComponent<Fighter> ().charType == "Scorpio") {
 		
-			pObjRef.transform.localPosition = new Vector2 (0, 3);
+				pObjRef.transform.localPosition = new Vector2 (0, 3);
 		
-		} else {
-			pObjRef.transform.localPosition = new Vector2 (0, 4);
+			} else {
+				pObjRef.transform.localPosition = new Vector2 (0, 4);
+			}
 		}
 
 		roundManager.GetComponent<Round> ().Players.Add (charRef);
 		print ("Adding character to list");
 		print (roundManager.GetComponent<Round> ().Players [0].name);
-		barRef.GetComponentInChildren<StarBar> ().character = charRef;
-		barRef.GetComponentInChildren<TextMesh> ().text = "Player "+y.ToString()+"\n\t\t\t\t   "+pWins[y-1].ToString();
-		barRef.GetComponentInChildren<TextMesh> ().gameObject.GetComponent<Renderer> ().sortingOrder = 19;
+		if (x < 8) {
+			barRef.GetComponentInChildren<StarBar> ().character = charRef;
+			barRef.GetComponentInChildren<TextMesh> ().text = "Player " + y.ToString () + "\n\t\t\t\t   " + pWins [y - 1].ToString ();
+			barRef.GetComponentInChildren<TextMesh> ().gameObject.GetComponent<Renderer> ().sortingOrder = 19;
+		}
 
 	}
 

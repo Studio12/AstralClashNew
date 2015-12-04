@@ -86,7 +86,6 @@ public class Fighter : Actor
 		exJump = resetJumpVal;
 		this.GetComponentInChildren<Animator> ().SetTrigger ("OpenTaunt"); 	//Play opening taunt animation.
 		specialControl = GameObject.Find ("SpecialManager"); 				//Find the special attack controller in scene.
-		this.transform.position = SpawnPoint.position; 			//Sets position to spawnpoint.
 		countdown = GameObject.Find ("Countdown");
 		shieldHealth = 30;
 		

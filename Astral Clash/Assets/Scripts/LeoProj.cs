@@ -38,7 +38,7 @@ public class LeoProj : Projectile {
 		this.transform.Translate( new Vector3(speed*Time.deltaTime, 0, 0));
 		lifespan -= Time.deltaTime;
 
-		this.transform.localScale = new Vector2 (transform.localScale.x + (scaleSpeed*Time.deltaTime), transform.localScale.y + (scaleSpeed*Time.deltaTime));
+		if(transform.localScale.x < 5 && transform.localScale.y < 5) this.transform.localScale = new Vector2 (transform.localScale.x + (scaleSpeed*Time.deltaTime), transform.localScale.y + (scaleSpeed*Time.deltaTime));
 
 		if(lifespan<(tempLife-(tempLife/3)) && lifespan>(tempLife/3)){
 

@@ -19,7 +19,6 @@ public class MatchSettings : Menu {
 		EventSystem.current.SetSelectedGameObject (firstSelected);
 		EventSystem.current.GetComponent<AudioSource>().PlayOneShot (entered);
 		EventSystem.current.GetComponent<AudioSource> ().volume = PlayerPrefs.GetFloat ("SFX Volume");
-		match.maxPlayers = 4;
 	}
 
 	public void SetSelected (int newSelected)
@@ -48,7 +47,6 @@ public class MatchSettings : Menu {
 	{
 		adjustText (value);
 		match.rounds = (int)value;
-		print (value);
 	}
 
 	public void adjustFighters (float value)
@@ -122,6 +120,7 @@ public class MatchSettings : Menu {
 			}
 			else{match.humans = (int)value;}
 			MenuOptions [2].text = match.humans.ToString ();
+			match.maxPlayers = match.humans;
 			match.AI = match.maxPlayers-match.humans;
 			targetSlider.value = match.humans;
 			break;
