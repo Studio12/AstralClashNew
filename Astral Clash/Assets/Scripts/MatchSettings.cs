@@ -14,19 +14,11 @@ public class MatchSettings : Menu {
 	private int fighters;
 
 	// Use this for initialization
-	void Awake () {
-
+	void OnEnable () {
 		ResetMatchSettings ();
-
-	}
-	
-	// Update is called once per frame
-	void Update () {
-
-		if(Input.GetButtonDown("Cancel")){
-			BackMenu();
-		}
-
+		EventSystem.current.SetSelectedGameObject (firstSelected);
+		EventSystem.current.GetComponent<AudioSource>().PlayOneShot (entered);
+		EventSystem.current.GetComponent<AudioSource> ().volume = PlayerPrefs.GetFloat ("SFX Volume");
 	}
 
 	public void SetSelected (int newSelected)
@@ -79,34 +71,32 @@ public class MatchSettings : Menu {
 		match.maxPlayers = (int)value;
 	}
 
-	public void selectionEffect2 (int increment)
+	public void selectionEffect2 (float value)
 	{
-		Slider targetSlider;
+		Slider targetSlider = MenuOptions [selected].gameObject.transform.parent.GetComponent<Slider>();
 		switch (selected) {
 		
 		case 0:
-			targetSlider = MenuOptions [0].gameObject.transform.parent.GetComponent<Slider>();
-			if(match.rounds+increment < targetSlider.minValue){
-				match.rounds = (int)targetSlider.maxValue;
+			if(value == targetSlider.minValue){
+				match.rounds = (int)targetSlider.maxValue - 1;
 
-			}else if(match.rounds+increment > targetSlider.maxValue){
-				match.rounds = (int)targetSlider.minValue;
+			}else if(value == targetSlider.maxValue){
+				match.rounds = (int)targetSlider.minValue + 1;
 
 			}
-			else{match.rounds += increment;}
+			else{match.rounds = (int)value;}
 			targetSlider.value = match.rounds;
 			break;
 
 		case 1:
-			targetSlider = MenuOptions [1].gameObject.transform.parent.GetComponent<Slider>();
-			if(match.maxPlayers+increment < targetSlider.minValue){
-				match.maxPlayers = (int)targetSlider.maxValue;
+			if(value == targetSlider.minValue){
+				match.maxPlayers = (int)targetSlider.maxValue - 1;
 				
-			}else if(match.maxPlayers+increment > targetSlider.maxValue){
-				match.maxPlayers = (int)targetSlider.minValue;
+			}else if(value == targetSlider.maxValue){
+				match.maxPlayers = (int)targetSlider.minValue + 1;
 				
 			}
-			else{match.maxPlayers += increment;}
+			else{match.maxPlayers = (int)value;}
 			if(match.humans>match.maxPlayers){
 
 				match.humans = match.maxPlayers;
@@ -119,18 +109,18 @@ public class MatchSettings : Menu {
 			break;
 
 		case 2:
-			targetSlider = MenuOptions [2].gameObject.transform.parent.GetComponent<Slider>();
-			if(match.humans+increment == -1){
+			if(value == targetSlider.minValue){
 				
-				match.humans = match.maxPlayers;
+				match.humans = (int)targetSlider.maxValue - 1;
 				
-			}else if(match.humans+increment == match.maxPlayers+1){
+			}else if(value == targetSlider.maxValue){
 				
-				match.humans = 0;
+				match.humans = (int)targetSlider.minValue + 1;
 				
 			}
-			else{match.humans += increment;}
+			else{match.humans = (int)value;}
 			MenuOptions [2].text = match.humans.ToString ();
+			match.maxPlayers = match.humans;
 			match.AI = match.maxPlayers-match.humans;
 			targetSlider.value = match.humans;
 			break;
@@ -138,6 +128,8 @@ public class MatchSettings : Menu {
 		default:
 			break;
 		}
+
+		adjustText (targetSlider.value);
 
 		
 	}
