@@ -19,6 +19,7 @@ public class MatchSettings : Menu {
 		EventSystem.current.SetSelectedGameObject (firstSelected);
 		EventSystem.current.GetComponent<AudioSource>().PlayOneShot (entered);
 		EventSystem.current.GetComponent<AudioSource> ().volume = PlayerPrefs.GetFloat ("SFX Volume");
+		match.maxPlayers = 4;
 	}
 
 	public void SetSelected (int newSelected)
@@ -74,16 +75,15 @@ public class MatchSettings : Menu {
 
 	public void selectionEffect2 (float value)
 	{
-		Slider targetSlider;
+		Slider targetSlider = MenuOptions [selected].gameObject.transform.parent.GetComponent<Slider>();
 		switch (selected) {
 		
 		case 0:
-			targetSlider = MenuOptions [0].gameObject.transform.parent.GetComponent<Slider>();
 			if(value == targetSlider.minValue){
-				match.rounds = (int)targetSlider.maxValue;
+				match.rounds = (int)targetSlider.maxValue - 1;
 
-			}else if(value > targetSlider.maxValue){
-				match.rounds = (int)targetSlider.minValue;
+			}else if(value == targetSlider.maxValue){
+				match.rounds = (int)targetSlider.minValue + 1;
 
 			}
 			else{match.rounds = (int)value;}
@@ -91,12 +91,11 @@ public class MatchSettings : Menu {
 			break;
 
 		case 1:
-			targetSlider = MenuOptions [1].gameObject.transform.parent.GetComponent<Slider>();
-			if(value < targetSlider.minValue){
-				match.maxPlayers = (int)targetSlider.maxValue;
+			if(value == targetSlider.minValue){
+				match.maxPlayers = (int)targetSlider.maxValue - 1;
 				
-			}else if(value > targetSlider.maxValue){
-				match.maxPlayers = (int)targetSlider.minValue;
+			}else if(value == targetSlider.maxValue){
+				match.maxPlayers = (int)targetSlider.minValue + 1;
 				
 			}
 			else{match.maxPlayers = (int)value;}
@@ -112,14 +111,13 @@ public class MatchSettings : Menu {
 			break;
 
 		case 2:
-			targetSlider = MenuOptions [2].gameObject.transform.parent.GetComponent<Slider>();
-			if(value == -1){
+			if(value == targetSlider.minValue){
 				
-				match.humans = match.maxPlayers;
+				match.humans = (int)targetSlider.maxValue - 1;
 				
-			}else if(value == match.maxPlayers+1){
+			}else if(value == targetSlider.maxValue){
 				
-				match.humans = 0;
+				match.humans = (int)targetSlider.minValue + 1;
 				
 			}
 			else{match.humans = (int)value;}
@@ -132,7 +130,7 @@ public class MatchSettings : Menu {
 			break;
 		}
 
-		adjustText (value);
+		adjustText (targetSlider.value);
 
 		
 	}
