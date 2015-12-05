@@ -32,9 +32,10 @@ public class CometBug : Actor {
 	/// RINGOUT
 	/// If character falls outside of the arena, reduce health and respawn.
 	/// 
-	public override void Ringout ()
+	public void Ringout ()
 	{
-		health = 0;
+		
+		Death ();
 	}
 
 	void Death ()

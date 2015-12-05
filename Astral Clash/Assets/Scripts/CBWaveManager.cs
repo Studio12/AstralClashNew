@@ -45,7 +45,6 @@ public class CBWaveManager : MonoBehaviour {
 		for (int i = 0; i < (GameManager.roundNum + 1); i++) {
 			GameObject.Find ("GameManager").GetComponent<GameManager>().CreateCharacter (8, i + 2);
 		}
-		roundManager.maxPlayers = FindObjectsOfType (typeof(Actor)).Length;
 	}
 
 	public void Restart () {

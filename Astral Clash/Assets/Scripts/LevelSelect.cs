@@ -9,6 +9,7 @@ public class LevelSelect : Menu {
 		match.Level = Level;
 		charMenu.GetComponent<CharSelect> ().SetMatch (match);
 		print ("Received input");
+		//SwitchToChars ();
 		Invoke ("SwitchToChars",1.5f);
 	}
 
