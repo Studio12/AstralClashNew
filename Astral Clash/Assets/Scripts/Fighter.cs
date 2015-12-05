@@ -434,7 +434,7 @@ public class Fighter : Actor
 	/// RINGOUT
 	/// If character falls outside of the arena, reduce health and respawn.
 	/// 
-	public void Ringout ()
+	public override void Ringout ()
 	{
 		
 		//If character health is greater than at least twice a tenth of max, reduce by one tenth

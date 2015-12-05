@@ -59,4 +59,9 @@ public class Actor : MonoBehaviour {
 		health -= amount;
 		StartCoroutine ("ShowDamage");
 	}
+
+	public virtual void Ringout ()
+	{
+		//Insert Ringout template here
+	}
 }
