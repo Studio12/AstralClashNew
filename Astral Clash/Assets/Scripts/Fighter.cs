@@ -89,7 +89,6 @@ public class Fighter : Actor
 		exJump = resetJumpVal;
 		this.GetComponentInChildren<Animator> ().SetTrigger ("OpenTaunt"); 	//Play opening taunt animation.
 		specialControl = GameObject.Find ("SpecialManager"); 				//Find the special attack controller in scene.
-		this.transform.position = SpawnPoint.position; 			//Sets position to spawnpoint.
 		countdown = GameObject.Find ("Countdown");
 		shieldHealth = 30;
 		
@@ -382,6 +381,7 @@ public class Fighter : Actor
 		GameObject deathObj = (GameObject)Instantiate (deathEffect, this.transform.position, this.transform.rotation);
 		deathObj.transform.SetParent (this.gameObject.transform);
 		this.GetComponentInChildren<Animator> ().Play ("death", -1, 0f);
+		this.gameObject.layer = LayerMask.NameToLayer ("Dodge");
 		for (int i = 0; i<150; i++) {
 			
 			yield return new WaitForSeconds(.01f);
