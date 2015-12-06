@@ -443,12 +443,6 @@ public class Fighter : Actor
 			health -= (maxHealth / 10);
 			
 		} 
-		//If character is at 1/10 health, or would go under otherwise, set to 1/10 health.
-		else {
-			
-			health = maxHealth / 10;
-			
-		}
 		//Respawn character at spawnpoint.
 		this.transform.position = SpawnPoint.position;
 	}
