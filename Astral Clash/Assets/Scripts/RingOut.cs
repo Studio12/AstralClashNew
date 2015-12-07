@@ -31,7 +31,7 @@ public class RingOut : MonoBehaviour {
 
 	void OnCollisionEnter2D(Collision2D collide){
 
-		if (collide.gameObject.tag == "Player") {
+		if (collide.gameObject.GetComponent<Actor>()) {
 		
 			foreach (ContactPoint2D contact in collide.contacts) {
 		
@@ -40,7 +40,7 @@ public class RingOut : MonoBehaviour {
 		
 			}
 
-			collide.gameObject.GetComponent<Fighter>().Ringout();
+			collide.gameObject.GetComponent<Actor>().Ringout();
 			GetComponent<AudioSource>().Play();
 		}
 

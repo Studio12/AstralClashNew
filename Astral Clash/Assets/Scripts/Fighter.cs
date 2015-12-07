@@ -434,7 +434,7 @@ public class Fighter : Actor
 	/// RINGOUT
 	/// If character falls outside of the arena, reduce health and respawn.
 	/// 
-	public void Ringout ()
+	public override void Ringout ()
 	{
 		
 		//If character health is greater than at least twice a tenth of max, reduce by one tenth
@@ -443,12 +443,6 @@ public class Fighter : Actor
 			health -= (maxHealth / 10);
 			
 		} 
-		//If character is at 1/10 health, or would go under otherwise, set to 1/10 health.
-		else {
-			
-			health = maxHealth / 10;
-			
-		}
 		//Respawn character at spawnpoint.
 		this.transform.position = SpawnPoint.position;
 	}
