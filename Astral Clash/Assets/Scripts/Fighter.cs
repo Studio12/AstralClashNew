@@ -325,6 +325,7 @@ public class Fighter : Actor
 						hit.collider.SendMessage ("Damage", attack.damage);
 						hit.collider.SendMessage ("ArmorDamage", attack.armorBreak);
 						StartCoroutine ("DamagePause");
+						StartCoroutine(ShakeCamera(hit.collider.transform.position - transform.position, attack.damage));
 						if(attnum == 3 && hit.collider.GetComponent<Fighter>().stars>0){
 							
 							hit.collider.gameObject.GetComponent<Fighter>().StarLoss();
@@ -571,6 +572,20 @@ public class Fighter : Actor
 		}
 		
 		
+	}
+
+	IEnumerator ShakeCamera (Vector3 direction, float scale)
+	{
+		//Vector3 oldPos = Camera.main.transform.position;
+		float currentTime = 0;
+		Vector3 shakePos = Vector3.zero;
+		while (currentTime < 1) {
+			shakePos.x = (scale * 0.1f * Mathf.Cos (Mathf.Deg2Rad * Vector3.Angle (direction, Vector3.right))) * Mathf.Exp (-currentTime) * (Mathf.Cos (20 * Mathf.PI * currentTime));
+			shakePos.y = (scale * 0.1f * Mathf.Sin (Mathf.Deg2Rad * Vector3.Angle (direction, Vector3.right))) * Mathf.Exp (-currentTime) * (Mathf.Cos (20 * Mathf.PI * currentTime));
+			Camera.main.transform.position += shakePos;
+			currentTime += Time.deltaTime;
+			yield return new WaitForFixedUpdate ();
+		}
 	}
 	
 }

@@ -6,11 +6,13 @@ public class MainMenu : Menu
 {
 	public GameObject charMenu;
 	public float idleTimer = 0;
+	EventSystem currentSystem = EventSystem.current;
 
 	void OnEnable () {
-		EventSystem.current.SetSelectedGameObject (firstSelected);
-		EventSystem.current.GetComponent<AudioSource>().PlayOneShot (entered);
-		EventSystem.current.GetComponent<AudioSource>().volume = PlayerPrefs.GetFloat ("SFX Volume");
+		currentSystem = EventSystem.current;
+		currentSystem.SetSelectedGameObject (firstSelected);
+		currentSystem.GetComponent<AudioSource>().PlayOneShot (entered);
+		currentSystem.GetComponent<AudioSource>().volume = PlayerPrefs.GetFloat ("SFX Volume");
 		idleTimer = 0;
 	}
 
@@ -27,6 +29,7 @@ public class MainMenu : Menu
 		match.p4 = -1;
 		match.Level = "SPPlaceholder";
 		charMenu.GetComponent<CharSelect> ().SetMatch (match);
+		currentSystem.enabled = false;
 		Invoke ("SwitchToChars",1.5f);
 	}
 
@@ -34,7 +37,7 @@ public class MainMenu : Menu
 		if (Input.GetButtonDown ("Cancel")) {
 			BackMenu ();
 		}
-		if (Input.anyKey || Input.GetAxis(EventSystem.current.GetComponent<StandaloneInputModule>().verticalAxis) != 0)
+		if (Input.anyKey || Input.GetAxis(currentSystem.GetComponent<StandaloneInputModule>().verticalAxis) != 0)
 			idleTimer = 0;
 		else
 			idleTimer += Time.deltaTime;
@@ -45,6 +48,7 @@ public class MainMenu : Menu
 	
 	public void SwitchToChars()
 	{
+		currentSystem.enabled = true;
 		SwitchTo (charMenu);
 	}
 
