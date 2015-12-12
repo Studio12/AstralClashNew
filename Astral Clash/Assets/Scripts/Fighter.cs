@@ -118,7 +118,7 @@ public class Fighter : Actor
 			
 		}
 		
-		if (countdown.activeSelf == false){
+		if (countdown && countdown.activeSelf == false){
 			//Sets facing to left or right depending on direction float axis
 			if (direction > 0) {
 				

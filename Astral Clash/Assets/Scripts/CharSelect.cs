@@ -117,10 +117,10 @@ public class CharSelect : Menu {
 			if(match.Level == "SPPlaceholder")
 			{
 				//Stuff
-				if(match.p1 == 0) match.Level = "Arena SP";
-				else if(match.p1 == 1) match.Level = "Storm Coast SP";
-				else if(match.p1 == 2) match.Level = "starrySky SP";
-				else if(match.p1 == 3) match.Level = "FireStage SP";
+				if(match.p1 == 0) match.Level = "taurusOpening";
+				else if(match.p1 == 1) match.Level = "scorpioOpening";
+				else if(match.p1 == 2) match.Level = "aquaOpening";
+				else if(match.p1 == 3) match.Level = "leoOpening";
 			}
 			BeginMatch();
 		

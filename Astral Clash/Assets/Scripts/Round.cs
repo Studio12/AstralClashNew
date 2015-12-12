@@ -64,9 +64,12 @@ public class Round : MonoBehaviour {
 		if (GameManager.roundNum < GameManager.curMatch.rounds-1) {
 		
 			GameManager.roundNum++;
-			GameOverUI.SetActive (true);
-			OverText.text = "Round Over!";
-			OverText.gameObject.GetComponent<Renderer>().sortingOrder = 21;
+			if(GameOverUI) GameOverUI.SetActive (true);
+			if(OverText)
+			{
+				OverText.text = "Round Over!";
+				OverText.gameObject.GetComponent<Renderer>().sortingOrder = 21;
+			}
 			if(Players.Count == 0) WinnerText.text = "Round is tied!";
 			else
 			{
@@ -93,7 +96,7 @@ public class Round : MonoBehaviour {
 		
 		} else {
 		
-			GameOverUI.SetActive (true);
+			if(GameOverUI) GameOverUI.SetActive (true);
 			if(Players.Count > 0)
 			{
 				switch (Players[0].name) {
@@ -140,8 +143,11 @@ public class Round : MonoBehaviour {
 
 			}
 
-			OverText.text = "Match Over!";
-			OverText.gameObject.GetComponent<Renderer>().sortingOrder = 21;
+			if(OverText)
+			{
+				OverText.text = "Match Over!";
+				OverText.gameObject.GetComponent<Renderer>().sortingOrder = 21;
+			}
 			if(Players.Count > 0){
 				WinnerText.text = "Round winner is " + Players[0].name + "!\nFinal Winner: "+winnerName+"!";
 				this.GetComponent<AudioSource>().Play ();
@@ -151,7 +157,26 @@ public class Round : MonoBehaviour {
 				}
 			WinnerText.gameObject.GetComponent<Renderer>().sortingOrder = 21;
 			yield return new WaitForSeconds (3.0f);
-			GameManager.ChooseLevel ("MainMenu");
+			if(Application.loadedLevelName.IndexOf("SP") > -1)
+			{
+				switch (Players[0].GetComponent<Fighter>().charType) {
+				case "Taurus":
+					GameManager.ChooseLevel ("taurusEnding");
+					break;
+				case "Scorpio":
+					GameManager.ChooseLevel ("scorpioEnding");
+					break;
+				case "Aquarius":
+					GameManager.ChooseLevel ("aquaEnding");
+					break;
+				case "Leo":
+					GameManager.ChooseLevel ("leoEnding");
+					break;
+				default:
+					break;
+				}
+			}
+			else GameManager.ChooseLevel ("MainMenu");
 		
 		}
 
