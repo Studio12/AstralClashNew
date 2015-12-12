@@ -30,6 +30,11 @@ public class Cutscene : MonoBehaviour {
 
 	void Continue () 
 	{
-		Application.LoadLevel (NextScene);
+		if (NextScene.IndexOf ("SP") == -1)
+			GameManager.ChooseLevel (NextScene);
+		else {
+			GameManager.curMatch.Level = NextScene;
+			GameObject.Find("GameManager").GetComponent<GameManager>().CreateNewMatch(GameManager.curMatch);
+		}
 	}
 }

@@ -54,7 +54,7 @@ public class Actor : MonoBehaviour {
 		
 	}
 
-	void Damage (float amount)
+	public virtual void Damage (float amount)
 	{
 		health -= amount;
 		StartCoroutine ("ShowDamage");

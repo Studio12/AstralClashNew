@@ -118,7 +118,7 @@ public class Fighter : Actor
 			
 		}
 		
-		if (countdown.activeSelf == false){
+		if (countdown && countdown.activeSelf == false){
 			//Sets facing to left or right depending on direction float axis
 			if (direction > 0) {
 				
@@ -396,6 +396,20 @@ public class Fighter : Actor
 		if (cooldown <= 0) {
 			StartCoroutine (PerformAttack (heavyAttack, 3));
 			this.GetComponentInChildren<Animator> ().Play ("hAttack", -1, 0f);
+		}
+	}
+	/// DAMAGE
+	/// Reduces health or shield health
+	///
+	public override void Damage (float amount)
+	{
+		if (!blocking) {
+			health -= amount;
+			StartCoroutine ("ShowDamage");
+		} else if(blocking) {
+			shieldHealth -= amount;
+			if(shieldHealth <= 0)
+				shieldBroken = true;
 		}
 	}
 	
