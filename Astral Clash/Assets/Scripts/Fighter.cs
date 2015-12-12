@@ -398,6 +398,20 @@ public class Fighter : Actor
 			this.GetComponentInChildren<Animator> ().Play ("hAttack", -1, 0f);
 		}
 	}
+	/// DAMAGE
+	/// Reduces health or shield health
+	///
+	public override void Damage (float amount)
+	{
+		if (!blocking) {
+			health -= amount;
+			StartCoroutine ("ShowDamage");
+		} else if(blocking) {
+			shieldHealth -= amount;
+			if(shieldHealth <= 0)
+				shieldBroken = true;
+		}
+	}
 	
 	/// ARMOR DAMAGE
 	/// Reduces armor on an attack, bringing closer to interrupt.
