@@ -7,11 +7,6 @@ using System.Collections;
 
 public class GameManager : MonoBehaviour
 {
-
-	private GameObject spawn1;
-	private GameObject spawn2;
-	private GameObject spawn3;
-	private GameObject spawn4;
 	public GameObject[] characters;
 	public GameObject[] healthbars;
 	public GameObject[] portraits;
@@ -97,12 +92,12 @@ public class GameManager : MonoBehaviour
 			charRef.GetComponent<Fighter> ().playID = y;
 		}
 
-		
+		GameObject spawnRef = GameObject.Find ("SpawnPoint" + y);
+		if(charRef.GetComponent<Fighter> ()) charRef.GetComponent<Fighter> ().SpawnPoint = spawnRef.transform;
+		charRef.transform.position = spawnRef.transform.position;
 		switch (y) {
 
 		case 1:
-			charRef.GetComponent<Fighter> ().SpawnPoint = spawn1.transform;
-			charRef.transform.position = spawn1.transform.position;
 			if(charRef.GetComponent<Fighter> ()) {
 				charRef.name = "Player 1";
 				print ("Player 1 created");
@@ -113,8 +108,6 @@ public class GameManager : MonoBehaviour
 			break;
 
 		case 2:
-			if(charRef.GetComponent<Fighter> ()) charRef.GetComponent<Fighter> ().SpawnPoint = spawn2.transform;
-			charRef.transform.position = spawn2.transform.position;
 			if(charRef.GetComponent<Fighter> ()) {
 				charRef.name = "Player 2";
 				barRef = (GameObject)Instantiate(healthbars[1], new Vector2(-12f, 17.5f), Quaternion.Euler(0,0,0));
@@ -124,8 +117,6 @@ public class GameManager : MonoBehaviour
 			break;
 
 		case 3:
-			if(charRef.GetComponent<Fighter> ()) charRef.GetComponent<Fighter> ().SpawnPoint = spawn3.transform;
-			charRef.transform.position = spawn3.transform.position;
 			if(charRef.GetComponent<Fighter> ()) {
 				charRef.name = "Player 3";
 				barRef = (GameObject)Instantiate(healthbars[2], new Vector2(2f, 17.5f), Quaternion.Euler(0,0,0));
@@ -135,8 +126,6 @@ public class GameManager : MonoBehaviour
 			break;
 
 		case 4:
-			if(charRef.GetComponent<Fighter> ()) charRef.GetComponent<Fighter> ().SpawnPoint = spawn4.transform;
-			charRef.transform.position = spawn4.transform.position;
 			if(charRef.GetComponent<Fighter> ()) {
 				charRef.name = "Player 4";
 				barRef = (GameObject)Instantiate(healthbars[3], new Vector2(16f, 17.5f), Quaternion.Euler(0,0,0));
@@ -203,11 +192,6 @@ public class GameManager : MonoBehaviour
 
 		}
 
-
-		spawn1 = GameObject.Find ("SpawnPoint1");
-		spawn2 = GameObject.Find ("SpawnPoint2");
-		spawn3 = GameObject.Find ("SpawnPoint3");
-		spawn4 = GameObject.Find ("SpawnPoint4");
 		roundManager = GameObject.Find ("RoundControls");
 		
 		roundManager.GetComponent<Round> ().maxPlayers = match.maxPlayers;

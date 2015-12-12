@@ -20,6 +20,7 @@ public class CharSelect : Menu {
 		Players = 1;
 		EventSystem.current.GetComponent<StandaloneInputModule> ().horizontalAxis = "CharLR" + Players;
 		EventSystem.current.GetComponent<StandaloneInputModule> ().verticalAxis = "CharUD" + Players;
+		EventSystem.current.GetComponent<StandaloneInputModule> ().submitButton = "CharSubmit" + Players;
 		pText.text = "Player "+Players.ToString();
 		createIndicator ();
 	
@@ -111,16 +112,17 @@ public class CharSelect : Menu {
 				pText.text = "Player "+Players.ToString();
 				EventSystem.current.GetComponent<StandaloneInputModule> ().horizontalAxis = "CharLR" + Players;
 				EventSystem.current.GetComponent<StandaloneInputModule> ().verticalAxis = "CharUD" + Players;
+				EventSystem.current.GetComponent<StandaloneInputModule> ().submitButton = "CharSubmit" + Players;
 			}
 		
 		} if(Players == match.maxPlayers+1) {
 			if(match.Level == "SPPlaceholder")
 			{
 				//Stuff
-				if(match.p1 == 0) match.Level = "Arena SP";
-				else if(match.p1 == 1) match.Level = "Storm Coast SP";
-				else if(match.p1 == 2) match.Level = "starrySky SP";
-				else if(match.p1 == 3) match.Level = "FireStage SP";
+				if(match.p1 == 0) match.Level = "taurusOpening";
+				else if(match.p1 == 1) match.Level = "scorpioOpening";
+				else if(match.p1 == 2) match.Level = "aquaOpening";
+				else if(match.p1 == 3) match.Level = "leoOpening";
 			}
 			BeginMatch();
 		
@@ -140,6 +142,8 @@ public class CharSelect : Menu {
 		EventSystem.current.GetComponent<AudioSource>().PlayOneShot (BackOutSound);
 		EventSystem.current.GetComponent<StandaloneInputModule> ().horizontalAxis = "MenuLR";
 		EventSystem.current.GetComponent<StandaloneInputModule> ().verticalAxis = "MenuDPad";
+		EventSystem.current.GetComponent<StandaloneInputModule> ().submitButton = "Submit";
+
 
 		SwitchTo (prevMenu);
 		

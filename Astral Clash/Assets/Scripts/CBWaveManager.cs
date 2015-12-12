@@ -13,6 +13,7 @@ public class CBWaveManager : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 		player = roundManager.Players [0].GetComponent<Fighter> ();
+		GameObject.Find ("HealthBar1").GetComponentInChildren<TextMesh> ().text = roundManager.Players [0].GetComponent<Fighter>().charType;
 		roundManager.maxPlayers = 2;
 		player.stars = GameManager.roundNum;
 		NewWave ();
@@ -62,7 +63,7 @@ public class CBWaveManager : MonoBehaviour {
 		GameObject.Find("GameManager").GetComponent<GameManager>().CreateNewMatch(match);
 	}
 
-	IEnumerator GameOver () {
+	public IEnumerator GameOver () {
 		print ("Game Over");
 		
 		yield return new WaitForSeconds (5f);
