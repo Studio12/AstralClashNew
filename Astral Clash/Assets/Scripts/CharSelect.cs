@@ -18,9 +18,9 @@ public class CharSelect : Menu {
 		EventSystem.current.GetComponent<AudioSource>().PlayOneShot (entered);
 		selected = 0;
 		Players = 1;
-		EventSystem.current.GetComponent<StandaloneInputModule> ().horizontalAxis = "CharLR" + Players;
-		EventSystem.current.GetComponent<StandaloneInputModule> ().verticalAxis = "CharUD" + Players;
-		EventSystem.current.GetComponent<StandaloneInputModule> ().submitButton = "CharSubmit" + Players;
+		EventSystem.current.GetComponent<MouselessInputModule> ().horizontalAxis = "CharLR" + Players;
+		EventSystem.current.GetComponent<MouselessInputModule> ().verticalAxis = "CharUD" + Players;
+		EventSystem.current.GetComponent<MouselessInputModule> ().submitButton = "CharSubmit" + Players;
 		pText.text = "Player "+Players.ToString();
 		createIndicator ();
 	
@@ -110,9 +110,9 @@ public class CharSelect : Menu {
 			if(Players != match.maxPlayers+1){
 				createIndicator();
 				pText.text = "Player "+Players.ToString();
-				EventSystem.current.GetComponent<StandaloneInputModule> ().horizontalAxis = "CharLR" + Players;
-				EventSystem.current.GetComponent<StandaloneInputModule> ().verticalAxis = "CharUD" + Players;
-				EventSystem.current.GetComponent<StandaloneInputModule> ().submitButton = "CharSubmit" + Players;
+				EventSystem.current.GetComponent<MouselessInputModule> ().horizontalAxis = "CharLR" + Players;
+				EventSystem.current.GetComponent<MouselessInputModule> ().verticalAxis = "CharUD" + Players;
+				EventSystem.current.GetComponent<MouselessInputModule> ().submitButton = "CharSubmit" + Players;
 			}
 		
 		} if(Players == match.maxPlayers+1) {
@@ -140,9 +140,9 @@ public class CharSelect : Menu {
 		print ("Backing out");
 		clearPointers ();
 		EventSystem.current.GetComponent<AudioSource>().PlayOneShot (BackOutSound);
-		EventSystem.current.GetComponent<StandaloneInputModule> ().horizontalAxis = "MenuLR";
-		EventSystem.current.GetComponent<StandaloneInputModule> ().verticalAxis = "MenuDPad";
-		EventSystem.current.GetComponent<StandaloneInputModule> ().submitButton = "Submit";
+		EventSystem.current.GetComponent<MouselessInputModule> ().horizontalAxis = "MenuLR";
+		EventSystem.current.GetComponent<MouselessInputModule> ().verticalAxis = "MenuDPad";
+		EventSystem.current.GetComponent<MouselessInputModule> ().submitButton = "Submit";
 
 
 		SwitchTo (prevMenu);
