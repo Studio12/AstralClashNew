@@ -34,10 +34,10 @@ public class MainMenu : Menu
 	}
 
 	void Update () {
-		if (Input.GetButtonDown ("Cancel")) {
+		if (Input.GetButtonDown (currentSystem.GetComponent<MouselessInputModule>().cancelButton)) {
 			BackMenu ();
 		}
-		if (Input.anyKey || Input.GetAxis(currentSystem.GetComponent<StandaloneInputModule>().verticalAxis) != 0)
+		if (Input.anyKey || Input.GetAxis(currentSystem.GetComponent<MouselessInputModule>().verticalAxis) != 0)
 			idleTimer = 0;
 		else
 			idleTimer += Time.deltaTime;

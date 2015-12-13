@@ -31,6 +31,10 @@ public class Menu : MonoBehaviour {
 
 	public void SwitchTo (GameObject newMenu)
 	{
+		//Weird hack necessary to have the first selected object actually highlight
+		EventSystem currentSystem = EventSystem.current;
+		currentSystem.enabled = false;
+		currentSystem.enabled = true;
 		newMenu.SetActive (true);
 		if(newMenu != prevMenu) newMenu.GetComponent<Menu> ().prevMenu = gameObject;
 		gameObject.SetActive (false);

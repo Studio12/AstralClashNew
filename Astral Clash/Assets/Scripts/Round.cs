@@ -71,27 +71,30 @@ public class Round : MonoBehaviour {
 					OverText.text = "Round Over!";
 					OverText.gameObject.GetComponent<Renderer> ().sortingOrder = 21;
 				}
-				if (Players.Count == 0)
-					WinnerText.text = "Round is tied!";
-				else {
-					WinnerText.text = "Winner is " + Players [0].name + "!";
-					switch (Players [0].name) {
-					
-					case "Player 1":
-						GameManager.pWins [0]++;
-						break;
-					case "Player 2":
-						GameManager.pWins [1]++;
-						break;
-					case "Player 3":
-						GameManager.pWins [2]++;
-						break;
-					case "Player 4":
-						GameManager.pWins [3]++;
-						break;
+				if (WinnerText) 
+				{
+					if (Players.Count == 0)
+						WinnerText.text = "Round is tied!";
+					else {
+						WinnerText.text = "Winner is " + Players [0].name + "!";
+						switch (Players [0].name) {
+						
+						case "Player 1":
+							GameManager.pWins [0]++;
+							break;
+						case "Player 2":
+							GameManager.pWins [1]++;
+							break;
+						case "Player 3":
+							GameManager.pWins [2]++;
+							break;
+						case "Player 4":
+							GameManager.pWins [3]++;
+							break;
+						}
 					}
+					WinnerText.gameObject.GetComponent<Renderer> ().sortingOrder = 21;
 				}
-				WinnerText.gameObject.GetComponent<Renderer> ().sortingOrder = 21;
 				yield return new WaitForSeconds (3.0f);
 				GameObject.Find ("GameManager").GetComponent<GameManager> ().StartCoroutine ("ResetRound", GameManager.curMatch);
 		
