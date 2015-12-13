@@ -218,6 +218,7 @@ public class GameManager : MonoBehaviour
 		}
 
 		roundManager.GetComponent<Round> ().roundStarted = true;
+		if(roundManager.GetComponent<CBWaveManager> ()) roundManager.GetComponent<CBWaveManager> ().enabled = true;
 
 	}
 
