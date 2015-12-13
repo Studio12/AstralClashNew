@@ -15,7 +15,6 @@ public class Round : MonoBehaviour {
 	public TextMesh WinnerText;
 	public bool roundStarted;
 	private GameObject SPWaves;
-	public GameObject CBWaveManager;
 	public AudioClip p1Wins;
 	public AudioClip p2Wins;
 	public AudioClip p3Wins;
@@ -25,7 +24,6 @@ public class Round : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 		Players = new List<GameObject>();
-		//SPWaves.AddComponent<CBWaveManager> ();
 		print ("List created.");
 	}
 	
@@ -33,11 +31,6 @@ public class Round : MonoBehaviour {
 	void Update () {
 	
 		if (roundStarted == true) {
-			if(Application.loadedLevelName.IndexOf("SP") > -1 && CBWaveManager.activeSelf == false)
-			{
-				CBWaveManager.SetActive(true);
-				maxPlayers = 2;
-			}
 			for (int p = Players.Count-1; p >= 0; p--) {
 				if ((Players[p].GetComponent<Fighter> () && Players[p].GetComponent<Fighter> ().health <= 0 )||( Players[p].GetComponent<CometBug> () && Players[p].GetComponent<CometBug> ().health <= 0)) {
 					deadPlayers++;
@@ -218,7 +211,7 @@ public class Round : MonoBehaviour {
 					}
 				}
 			}
-			else StartCoroutine (GameObject.Find ("WaveManager").GetComponent<CBWaveManager> ().GameOver ());
+			else StartCoroutine (GetComponent<CBWaveManager> ().GameOver ());
 		}
 
 
