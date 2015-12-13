@@ -228,7 +228,7 @@ public class Fighter : Actor
 							//Character is no longer grounded, apply minimum jump force, start jump animation
 							isGrounded = false;
 							GetComponent<Rigidbody2D> ().velocity = new Vector2 (this.GetComponent<Rigidbody2D> ().velocity.x, jumpPower);
-							this.GetComponentInChildren<Animator> ().SetBool ("Jump", true);
+							GetComponentInChildren<Animator>().Play("jumping", -1, 0f);
 							PlaySound(Sounds[6], SFX);
 							
 						} 
@@ -312,17 +312,79 @@ public class Fighter : Actor
 		//If attack isn't interrupted
 		if (!armorBroken) {
 
+			//Activation sounds
 			if(charType == "Taurus"){
 				switch(attnum){
 				case 1:
 					PlaySound(Sounds[7], SFX);
+					PlaySound(Voices[Random.Range(1,5)], Voice);
+					break;
+				case 2:
+					PlaySound(Voices[Random.Range(1,5)], Voice);
 					break;
 				case 3:
 					PlaySound(Sounds[8], SFX);
+					PlaySound(Voices[Random.Range(5,7)], Voice);
 					break;
 				default:
 					break;
 				}
+			}else if(charType == "Scorpio"){
+
+					switch(attnum){
+					case 1:
+					PlaySound(Sounds[1], SFX);
+						PlaySound(Voices[Random.Range(1,5)], Voice);
+						break;
+					case 2:
+					PlaySound(Sounds[2], SFX);
+						PlaySound(Voices[Random.Range(1,5)], Voice);
+						break;
+					case 3:
+					PlaySound(Sounds[3], SFX);
+						PlaySound(Voices[Random.Range(5,7)], Voice);
+						break;
+					default:
+						break;
+				}
+
+			}else if(charType == "Aquarius"){
+						
+						switch(attnum){
+						case 1:
+							PlaySound(Voices[Random.Range(1,5)], Voice);
+							break;
+						case 2:
+							PlaySound(Voices[Random.Range(1,5)], Voice);
+							break;
+						case 3:
+							PlaySound(Voices[Random.Range(5,7)], Voice);
+							break;
+						default:
+							break;
+				}
+							
+			}else if(charType == "Leo"){
+							
+							switch(attnum){
+							case 1:
+					PlaySound(Sounds[1], SFX);
+								PlaySound(Voices[Random.Range(1,5)], Voice);
+								break;
+							case 2:
+					PlaySound(Sounds[2], SFX);
+								PlaySound(Voices[Random.Range(1,5)], Voice);
+								break;
+							case 3:
+								PlaySound(Voices[Random.Range(5,7)], Voice);
+								break;
+							default:
+								break;
+								
+							}
+
+
+
 			}
 			
 //			if(!attack.projectile){
@@ -421,8 +483,28 @@ public class Fighter : Actor
 	{
 		if (!blocking || shieldBroken) {
 			health -= amount;
+			if(amount<15){
+
+				PlaySound(Voices[Random.Range(7,11)], Voice);
+
+			}else{
+
+				PlaySound(Voices[Random.Range(11,13)], Voice);
+
+			}
 			StartCoroutine ("ShowDamage");
 		} else if(blocking && !shieldBroken) {
+
+			if(charType == "Taurus"){
+
+				PlaySound(Sounds[4], SFX);
+
+			}else if(charType == "Aquarius"){
+
+				PlaySound(Sounds[Random.Range(7,9)], SFX);
+
+			}
+
 			shieldHealth -= amount;
 			if(shieldHealth <= 0)
 				shieldBroken = true;
@@ -445,6 +527,7 @@ public class Fighter : Actor
 		GameObject deathObj = (GameObject)Instantiate (deathEffect, this.transform.position, this.transform.rotation);
 		deathObj.transform.SetParent (this.gameObject.transform);
 		this.GetComponentInChildren<Animator> ().Play ("death", -1, 0f);
+		PlaySound (Sounds [18], Voice);
 		this.gameObject.layer = LayerMask.NameToLayer ("Dodge");
 		for (int i = 0; i<150; i++) {
 			
@@ -476,6 +559,7 @@ public class Fighter : Actor
 		} 
 		//Respawn character at spawnpoint.
 		this.transform.position = SpawnPoint.position;
+		PlaySound (Voices [Random.Range (13, 15)], Voice);
 	}
 	
 	/// DODGE
@@ -547,24 +631,47 @@ public class Fighter : Actor
 			GameObject Overlay = (GameObject)Instantiate(SpecialOverlay, new Vector3(Camera.main.transform.position.x, Camera.main.transform.position.y, -33.8f), Quaternion.Euler(0,0,0));
 			Overlay.GetComponent<SpecialOverlay>().charType = charType;
 			this.GetComponentInChildren<Animator> ().SetTrigger ("Special");
-			PlaySound(Sounds[0], SFX);
-			specialControl.GetComponent<SpecialAttack> ().Special (charType, this.gameObject);
+			PlaySound(Voices[0], Voice);
+			StartCoroutine("SpecialWait", Overlay);
 			
 			stars = 0;
 		}
+	}
+
+	IEnumerator SpecialWait(GameObject Overlay){
+	
+		while (Overlay != null) {
+		
+			yield return new WaitForFixedUpdate();
+		
+		}
+
+		specialControl.GetComponent<SpecialAttack> ().Special (charType, this.gameObject);
+	
 	}
 	
 	/// PLAY SOUND
 	/// Switches audiosource clip to passed clip, and plays sound.
 	/// 
-	void PlaySound (AudioClip clip, AudioSource source)
+	public void PlaySound (AudioClip clip, AudioSource source)
 	{
-		source.clip = clip;
-		source.Play ();
+		if (source.isPlaying) {
+			if (source.time / source.clip.length > .5f) {
+				source.clip = clip;
+				source.Play ();
+			}
+		} else {
+		
+			source.clip = clip;
+			source.Play ();
+		
+		}
 	}
-	
+
 	IEnumerator ShowStarMax(){
 		
+					PlaySound(Sounds[9], SFX);
+
 		while (stars == starMax) {
 			
 			foreach (SpriteRenderer s in GetComponentsInChildren<SpriteRenderer>()) {
@@ -593,7 +700,7 @@ public class Fighter : Actor
 	IEnumerator DamagePause(){
 		
 		Time.timeScale = .08f;
-		cooldown = 0f;
+		cooldown = .1f;
 		yield return new WaitForFixedUpdate();
 		Time.timeScale = 1f;
 		

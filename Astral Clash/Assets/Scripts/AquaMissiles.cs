@@ -12,16 +12,19 @@ public class AquaMissiles : Projectile {
 	void Start () {
 		Debug.Log ("Spawning " + gameObject.name);
 
-		GameObject notThis = GameObject.Find("AquaHeavyProj(Clone)");
-
 		if (this.name == "AquaHeavyProj(Clone)") {
-		
+
+		GameObject notThis = GameObject.Find("AquaHeavyProj(Clone)");
+					
 			transform.position = new Vector2(this.transform.position.x+(facing*3), transform.position.y);
 
-			if(this.gameObject != notThis){
+			if(notThis != null){
+			if(this.gameObject != notThis && notThis.GetComponent<AquaMissiles>().activator == activator){
 
+				print("Copy found, destroying");
 				Destroy(this.gameObject);
 
+			}
 			}
 		
 		}
@@ -62,6 +65,7 @@ public class AquaMissiles : Projectile {
 					}
 				}
 				Instantiate(part, transform.position, transform.rotation);
+				print("Destroying aqua heavy");
 				Destroy (this.gameObject);
 			}
 		}

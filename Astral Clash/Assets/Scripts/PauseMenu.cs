@@ -73,8 +73,11 @@ public class PauseMenu : MonoBehaviour {
 	}
 	void pausePressed(){
 
+		print ("a");
 		if (roundcontrol.GetComponent<Round> ().roundStarted == true) {
+			print("b");
 			if (Input.GetButtonDown ("Pause")) {
+				print ("c");
 		
 				paused = !paused;
 

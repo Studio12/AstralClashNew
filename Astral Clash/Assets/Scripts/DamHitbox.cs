@@ -7,6 +7,7 @@ public class DamHitbox : MonoBehaviour {
 	public float knockback;
 	public float armorbreak;
 	public GameObject activator;
+	public AudioClip hitSound;
 
 	// Use this for initialization
 	void Start () {
@@ -32,11 +33,9 @@ public class DamHitbox : MonoBehaviour {
 					coll.GetComponent<Rigidbody2D> ().AddForce (new Vector2 (activator.GetComponent<Fighter> ().facing * knockback, knockback), ForceMode2D.Impulse);
 				}
 				coll.gameObject.SendMessage("Damage", damage);
-				print(damage);
-				print(coll.name);
-				print(activator.name);
 				activator.GetComponent<Fighter>().dPause();
 				activator.GetComponent<Fighter>().ShakeFunction(coll.gameObject, damage);
+				activator.GetComponent<Fighter>().PlaySound(hitSound, activator.GetComponent<Fighter>().SFX);
 				if(this.name == "HitBox_Heavy" && coll.GetComponent<Fighter>().stars>0){
 
 					coll.gameObject.GetComponent<Fighter>().StarLoss();
