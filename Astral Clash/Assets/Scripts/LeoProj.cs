@@ -67,6 +67,8 @@ public class LeoProj : Projectile {
 					coll.GetComponent<Rigidbody2D> ().AddForce (new Vector2 (facing * knockback, knockback), ForceMode2D.Impulse);
 				}
 				coll.gameObject.SendMessage("Damage", damage);
+				activator.GetComponent<Fighter>().dPause();
+				activator.GetComponent<Fighter>().ShakeFunction(coll.gameObject, damage);
 				if(coll.GetComponent <Fighter>())
 				{
 					coll.gameObject.SendMessage("ArmorDamage", armorBreak);

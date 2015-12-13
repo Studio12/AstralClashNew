@@ -71,6 +71,12 @@ public class Fighter : Actor
 	public AudioSource Voice;
 	
 	public AudioClip[] Voices;
+
+	public GameObject LightHitbox;
+	public GameObject MediumHitbox;
+	public GameObject HeavyHitbox;
+
+	public GameObject SpecialOverlay;
 	
 	
 	// Use this for initialization
@@ -88,6 +94,20 @@ public class Fighter : Actor
 		specialControl = GameObject.Find ("SpecialManager"); 				//Find the special attack controller in scene.
 		countdown = GameObject.Find ("Countdown");
 		shieldHealth = 30;
+
+
+		LightHitbox.GetComponent<DamHitbox>().damage = lightAttack.damage;
+		LightHitbox.GetComponent<DamHitbox>().armorbreak = lightAttack.armorBreak;
+		LightHitbox.GetComponent<DamHitbox>().knockback = lightAttack.knockback;
+
+		MediumHitbox.GetComponent<DamHitbox>().damage = mediumAttack.damage;
+		MediumHitbox.GetComponent<DamHitbox>().armorbreak = mediumAttack.armorBreak;
+		MediumHitbox.GetComponent<DamHitbox>().knockback = mediumAttack.knockback;
+
+		HeavyHitbox.GetComponent<DamHitbox>().damage = heavyAttack.damage;
+		HeavyHitbox.GetComponent<DamHitbox>().armorbreak = heavyAttack.armorBreak;
+		HeavyHitbox.GetComponent<DamHitbox>().knockback = heavyAttack.knockback;
+
 		
 	}
 	
@@ -291,11 +311,7 @@ public class Fighter : Actor
 		
 		//If attack isn't interrupted
 		if (!armorBroken) {
-			
-			
-			//Send out raycast to see if something is hit. Length of raycast is attack's reach.
-			
-			
+
 			if(charType == "Taurus"){
 				switch(attnum){
 				case 1:
@@ -309,51 +325,51 @@ public class Fighter : Actor
 				}
 			}
 			
-			if(!attack.projectile){
-				RaycastHit2D hit = Physics2D.Raycast (transform.position, transform.right, attack.reach);
-				
-				//If it hits something, that's not the current character
-				if (hit.collider != null && hit.collider != this.GetComponent<Collider2D> ()) {
-					
-					print ("Pow from " + gameObject.name);
-					//If the object hit is another fighter
-					if (hit.collider.gameObject.GetComponent<Fighter> ()) {
-						
-						PlaySound(Sounds[attnum], SFX);
-						
-						//Reduce health and armor
-						hit.collider.SendMessage ("Damage", attack.damage);
-						hit.collider.SendMessage ("ArmorDamage", attack.armorBreak);
-						StartCoroutine ("DamagePause");
-						StartCoroutine(ShakeCamera(hit.collider.transform.position - transform.position, attack.damage));
-						if(attnum == 3 && hit.collider.GetComponent<Fighter>().stars>0){
-							
-							hit.collider.gameObject.GetComponent<Fighter>().StarLoss();
-							if(stars<starMax){
-								stars++;
-							}
-							
-						}
-						
-						//If attack has a knockback associated with it, knock back hit object, prevent their movement while knocked back, and set interrupt animation
-						if (attack.knockback > 0 && hit.collider.GetComponent<Fighter> ().blocking == false){
-							hit.collider.GetComponent<Fighter> ().isKnockedBack = true;
-							hit.collider.GetComponent<Rigidbody2D> ().AddForce (new Vector2 (facing * attack.knockback, attack.knockback), ForceMode2D.Impulse);
-							if(hit.collider.GetComponent<Fighter> ().attacking == false){
-								
-								hit.collider.GetComponentInChildren<Animator>().Play("interrupt", -1, 0);
-								
-							}
-						}
-					}
-					else if (hit.collider.gameObject.GetComponent<Actor> ()) {
-						
-						//Reduce health
-						hit.collider.SendMessage ("Damage", attack.damage);
-					}
-					
-				}
-			}
+//			if(!attack.projectile){
+//				RaycastHit2D hit = Physics2D.Raycast (transform.position, transform.right, attack.reach);
+//				
+//				//If it hits something, that's not the current character
+//				if (hit.collider != null && hit.collider != this.GetComponent<Collider2D> ()) {
+//					
+//					print ("Pow from " + gameObject.name);
+//					//If the object hit is another fighter
+//					if (hit.collider.gameObject.GetComponent<Fighter> ()) {
+//						
+//						PlaySound(Sounds[attnum], SFX);
+//						
+//						//Reduce health and armor
+//						hit.collider.SendMessage ("Damage", attack.damage);
+//						hit.collider.SendMessage ("ArmorDamage", attack.armorBreak);
+//						StartCoroutine ("DamagePause");
+//						StartCoroutine(ShakeCamera(hit.collider.transform.position - transform.position, attack.damage));
+//						if(attnum == 3 && hit.collider.GetComponent<Fighter>().stars>0){
+//							
+//							hit.collider.gameObject.GetComponent<Fighter>().StarLoss();
+//							if(stars<starMax){
+//								stars++;
+//							}
+//							
+//						}
+//						
+//						//If attack has a knockback associated with it, knock back hit object, prevent their movement while knocked back, and set interrupt animation
+//						if (attack.knockback > 0 && hit.collider.GetComponent<Fighter> ().blocking == false){
+//							hit.collider.GetComponent<Fighter> ().isKnockedBack = true;
+//							hit.collider.GetComponent<Rigidbody2D> ().AddForce (new Vector2 (facing * attack.knockback, attack.knockback), ForceMode2D.Impulse);
+//							if(hit.collider.GetComponent<Fighter> ().attacking == false){
+//								
+//								hit.collider.GetComponentInChildren<Animator>().Play("interrupt", -1, 0);
+//								
+//							}
+//						}
+//					}
+//					else if (hit.collider.gameObject.GetComponent<Actor> ()) {
+//						
+//						//Reduce health
+//						hit.collider.SendMessage ("Damage", attack.damage);
+//					}
+//					
+//				}
+//			}
 			
 			//If attack has a projectile, send it out
 			if (attack.projectile){
@@ -403,7 +419,7 @@ public class Fighter : Actor
 	///
 	public override void Damage (float amount)
 	{
-		if (!blocking) {
+		if (!blocking || shieldBroken) {
 			health -= amount;
 			StartCoroutine ("ShowDamage");
 		} else if(blocking && !shieldBroken) {
@@ -482,14 +498,10 @@ public class Fighter : Actor
 		}
 		this.gameObject.layer = LayerMask.NameToLayer ("Dodge");
 		
-		dodgeDelay = true;
-		
 		for (int i=0; i<5; i++) {
 			this.transform.position = new Vector2 (this.transform.position.x + (dir * .5f), this.transform.position.y);
 			yield return new WaitForSeconds (.01f);
 		}
-		
-		dodgeDelay = false;
 		
 		//Make all children objects semi-transparent, convey dodge state
 		foreach (SpriteRenderer s in GetComponentsInChildren<SpriteRenderer>()) {
@@ -532,6 +544,8 @@ public class Fighter : Actor
 			
 			//Set special attack animation, trigger special attack, and reset special stars
 			print ("Special Attack button pressed");
+			GameObject Overlay = (GameObject)Instantiate(SpecialOverlay, new Vector3(Camera.main.transform.position.x, Camera.main.transform.position.y, -33.8f), Quaternion.Euler(0,0,0));
+			Overlay.GetComponent<SpecialOverlay>().charType = charType;
 			this.GetComponentInChildren<Animator> ().SetTrigger ("Special");
 			PlaySound(Sounds[0], SFX);
 			specialControl.GetComponent<SpecialAttack> ().Special (charType, this.gameObject);
@@ -569,7 +583,13 @@ public class Fighter : Actor
 		}
 		
 	}
+
+	public void dPause(){
 	
+		StartCoroutine ("DamagePause");
+	
+	}
+
 	IEnumerator DamagePause(){
 		
 		Time.timeScale = .08f;
@@ -588,18 +608,27 @@ public class Fighter : Actor
 		
 	}
 
+	public void ShakeFunction(GameObject coll, float damage){
+	
+		print ("Shake started");
+		StartCoroutine(ShakeCamera(coll.transform.position - this.transform.position, damage));
+	
+	}
+
 	IEnumerator ShakeCamera (Vector3 direction, float scale)
 	{
 		//Vector3 oldPos = Camera.main.transform.position;
 		float currentTime = 0;
 		Vector3 shakePos = Vector3.zero;
-		while (currentTime < 1) {
-			shakePos.x = (scale * 0.1f * Mathf.Cos (Mathf.Deg2Rad * Vector3.Angle (direction, Vector3.right))) * Mathf.Exp (-currentTime) * (Mathf.Cos (20 * Mathf.PI * currentTime));
-			shakePos.y = (scale * 0.1f * Mathf.Sin (Mathf.Deg2Rad * Vector3.Angle (direction, Vector3.right))) * Mathf.Exp (-currentTime) * (Mathf.Cos (20 * Mathf.PI * currentTime));
+		Camera.main.GetComponent<DynamicScale> ().shaking = true;
+		while (currentTime < .2f) {
+			shakePos.x = (scale * 0.02f * Mathf.Cos (Mathf.Deg2Rad * Vector3.Angle (direction, Vector3.right))) * Mathf.Exp (-currentTime) * (Mathf.Cos (20 * Mathf.PI * currentTime));
+			shakePos.y = (scale * 0.02f * Mathf.Sin (Mathf.Deg2Rad * Vector3.Angle (direction, Vector3.right))) * Mathf.Exp (-currentTime) * (Mathf.Cos (20 * Mathf.PI * currentTime));
 			Camera.main.transform.position += shakePos;
 			currentTime += Time.deltaTime;
 			yield return new WaitForFixedUpdate ();
 		}
+		Camera.main.GetComponent<DynamicScale> ().shaking = false;
 	}
 	
 }

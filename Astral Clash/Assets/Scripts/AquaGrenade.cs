@@ -83,6 +83,8 @@ public class AquaGrenade : MonoBehaviour {
 					coll.GetComponent<Rigidbody2D> ().AddForce (new Vector2 (storeDirection * knockback, knockback), ForceMode2D.Impulse);
 				}
 				coll.gameObject.SendMessage("Damage", damage);
+				aquaHost.GetComponent<Fighter>().dPause();
+				aquaHost.GetComponent<Fighter>().ShakeFunction(coll.gameObject, damage);
 				if(coll.GetComponent <Fighter>()) coll.gameObject.SendMessage("ArmorDamage", armorbreak);
 				Instantiate(part, transform.position, transform.rotation);
 				Destroy (this.gameObject);
