@@ -27,6 +27,12 @@ public class Projectile : MonoBehaviour {
 			
 		}
 
+		if (this.gameObject.name == "Rocks(Clone)") {
+		
+			transform.position = new Vector2(this.transform.position.x+(facing*2), transform.position.y-1.5f);
+		
+		}
+
 	}
 	
 	// Update is called once per frame
@@ -48,6 +54,8 @@ public class Projectile : MonoBehaviour {
 					coll.GetComponent<Rigidbody2D> ().AddForce (new Vector2 (facing * knockback, knockback), ForceMode2D.Impulse);
 				}
 				coll.gameObject.SendMessage("Damage", damage);
+				activator.GetComponent<Fighter>().dPause();
+				activator.GetComponent<Fighter>().ShakeFunction(coll.gameObject, damage);
 				if(coll.GetComponent <Fighter>())
 				{
 					coll.gameObject.SendMessage("ArmorDamage", armorBreak);

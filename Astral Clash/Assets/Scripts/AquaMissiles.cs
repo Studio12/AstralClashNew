@@ -16,7 +16,7 @@ public class AquaMissiles : Projectile {
 
 		if (this.name == "AquaHeavyProj(Clone)") {
 		
-			transform.position = new Vector2(this.transform.position.x+(facing*2), transform.position.y);
+			transform.position = new Vector2(this.transform.position.x+(facing*3), transform.position.y);
 
 			if(this.gameObject != notThis){
 
@@ -47,6 +47,8 @@ public class AquaMissiles : Projectile {
 					coll.GetComponent<Rigidbody2D> ().AddForce (new Vector2 (facing * knockback, knockback), ForceMode2D.Impulse);
 				}
 				coll.gameObject.SendMessage("Damage", damage);
+				activator.GetComponent<Fighter>().dPause();
+				activator.GetComponent<Fighter>().ShakeFunction(coll.gameObject, damage);
 				if(coll.GetComponent <Fighter>())
 				{
 					coll.gameObject.SendMessage("ArmorDamage", armorBreak);
