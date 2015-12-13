@@ -422,7 +422,7 @@ public class Fighter : Actor
 		if (!blocking || shieldBroken) {
 			health -= amount;
 			StartCoroutine ("ShowDamage");
-		} else if(blocking) {
+		} else if(blocking && !shieldBroken) {
 			shieldHealth -= amount;
 			if(shieldHealth <= 0)
 				shieldBroken = true;
