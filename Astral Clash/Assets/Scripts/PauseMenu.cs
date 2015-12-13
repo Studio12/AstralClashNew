@@ -29,7 +29,7 @@ public class PauseMenu : MonoBehaviour {
 	void Update(){
 		pausePressed ();
 		if (axisPressed == false && paused) {
-			if (Input.GetAxis ("MenuDPad") < 0) {
+			if (Input.GetAxisRaw ("MenuDPad") < 0) {
 				
 				if (selected >= 1) {
 					
@@ -42,7 +42,7 @@ public class PauseMenu : MonoBehaviour {
 				selectionEffect ();
 				axisPressed = true;
 				
-			} else if (Input.GetAxis("MenuDPad") > 0) {
+			} else if (Input.GetAxisRaw("MenuDPad") > 0) {
 				
 				if (selected <= 0) {
 					
@@ -58,7 +58,7 @@ public class PauseMenu : MonoBehaviour {
 			}
 		}
 		
-		if (Mathf.Approximately(Input.GetAxis ("MenuDPad"),0.0f)) {
+		if (Mathf.Approximately(Input.GetAxisRaw ("MenuDPad"),0.0f)) {
 			
 			axisPressed = false;
 			
@@ -104,7 +104,9 @@ public class PauseMenu : MonoBehaviour {
 
 		case 0:
 			paused=!paused;
-			pausePressed();
+			selected = 0;
+			PauseUI.SetActive (false);
+			Time.timeScale = 1;
 			break;
 		case 1:
 			Time.timeScale = 1;
