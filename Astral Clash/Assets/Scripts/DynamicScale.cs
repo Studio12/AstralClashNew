@@ -19,9 +19,12 @@ public class DynamicScale : MonoBehaviour {
 	public float camSpeed = 10f;
 	public float camMinSize;
 	public float camMaxSize;
+	public bool shaking;
 
 	// Use this for initialization
 	void Start () {
+
+		shaking = false;
 
 	}
 	
@@ -64,7 +67,7 @@ public class DynamicScale : MonoBehaviour {
 			cameraCenter += player.transform.position;
 		}
 		Vector3 finalCameraCenter = new Vector3(cameraCenter.x / players.Length, cameraCenter.y/players.Length, -10);
-		if(!float.IsNaN(finalCameraCenter.x) && !float.IsNaN(finalCameraCenter.y)) transform.position = new Vector3 (Mathf.Clamp (transform.position.x - (transform.position.x - finalCameraCenter.x) * (1/camSpeed), minBoundsX + (CalculateScreenSizeInWorldCoords().x / 2), maxBoundsX - (CalculateScreenSizeInWorldCoords().x / 2)), Mathf.Clamp (transform.position.y - (transform.position.y - finalCameraCenter.y) * (1/camSpeed), minBoundsY + (CalculateScreenSizeInWorldCoords().y / 2), maxBoundsY - (CalculateScreenSizeInWorldCoords().y / 2)),transform.position.z);
+		if(!float.IsNaN(finalCameraCenter.x) && !float.IsNaN(finalCameraCenter.y)  && !shaking) transform.position = new Vector3 (Mathf.Clamp (transform.position.x - (transform.position.x - finalCameraCenter.x) * (1/camSpeed), minBoundsX + (CalculateScreenSizeInWorldCoords().x / 2), maxBoundsX - (CalculateScreenSizeInWorldCoords().x / 2)), Mathf.Clamp (transform.position.y - (transform.position.y - finalCameraCenter.y) * (1/camSpeed), minBoundsY + (CalculateScreenSizeInWorldCoords().y / 2), maxBoundsY - (CalculateScreenSizeInWorldCoords().y / 2)),transform.position.z);
 		
 		//Size
 		float sizeX = maxX - minX + cameraBuffer.x;
