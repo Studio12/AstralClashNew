@@ -8,7 +8,6 @@ public class PauseMenu : MonoBehaviour {
 	public GameObject selectorP;
 	private bool paused = false;
 	public int selected;
-	public int max;
 	public bool axisPressed;
 	public GameObject roundcontrol;
 
@@ -30,7 +29,7 @@ public class PauseMenu : MonoBehaviour {
 	void Update(){
 		pausePressed ();
 		if (axisPressed == false && paused) {
-			if (Input.GetAxis ("MenuDPad") < 0) {
+			if (Input.GetAxisRaw ("MenuDPad") < 0) {
 				
 				if (selected >= 1) {
 					
@@ -43,7 +42,7 @@ public class PauseMenu : MonoBehaviour {
 				selectionEffect ();
 				axisPressed = true;
 				
-			} else if (Input.GetAxis ("MenuDPad") > 0) {
+			} else if (Input.GetAxisRaw ("MenuDPad") > 0) {
 				
 				if (selected <= 0) {
 					
@@ -59,7 +58,7 @@ public class PauseMenu : MonoBehaviour {
 			}
 		}
 		
-		if (Input.GetAxis ("MenuDPad") == 0) {
+		if (Mathf.Approximately(Input.GetAxisRaw ("MenuDPad"),0.0f)) {
 			
 			axisPressed = false;
 			
@@ -119,8 +118,6 @@ public class PauseMenu : MonoBehaviour {
 	}
 	void selectionEffect ()
 	{
-
-			selectorP.transform.position = PauseOptions [selected].transform.position;
-
+		selectorP.transform.position = PauseOptions [selected].transform.position;
 	}
 }
