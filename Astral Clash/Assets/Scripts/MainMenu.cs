@@ -43,7 +43,7 @@ public class MainMenu : Menu
 			idleTimer += Time.deltaTime;
 		
 		if (idleTimer >= 30)
-			Application.LoadLevel ("openingSPcutscene");
+			Application.LoadLevel ("openingCutscene");
 	}
 	
 	public void SwitchToChars()
