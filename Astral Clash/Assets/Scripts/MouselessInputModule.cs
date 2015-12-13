@@ -98,7 +98,8 @@
 				toSelect = eventSystem.lastSelectedGameObject;
 			if (toSelect == null)
 				toSelect = eventSystem.firstSelectedGameObject;
-			
+
+			eventSystem.SetSelectedGameObject (null, GetBaseEventData ()); 
 			eventSystem.SetSelectedGameObject(toSelect, GetBaseEventData());
 		}
 		
@@ -183,10 +184,10 @@
 			Vector2 movement = GetRawMoveVector();
 			// Debug.Log(m_ProcessingEvent.rawType + " axis:" + m_AllowAxisEvents + " value:" + "(" + x + "," + y + ")");
 			var axisEventData = GetAxisEventData(movement.x, movement.y, 0.6f);
-			if (!Mathf.Approximately(axisEventData.moveVector.x, 0f)
-			    || !Mathf.Approximately(axisEventData.moveVector.y, 0f))
+			if (!Mathf.Approximately (axisEventData.moveVector.x, 0f)
+			    || !Mathf.Approximately (axisEventData.moveVector.y, 0f))
 			{
-				ExecuteEvents.Execute(eventSystem.currentSelectedGameObject, axisEventData, ExecuteEvents.moveHandler);
+				ExecuteEvents.Execute (eventSystem.currentSelectedGameObject, axisEventData, ExecuteEvents.moveHandler);
 			}
 			m_NextAction = time + 1f / m_InputActionsPerSecond;
 			return axisEventData.used;
