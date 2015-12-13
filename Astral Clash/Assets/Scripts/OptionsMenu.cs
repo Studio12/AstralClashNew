@@ -23,30 +23,6 @@ public class OptionsMenu : Menu {
 		SFXVolumeDisplay.value = PlayerPrefs.GetFloat ("SFX Volume");
 	}
 
-	public void IncreaseMusic ()
-	{
-		MusicVolumeDisplay.value = Mathf.Round (MusicVolumeDisplay.value * 4.0f) / 4.0f; 
-		MusicVolumeDisplay.value += 0.25f;
-	}
-
-	public void DecreaseMusic ()
-	{
-		MusicVolumeDisplay.value = Mathf.Round (MusicVolumeDisplay.value * 4.0f) / 4.0f; 
-		MusicVolumeDisplay.value -= 0.25f;
-	}
-
-	public void IncreaseSFX ()
-	{
-		SFXVolumeDisplay.value = Mathf.Round (SFXVolumeDisplay.value * 4.0f) / 4.0f; 
-		SFXVolumeDisplay.value += 0.25f;
-	}
-	
-	public void DecreaseSFX ()
-	{
-		SFXVolumeDisplay.value = Mathf.Round (SFXVolumeDisplay.value * 4.0f) / 4.0f; 
-		SFXVolumeDisplay.value -= 0.25f;
-	}
-
 	public void SetFullScreen (bool value)
 	{
 		Screen.fullScreen = value;
@@ -64,23 +40,34 @@ public class OptionsMenu : Menu {
 		EventSystem.current.GetComponent<AudioSource> ().volume = PlayerPrefs.GetFloat ("SFX Volume");
 	}
 
-	public void Change360p (bool value)
+	public void BeginCoroutine (string coroutine)
+	{
+		StartCoroutine (coroutine);
+	}
+
+	public IEnumerator Change360p ()
 	{
 		if (resOption1.isOn) {
+			yield return new WaitForEndOfFrame();
+			yield return new WaitForEndOfFrame();
 			Screen.SetResolution (640, 360, Screen.fullScreen);
 		}
 	}
 
-	public void Change720p (bool value)
+	public IEnumerator Change720p ()
 	{
 		if (resOption2.isOn) {
+			yield return new WaitForEndOfFrame();
+			yield return new WaitForEndOfFrame();
 			Screen.SetResolution (1280, 720, Screen.fullScreen);
 		}
 	}
 
-	public void Change1080p (bool value)
+	public IEnumerator Change1080p ()
 	{
 		if (resOption3.isOn) {
+			yield return new WaitForEndOfFrame();
+			yield return new WaitForEndOfFrame();
 			Screen.SetResolution (1920, 1080, Screen.fullScreen);
 		}
 	}
