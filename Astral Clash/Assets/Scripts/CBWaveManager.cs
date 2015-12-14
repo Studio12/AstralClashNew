@@ -63,11 +63,16 @@ public class CBWaveManager : MonoBehaviour {
 	}
 
 	public IEnumerator GameOver () {
-		print ("Game Over");
-		
-		yield return new WaitForSeconds (5f);
+		yield return new WaitForSeconds (1f);
+		GetComponent<Round>().GameOverUI.SetActive (true);
 
-		continueMenu.gameObject.SetActive(true);
+		GetComponent<Round>().OverText.text = "You failed!";
+		GetComponent<Round>().OverText.gameObject.GetComponent<Renderer> ().sortingOrder = 21;
+		
+		GetComponent<Round>().WinnerText.text = "The Comet Bugs have overpowered you!";
+		GetComponent<Round>().WinnerText.gameObject.GetComponent<Renderer> ().sortingOrder = 21;
+		yield return new WaitForSeconds (3.0f);
+		GameManager.ChooseLevel ("MainMenu");
 	}
 
 }
