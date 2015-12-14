@@ -20,7 +20,7 @@ public class CometBug : Actor {
 			}
 		}
 		RaycastHit2D hit = Physics2D.Raycast (transform.position + transform.right, -transform.up, 2);
-		if(!hit)
+		if(!hit && Mathf.Approximately(GetComponent<Rigidbody2D> ().velocity.y,0f))
 		{
 			transform.eulerAngles = new Vector3(transform.eulerAngles.x,transform.eulerAngles.y + 180,transform.eulerAngles.z);
 		}
@@ -35,7 +35,7 @@ public class CometBug : Actor {
 			Physics2D.IgnoreCollision(GetComponent<Collider2D> (), coll.gameObject.GetComponent<Collider2D> ());
 			return;
 		}
-		else if (coll.gameObject.GetComponent<Fighter> () && (GameManager.roundNum + 1) > 2) {
+		else if (coll.gameObject.GetComponent<Fighter> () && (GameManager.roundNum + 1) > 2 && health > 0) {
 			GetComponentInChildren<Animator>().SetTrigger("Attack");
 			source.clip = sounds[0];
 			source.Play();
