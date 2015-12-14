@@ -20,7 +20,7 @@ public class CometBug : Actor {
 			}
 		}
 		RaycastHit2D hit = Physics2D.Raycast (transform.position + transform.right, -transform.up, 2);
-		if(!hit)
+		if(!hit && Mathf.Approximately(GetComponent<Rigidbody2D> ().velocity.y,0f))
 		{
 			transform.eulerAngles = new Vector3(transform.eulerAngles.x,transform.eulerAngles.y + 180,transform.eulerAngles.z);
 		}
