@@ -228,7 +228,7 @@ public class Fighter : Actor
 							//Character is no longer grounded, apply minimum jump force, start jump animation
 							isGrounded = false;
 							GetComponent<Rigidbody2D> ().velocity = new Vector2 (this.GetComponent<Rigidbody2D> ().velocity.x, jumpPower);
-							GetComponentInChildren<Animator>().Play("jumping", -1, 0f);
+							GetComponentInChildren<Animator>().SetBool("Jump", true);
 							PlaySound(Sounds[6], SFX);
 							
 						} 
@@ -333,15 +333,12 @@ public class Fighter : Actor
 
 					switch(attnum){
 					case 1:
-					PlaySound(Sounds[1], SFX);
 						PlaySound(Voices[Random.Range(1,5)], Voice);
 						break;
 					case 2:
-					PlaySound(Sounds[2], SFX);
 						PlaySound(Voices[Random.Range(1,5)], Voice);
 						break;
 					case 3:
-					PlaySound(Sounds[3], SFX);
 						PlaySound(Voices[Random.Range(5,7)], Voice);
 						break;
 					default:
@@ -529,6 +526,11 @@ public class Fighter : Actor
 		this.GetComponentInChildren<Animator> ().Play ("death", -1, 0f);
 		PlaySound (Voices [18], Voice);
 		this.gameObject.layer = LayerMask.NameToLayer ("Dodge");
+		foreach (Transform t in GetComponentsInChildren<Transform>()) {
+			
+			t.gameObject.layer = LayerMask.NameToLayer ("Dodge");
+			
+		}
 		for (int i = 0; i<150; i++) {
 			
 			yield return new WaitForSeconds(.01f);
@@ -655,22 +657,38 @@ public class Fighter : Actor
 	/// 
 	public void PlaySound (AudioClip clip, AudioSource source)
 	{
-		if (source.isPlaying) {
-			if (source.time / source.clip.length > .5f) {
+		if (source == SFX) {
+			source.clip = clip;
+			source.Play ();
+		} else {
+		
+			if(clip == Voices[18]){
 				source.clip = clip;
 				source.Play ();
 			}
-		} else {
-		
-			source.clip = clip;
-			source.Play ();
+			else{
+				if(!source.isPlaying){
+				int i = Random.Range(0,3);
+				if(i <2){
+				source.clip = clip;
+				source.Play ();
+				}
+
+			}
+			}
 		
 		}
 	}
 
+	public void pickupSound(){
+	
+		PlaySound (Sounds [10], SFX);
+	
+	}
+
 	IEnumerator ShowStarMax(){
 		
-					PlaySound(Sounds[9], SFX);
+		PlaySound(Sounds[9], SFX);
 
 		while (stars == starMax) {
 			
