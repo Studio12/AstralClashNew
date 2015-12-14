@@ -79,8 +79,7 @@ public class StarPickup : MonoBehaviour {
 						coll.transform.parent.GetComponent<Fighter> ().StartCoroutine("ShowStarMax");
 					}
 				}
-				GetComponent<AudioSource> ().clip = pickupSound;
-				GetComponent<AudioSource> ().Play ();
+				coll.GetComponent<Fighter> ().PlaySound(pickupSound, coll.GetComponent<Fighter>().SFX);
 				StarSpawner.GetComponent<StarSpawn> ().curStars--;
 				if(indObj!=null){
 					Destroy(indObj.gameObject);
@@ -100,8 +99,7 @@ public class StarPickup : MonoBehaviour {
 						coll.GetComponent<Fighter> ().StartCoroutine("ShowStarMax");
 					}
 				}
-				GetComponent<AudioSource> ().clip = pickupSound;
-				GetComponent<AudioSource> ().Play ();
+				coll.GetComponent<Fighter> ().PlaySound(pickupSound, coll.GetComponent<Fighter>().SFX);
 				StarSpawner.GetComponent<StarSpawn> ().curStars--;
 				if(indObj!=null){
 					Destroy(indObj.gameObject);

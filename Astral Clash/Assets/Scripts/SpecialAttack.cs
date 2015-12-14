@@ -12,8 +12,14 @@ public class SpecialAttack : MonoBehaviour
 	public GameObject Flame;
 	public GameObject Water;
 
+	public AudioClip[] SoundArray;
+
+	public AudioSource source;
+
 	void Start ()
 	{
+
+		source = GetComponent<AudioSource> ();
 	
 	}
 
@@ -48,6 +54,9 @@ public class SpecialAttack : MonoBehaviour
 		int ypos2 = ypos1;
 		int loopPrevention = 0;
 		BullObj = (GameObject)Instantiate (Bull, new Vector2 (-60, ypos1), this.transform.rotation);
+		source.clip = SoundArray [0];
+		source.Play ();
+
 		BullObj.GetComponent<BullScript> ().activator = player;
 		yield return new WaitForSeconds (1f);
 		for (int i = 0; i < 6; i++) {
@@ -87,6 +96,10 @@ public class SpecialAttack : MonoBehaviour
 		
 		}
 
+		source.clip = SoundArray [1];
+		source.loop = true;
+		source.Play ();
+
 		for (int i=0; i<60; i++) {
 		
 			knifeObj = (GameObject)Instantiate(knife, player.transform.position, Quaternion.Euler(0,0, rotation));
@@ -102,6 +115,13 @@ public class SpecialAttack : MonoBehaviour
 
 			}
 			yield return new WaitForSeconds (.05f);
+		
+		}
+
+		source.loop = false;
+		if (source.isPlaying) {
+		
+			source.Stop();
 		
 		}
 
