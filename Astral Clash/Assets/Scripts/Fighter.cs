@@ -333,15 +333,12 @@ public class Fighter : Actor
 
 					switch(attnum){
 					case 1:
-					PlaySound(Sounds[1], SFX);
 						PlaySound(Voices[Random.Range(1,5)], Voice);
 						break;
 					case 2:
-					PlaySound(Sounds[2], SFX);
 						PlaySound(Voices[Random.Range(1,5)], Voice);
 						break;
 					case 3:
-					PlaySound(Sounds[3], SFX);
 						PlaySound(Voices[Random.Range(5,7)], Voice);
 						break;
 					default:
