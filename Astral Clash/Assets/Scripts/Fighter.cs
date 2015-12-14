@@ -228,7 +228,7 @@ public class Fighter : Actor
 							//Character is no longer grounded, apply minimum jump force, start jump animation
 							isGrounded = false;
 							GetComponent<Rigidbody2D> ().velocity = new Vector2 (this.GetComponent<Rigidbody2D> ().velocity.x, jumpPower);
-							GetComponentInChildren<Animator>().Play("jumping", -1, 0f);
+							GetComponentInChildren<Animator>().SetBool("Jump", true);
 							PlaySound(Sounds[6], SFX);
 							
 						} 
@@ -527,7 +527,7 @@ public class Fighter : Actor
 		GameObject deathObj = (GameObject)Instantiate (deathEffect, this.transform.position, this.transform.rotation);
 		deathObj.transform.SetParent (this.gameObject.transform);
 		this.GetComponentInChildren<Animator> ().Play ("death", -1, 0f);
-		PlaySound (Sounds [18], Voice);
+		PlaySound (Voices [18], Voice);
 		this.gameObject.layer = LayerMask.NameToLayer ("Dodge");
 		for (int i = 0; i<150; i++) {
 			
@@ -655,22 +655,30 @@ public class Fighter : Actor
 	/// 
 	public void PlaySound (AudioClip clip, AudioSource source)
 	{
-		if (source.isPlaying) {
-			if (source.time / source.clip.length > .5f) {
-				source.clip = clip;
-				source.Play ();
-			}
-		} else {
-		
+		if (source == SFX) {
 			source.clip = clip;
 			source.Play ();
+		} else {
+		
+			if(!source.isPlaying){
+
+				source.clip = clip;
+				source.Play ();
+
+			}
 		
 		}
 	}
 
+	public void pickupSound(){
+	
+		PlaySound (Sounds [10], SFX);
+	
+	}
+
 	IEnumerator ShowStarMax(){
 		
-					PlaySound(Sounds[9], SFX);
+		PlaySound(Sounds[9], SFX);
 
 		while (stars == starMax) {
 			
