@@ -526,6 +526,11 @@ public class Fighter : Actor
 		this.GetComponentInChildren<Animator> ().Play ("death", -1, 0f);
 		PlaySound (Voices [18], Voice);
 		this.gameObject.layer = LayerMask.NameToLayer ("Dodge");
+		foreach (Transform t in GetComponentsInChildren<Transform>()) {
+			
+			t.gameObject.layer = LayerMask.NameToLayer ("Dodge");
+			
+		}
 		for (int i = 0; i<150; i++) {
 			
 			yield return new WaitForSeconds(.01f);
@@ -657,11 +662,19 @@ public class Fighter : Actor
 			source.Play ();
 		} else {
 		
-			if(!source.isPlaying){
-
+			if(clip == Voices[18]){
 				source.clip = clip;
 				source.Play ();
+			}
+			else{
+				if(!source.isPlaying){
+				int i = Random.Range(0,3);
+				if(i <2){
+				source.clip = clip;
+				source.Play ();
+				}
 
+			}
 			}
 		
 		}
