@@ -35,7 +35,7 @@ public class CometBug : Actor {
 			Physics2D.IgnoreCollision(GetComponent<Collider2D> (), coll.gameObject.GetComponent<Collider2D> ());
 			return;
 		}
-		else if (coll.gameObject.GetComponent<Fighter> () && (GameManager.roundNum + 1) > 2) {
+		else if (coll.gameObject.GetComponent<Fighter> () && (GameManager.roundNum + 1) > 2 && health > 0) {
 			GetComponentInChildren<Animator>().SetTrigger("Attack");
 			source.clip = sounds[0];
 			source.Play();
