@@ -527,7 +527,7 @@ public class Fighter : Actor
 		GameObject deathObj = (GameObject)Instantiate (deathEffect, this.transform.position, this.transform.rotation);
 		deathObj.transform.SetParent (this.gameObject.transform);
 		this.GetComponentInChildren<Animator> ().Play ("death", -1, 0f);
-		PlaySound (Sounds [18], Voice);
+		PlaySound (Voices [18], Voice);
 		this.gameObject.layer = LayerMask.NameToLayer ("Dodge");
 		for (int i = 0; i<150; i++) {
 			

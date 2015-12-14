@@ -63,7 +63,7 @@ public class LeoProj : Projectile {
 			{
 				print (coll.gameObject.name + " colliding with" + gameObject.name);
 				if (knockback > 0){
-					coll.GetComponent<Fighter> ().isKnockedBack = true;
+					if(coll.GetComponent <Fighter>()) coll.GetComponent<Fighter> ().isKnockedBack = true;
 					coll.GetComponent<Rigidbody2D> ().AddForce (new Vector2 (facing * knockback, knockback), ForceMode2D.Impulse);
 				}
 				coll.gameObject.SendMessage("Damage", damage);

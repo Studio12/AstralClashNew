@@ -55,7 +55,7 @@ public class Round : MonoBehaviour {
 		yield return new WaitForSeconds (1f);
 
 		if (Application.loadedLevelName.IndexOf ("SP") == -1) {
-			if (GameManager.roundNum < GameManager.curMatch.rounds - 1) {
+			if (GameManager.roundNum < GameManager.curMatch.rounds - 1 && Mathf.Max (GameManager.pWins) < (Mathf.RoundToInt((GameManager.curMatch.rounds/2)))) {
 		
 				GameManager.roundNum++;
 				if (GameOverUI)
@@ -113,6 +113,25 @@ public class Round : MonoBehaviour {
 						break;
 					
 					}
+				}
+				if(HasTie (GameManager.pWins))
+				{
+					GameManager.curMatch.rounds++;
+					GameManager.roundNum++;
+					if (GameOverUI)
+						GameOverUI.SetActive (true);
+					if (OverText) {
+						OverText.text = "Match is tied!";
+						OverText.gameObject.GetComponent<Renderer> ().sortingOrder = 21;
+					}
+					if (WinnerText) 
+					{
+						WinnerText.text = "Prepare for sudden death!";
+						WinnerText.gameObject.GetComponent<Renderer> ().sortingOrder = 21;
+					}
+					yield return new WaitForSeconds (3.0f);
+					GameObject.Find ("GameManager").GetComponent<GameManager> ().StartCoroutine ("ResetRound", GameManager.curMatch);
+					yield break;
 				}
 				int bestWinner = MaxValue (GameManager.pWins);
 				string winnerName = null;
@@ -223,6 +242,20 @@ public class Round : MonoBehaviour {
 		int index = System.Array.IndexOf(wins, max);
 
 		return index;
+	}
+
+	bool HasTie (int[] wins)
+	{
+		int max = Mathf.Max (wins);
+		int maxIndex = MaxValue (wins);
+
+		for (int i = 1; i < wins.Length; i++) {
+			if (wins[i] == max && i != maxIndex) {
+				return true;
+			}
+		}
+
+		return false;
 	}
 
 }
