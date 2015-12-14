@@ -1,0 +1,143 @@
+fileFormatVersion: 2
+guid: 4de25aa02f177444186317abed85639e
+timeCreated: 1448062319
+licenseType: Free
+TextureImporter:
+  fileIDToRecycleName:
+    21300000: Head
+    21300002: Body
+    21300004: RightPincer
+    21300006: LeftPincer
+    21300008: FrontLeg
+    21300010: FrontLeg2
+    21300012: BackLeg
+    21300014: BackLeg2
+  serializedVersion: 2
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 1
+    linearTexture: 0
+    correctGamma: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: .25
+    normalMapFilter: 0
+  isReadable: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 0
+  cubemapConvolution: 0
+  cubemapConvolutionSteps: 8
+  cubemapConvolutionExponent: 1.5
+  seamlessCubemap: 0
+  textureFormat: -1
+  maxTextureSize: 2048
+  textureSettings:
+    filterMode: -1
+    aniso: 16
+    mipBias: -1
+    wrapMode: 1
+  nPOTScale: 0
+  lightmap: 0
+  rGBM: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: .5, y: .5}
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spritePixelsToUnits: 100
+  alphaIsTransparency: 1
+  textureType: 8
+  buildTargetSettings: []
+  spriteSheet:
+    sprites:
+    - name: Head
+      rect:
+        serializedVersion: 2
+        x: 156
+        y: 498
+        width: 408
+        height: 457
+      alignment: 9
+      pivot: {x: .90946424, y: .477152139}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: Body
+      rect:
+        serializedVersion: 2
+        x: 627
+        y: 544
+        width: 726
+        height: 435
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: RightPincer
+      rect:
+        serializedVersion: 2
+        x: 185
+        y: 243
+        width: 109
+        height: 228
+      alignment: 9
+      pivot: {x: .653267145, y: .747294664}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: LeftPincer
+      rect:
+        serializedVersion: 2
+        x: 325
+        y: 179
+        width: 122
+        height: 257
+      alignment: 9
+      pivot: {x: .414414942, y: .849398613}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: FrontLeg
+      rect:
+        serializedVersion: 2
+        x: 708
+        y: 187
+        width: 119
+        height: 229
+      alignment: 9
+      pivot: {x: .482451111, y: .746214867}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: FrontLeg2
+      rect:
+        serializedVersion: 2
+        x: 902
+        y: 237
+        width: 112
+        height: 195
+      alignment: 9
+      pivot: {x: .481354296, y: .789144516}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: BackLeg
+      rect:
+        serializedVersion: 2
+        x: 1050
+        y: 246
+        width: 125
+        height: 223
+      alignment: 9
+      pivot: {x: .466586918, y: .677923918}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: BackLeg2
+      rect:
+        serializedVersion: 2
+        x: 1215
+        y: 285
+        width: 126
+        height: 217
+      alignment: 9
+      pivot: {x: .417131692, y: .67321986}
+      border: {x: 0, y: 0, z: 0, w: 0}
+  spritePackingTag: 
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

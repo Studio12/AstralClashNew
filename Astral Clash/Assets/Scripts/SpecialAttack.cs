@@ -19,7 +19,6 @@ public class SpecialAttack : MonoBehaviour
 	void Start ()
 	{
 
-		source = GetComponent<AudioSource> ();
 	
 	}
 
