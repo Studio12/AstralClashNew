@@ -52,6 +52,12 @@ public class MainMenu : Menu
 		SwitchTo (charMenu);
 	}
 
+	public void Credits(){
+		
+		Application.LoadLevel ("credits");
+		
+	}
+
 
 	public void Quit(){
 
