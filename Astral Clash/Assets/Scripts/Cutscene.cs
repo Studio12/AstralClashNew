@@ -61,7 +61,7 @@ public class Cutscene : MonoBehaviour {
 			if(async != null){
 				async.allowSceneActivation = true;
 			}else{
-				GameManager.ChooseLevel (NextScene);
+				//GameManager.ChooseLevel (NextScene);
 			}
 		}else {
 			GameManager.curMatch.Level = NextScene;

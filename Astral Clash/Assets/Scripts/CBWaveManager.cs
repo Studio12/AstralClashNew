@@ -4,7 +4,6 @@ using System.Collections;
 public class CBWaveManager : MonoBehaviour {
 	public static int wave = 0;
 	public Fighter player;
-	public GameObject continueMenu;
 	public GameObject star;
 	public GameObject bug;
 	public static int BugCount;
