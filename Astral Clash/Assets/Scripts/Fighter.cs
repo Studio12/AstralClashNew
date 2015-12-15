@@ -662,7 +662,7 @@ public class Fighter : Actor
 			source.Play ();
 		} else {
 		
-			if(clip == Voices[18]){
+			if(clip == Voices[18] || clip == Voices[0]){
 				source.clip = clip;
 				source.Play ();
 			}
